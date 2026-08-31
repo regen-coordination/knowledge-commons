@@ -1,0 +1,10 @@
+{
+  "entityType": "Dataset",
+  "fields": [
+    { "name": "name",          "type": "text",     "required": true },
+    { "name": "description",   "type": "text",     "required": false },
+    { "name": "authors",       "type": "relation", "required": false, "targetTypeName": "Person" },
+    { "name": "organizations", "type": "relation", "required": false, "targetTypeName": "Organization" },
+    { "name": "topics",        "type": "relation", "required": false, "targetTypeName": "Topic" }
+  ]
+}

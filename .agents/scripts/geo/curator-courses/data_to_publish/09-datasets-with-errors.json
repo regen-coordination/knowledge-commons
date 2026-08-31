@@ -1,0 +1,98 @@
+[
+  {
+    "_comment": "Record 0: fully valid — should pass every validator",
+    "name": "ImageNet",
+    "description": "Large-scale image dataset.",
+    "release_date": "2009-06-20",
+    "release_year": 2009,
+    "accuracy": 0.763,
+    "is_open_source": true,
+    "web_url": "https://image-net.org",
+    "topics": ["computer vision", "deep learning"],
+    "license": "Apache-2.0"
+  },
+  {
+    "_comment": "Record 1: name is null — Kevin's bug (all 650 entities with name: null)",
+    "name": null,
+    "release_date": "2020-01-15",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 2: name is empty string — also rejected as required",
+    "name": "",
+    "release_date": "2020-01-15",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 3: date missing day — Ishita's bug (195/198 dates were YYYY-MM)",
+    "name": "GLUE",
+    "release_date": "2018-04",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 4: release_date in US format — the encoder needs ISO",
+    "name": "SQuAD",
+    "release_date": "06/16/2016",
+    "license": "CC-BY-SA-4.0"
+  },
+  {
+    "_comment": "Record 5: missing required date",
+    "name": "NoDate",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 6: integer field as string float — Maxim's bug (blockNumber: 16291130.0)",
+    "name": "StringFloat",
+    "release_date": "2020-01-15",
+    "release_year": "16291130.0",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 7: float field as non-numeric string",
+    "name": "NonNumericFloat",
+    "release_date": "2020-01-15",
+    "accuracy": "high",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 8: boolean as string (common from CSV)",
+    "name": "BoolAsString",
+    "release_date": "2020-01-15",
+    "is_open_source": "yes",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 9: malformed URL",
+    "name": "BadUrl",
+    "release_date": "2020-01-15",
+    "web_url": "not-a-real-url",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 10: URL without scheme",
+    "name": "NoScheme",
+    "release_date": "2020-01-15",
+    "web_url": "image-net.org",
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 11: relation field not an array or string",
+    "name": "BadRelation",
+    "release_date": "2020-01-15",
+    "topics": 42,
+    "license": "MIT"
+  },
+  {
+    "_comment": "Record 12: license not in enum values",
+    "name": "UnknownLicense",
+    "release_date": "2020-01-15",
+    "license": "Custom-License"
+  },
+  {
+    "_comment": "Record 13: multiple failures — name null + bad date + bad url + bad license",
+    "name": null,
+    "release_date": "June 2020",
+    "web_url": "javascript:alert(1)",
+    "license": "proprietary-v2"
+  }
+]

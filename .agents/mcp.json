@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "hypergraph": {
+      "command": "REPLACE-ME",
+      "args": [],
+      "transport": "stdio"
+    }
+  }
+}

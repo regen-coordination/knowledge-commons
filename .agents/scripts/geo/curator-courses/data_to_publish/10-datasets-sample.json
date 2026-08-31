@@ -1,0 +1,58 @@
+[
+  {
+    "name": "ImageNet",
+    "description": "Large-scale hierarchical image dataset with 14M+ annotated images.",
+    "authors":       ["Fei-Fei Li", "Jia Deng", "Kai Li"],
+    "organizations": ["Stanford Vision Lab", "Princeton University"],
+    "topics":        ["computer vision", "image classification", "deep learning"]
+  },
+  {
+    "name": "COCO",
+    "description": "Common Objects in Context — object detection and segmentation benchmark.",
+    "authors":       ["Tsung-Yi Lin", "Michael Maire", "Serge Belongie"],
+    "organizations": ["Microsoft Research", "Cornell University"],
+    "topics":        ["computer vision", "object detection", "segmentation"]
+  },
+  {
+    "name": "GLUE",
+    "description": "General Language Understanding Evaluation benchmark.",
+    "authors":       ["Alex Wang", "Amanpreet Singh"],
+    "organizations": ["New York University", "DeepMind"],
+    "topics":        ["natural language processing", "benchmark"]
+  },
+  {
+    "name": "SQuAD",
+    "description": "Stanford Question Answering Dataset.",
+    "authors":       ["Pranav Rajpurkar", "Jian Zhang"],
+    "organizations": ["Stanford Vision Lab"],
+    "topics":        ["natural language processing", "question answering"]
+  },
+  {
+    "name": "MNIST",
+    "description": "Handwritten digits — 70,000 labeled 28x28 images.",
+    "authors":       ["Yann LeCun", "Corinna Cortes"],
+    "organizations": ["AT&T Labs"],
+    "topics":        ["computer vision", "image classification"]
+  },
+  {
+    "name": "LibriSpeech",
+    "description": "1000 hours of read English speech for ASR training.",
+    "authors":       ["Vassil Panayotov"],
+    "organizations": ["Johns Hopkins University"],
+    "topics":        ["speech recognition", "audio"]
+  },
+  {
+    "name": "Common Crawl",
+    "description": "Petabyte-scale web crawl corpus.",
+    "authors":       [],
+    "organizations": ["Common Crawl Foundation"],
+    "topics":        ["natural language processing", "web scale", "pretraining"]
+  },
+  {
+    "name": "The Pile",
+    "description": "825 GiB diverse text corpus for LLM pretraining.",
+    "authors":       ["Leo Gao", "Stella Biderman"],
+    "organizations": ["EleutherAI"],
+    "topics":        ["natural language processing", "pretraining", "large language models"]
+  }
+]
