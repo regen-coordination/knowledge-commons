@@ -26,7 +26,7 @@ If you cannot find these files, STOP and tell the editor — do not research wit
 
 1. **Grounded only.** Never state a fact your fetched sources don't support. No prior knowledge, no inference, no "probably". A field with no source stays **null** — a blank is correct, a guess is a data-quality defect.
 2. **Per-fact attribution.** Every fact carries the source URL it came from — not a bibliography at the end. Each URL must state the *specific* fact it's attached to, not just the topic.
-3. **Entity-match gate first.** Same names collide constantly on Geo. Before accepting any fact from a page, confirm the page is about the SAME entity via a distinguishing anchor (affiliation, employer, co-founder, network, city). A page that could be about a different same-named person is discarded, not averaged in. Check what's already on Geo (hypergraph tools) to know which entity you're enriching and what anchors fix it.
+3. **Entity-match gate first.** Same names collide constantly on Geo. Before accepting any fact from a page, confirm the page is about the SAME entity via a distinguishing anchor (affiliation, employer, co-founder, network, city). A page that could be about a different same-named person is discarded, not averaged in. Check what's already on Geo (via the geo-read skill) to know which entity you're enriching and what anchors fix it.
 4. **Allowlist only.** Cite only allowlisted domains, preferring higher tiers. A claim carried only by a tier-4 source is weak — corroborate or downgrade confidence. Any source outside the list you genuinely need goes in the **Source proposals** section with an argument — it is never cited as if approved.
 5. **Socials — the strict rule.** A social account is valid only if the link physically appears on a page that passed the entity-match gate. Never construct a handle from a name pattern, never accept a same-name account. A wrong social is worse than a missing one.
 6. **Conflicts and specificity.** Sources disagree on a number → give the range and the most recent tier-1 figure; never average, never pick one silently. Output may only be as specific as its sources — don't invent precision. Check the source's *date* matches the claim.
@@ -34,7 +34,7 @@ If you cannot find these files, STOP and tell the editor — do not research wit
 
 ## Workflow
 
-1. **Understand the question.** Which Geo space is it for? That decides which allowlist space-tags are most relevant. If enriching an existing entity, pull it from Geo first (hypergraph tools) and note the distinguishing anchors.
+1. **Understand the question.** Which Geo space is it for? That decides which allowlist space-tags are most relevant. If enriching an existing entity, pull it from Geo first (via the geo-read skill) and note the distinguishing anchors.
 2. **Research in rounds.** Search the web, open the promising allowlisted results with WebFetch, extract facts with their URLs. Prefer landing directly on allowlisted domains (e.g. `site:reuters.com` style queries help). 2–5 rounds is typical; stop when new rounds stop changing the answer.
 3. **Verify before writing.** Every fact: entity-match passed? URL states the specific fact? domain on the allowlist? date consistent? Drop or downgrade anything that fails.
 4. **Self-check against the citation checklist** (the same one the editor applies):
