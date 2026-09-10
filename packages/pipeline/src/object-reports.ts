@@ -105,7 +105,7 @@ export async function renderObjectReports(
 
 # ${prose(object.title)}
 
-${run.execution === "fixture" ? "> **SYNTHETIC FIXTURE — no live source or model assessment.**\n\n" : ""}> **Draft · Human review pending**  
+${run.execution === "fixture" ? "> **SYNTHETIC FIXTURE — no live source or model assessment.**\n\n" : ""}> **Draft · Human review pending**${"  "}
 > **Integrity: ${score}${rating ? " · machine assessment" : ""}**
 
 ${content}
