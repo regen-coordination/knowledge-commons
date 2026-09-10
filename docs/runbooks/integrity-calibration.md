@@ -14,11 +14,11 @@ Start with [report PR #2](https://github.com/regen-coordination/knowledge-common
 
 ## Independent worksheet
 
-Each reviewer copies this section, identifies themselves, and records their own results. Start with the Article, then repeat the ratings for the Source and each Claim. Identify objects by the IDs in the report provenance. Use its evidence labels and native post references when explaining a correction. An unread linked page cannot establish support.
+Each reviewer copies this section, identifies themselves, and records their own results. Start with the Article, then repeat the ratings for the Source and each Claim. Identify each object by its class and exact title within the candidate digest above; those labels are distinct in this report. Internal object IDs can be resolved from the private candidate if needed. Use its evidence labels and native post references when explaining a correction. An unread linked page cannot establish support.
 
 Reviewer name / stable GitHub account ID: **pending**  
 Review date and minutes spent: **pending**  
-Object ID / class: **pending**  
+Object class / exact title: **pending**  
 Candidate and report digest confirmed: **pending**
 
 | Dimension | Human rating | Evidence and reason |
