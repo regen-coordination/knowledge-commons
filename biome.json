@@ -4,6 +4,7 @@
     "includes": [
       "**",
       "!!agent/skills",
+      "!!.agents",
       "!!docs",
       "!!reports",
       "!!packages/ontology/generated",
