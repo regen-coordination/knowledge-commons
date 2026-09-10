@@ -141,3 +141,13 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Knowledge Commons private local state and source evidence
+.dev.vars*
+.wrangler/
+.bun/
+raw-captures/
+artifacts/private/
+
+# macOS metadata
+.DS_Store
