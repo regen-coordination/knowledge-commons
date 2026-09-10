@@ -1,0 +1,18 @@
+{
+  "fields": [
+    { "name": "name",           "type": "text",     "required": true },
+    { "name": "description",    "type": "text",     "required": false },
+    { "name": "release_date",   "type": "date",     "required": true },
+    { "name": "release_year",   "type": "integer",  "required": false },
+    { "name": "accuracy",       "type": "float",    "required": false },
+    { "name": "is_open_source", "type": "boolean",  "required": false },
+    { "name": "web_url",        "type": "url",      "required": false },
+    { "name": "topics",         "type": "relation", "required": false },
+    {
+      "name":     "license",
+      "type":     "enum",
+      "required": false,
+      "values":   ["MIT", "Apache-2.0", "BSD-3-Clause", "CC-BY-4.0", "CC-BY-SA-4.0", "Proprietary"]
+    }
+  ]
+}

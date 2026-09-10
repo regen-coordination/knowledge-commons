@@ -1,0 +1,62 @@
+[
+  {
+    "name": "ImageNet",
+    "description": "Large-scale hierarchical image dataset with over 14 million annotated images.",
+    "topics": ["computer vision", "image classification", "deep learning"]
+  },
+  {
+    "name": "GLUE",
+    "description": "General Language Understanding Evaluation benchmark for NLP models.",
+    "topics": ["natural language processing", "benchmark", "language understanding"]
+  },
+  {
+    "name": "SuperGLUE",
+    "description": "More challenging successor to GLUE with harder language understanding tasks.",
+    "topics": ["natural language processing", "benchmark"]
+  },
+  {
+    "name": "COCO",
+    "description": "Common Objects in Context — large image dataset for object detection and segmentation.",
+    "topics": ["computer vision", "object detection", "segmentation"]
+  },
+  {
+    "name": "SQuAD",
+    "description": "Stanford Question Answering Dataset — reading comprehension benchmark.",
+    "topics": ["natural language processing", "question answering", "reading comprehension"]
+  },
+  {
+    "name": "WMT",
+    "description": "Workshop on Machine Translation — annual parallel corpora for MT evaluation.",
+    "topics": ["natural language processing", "machine translation"]
+  },
+  {
+    "name": "LibriSpeech",
+    "description": "Large-scale audio dataset of 1000 hours of read English speech.",
+    "topics": ["speech recognition", "audio"]
+  },
+  {
+    "name": "MNIST",
+    "description": "Handwritten digit recognition dataset — 70,000 labeled images of digits 0-9.",
+    "topics": ["computer vision", "image classification"]
+  },
+  {
+    "name": "CIFAR-10",
+    "description": "60,000 labeled 32x32 color images across 10 classes.",
+    "topics": ["computer vision", "image classification"]
+  },
+  {
+    "name": "Common Crawl",
+    "description": "Petabyte-scale web crawl corpus used to train large language models.",
+    "topics": ["natural language processing", "web scale", "pretraining"]
+  },
+  {
+    "name": "The Pile",
+    "description": "825 GiB diverse text corpus for training large language models.",
+    "topics": ["natural language processing", "pretraining", "large language models"]
+  },
+  {
+    "name": "LAION-5B",
+    "description": "5 billion image-text pairs from the web — used to train Stable Diffusion.",
+    "topics": ["computer vision", "multimodal", "image-text"]
+  }
+]
