@@ -116,16 +116,10 @@ function fixtureResponse(draft: ValidationRequest): ProviderResponse {
     fixture: true,
   };
 }
-export async function executeReview(
-  env: Runtime,
-  runId: string,
-  adapters?: {
-    assess?: (request: unknown) => Promise<ProviderResponse>;
-    delivery?: ReportDelivery;
-  },
-): Promise<ReviewRecord> {
+// Also used by recovery when a transient read failed before the first row existed.
+export async function initializeReview(env: Runtime, run: IngestionRecord) {
   const store = new Store(env);
-  const run = await store.run(runId);
+  const runId = run.id;
   if (run.state !== "completed" || !run.candidateRef)
     throw new IngestionError("ingestion_not_completed");
   const draft = await store.get<ValidationRequest>(run.candidateRef);
@@ -155,6 +149,19 @@ export async function executeReview(
   )
     .bind(runId, JSON.stringify(initial))
     .run();
+  return { draft, candidateDigest };
+}
+export async function executeReview(
+  env: Runtime,
+  runId: string,
+  adapters?: {
+    assess?: (request: unknown) => Promise<ProviderResponse>;
+    delivery?: ReportDelivery;
+  },
+): Promise<ReviewRecord> {
+  const store = new Store(env);
+  const run = await store.run(runId);
+  const { draft, candidateDigest } = await initializeReview(env, run);
   const owner = crypto.randomUUID();
   const lease = await env.DB.prepare(
     "UPDATE reviews SET lease_owner=?,lease_until=? WHERE run_id=? AND lease_until<?",

@@ -42,6 +42,8 @@ bun run review f1c554cb-5a08-4014-b00a-4df51c512ba8 --export
 
 `review` queues the workflow or restarts an errored review, at most three times. Completed assessment+delivery returns `existing`. `--status` reads the saved state and PR link. `--export` is an optional digest-checked local copy of the scored report; PR delivery does not depend on it. `PILOT_BASE_URL` overrides localhost and requires HTTPS outside loopback.
 
+If a transient storage failure occurred before the review record was created, retry the same command after storage recovers. Recovery initializes the missing record from the validated candidate, then applies the same caller, lease and restart limits.
+
 Authenticated endpoints:
 
 | Endpoint | Behavior |
