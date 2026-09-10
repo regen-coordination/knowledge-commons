@@ -27,7 +27,7 @@ Current exports also check the destination directory's membership. Unexpected fi
 - [Current demo review PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5): topic 356, seven object files; manifest `sha256:56100aa9c028cdea3c6766219e48a7e2aeef9994fdd126f3c45fd2a965da8feb`; head `306e794320f4ec2e4bd88ea25b9f1cd2876c709c`.
 - [Historical pilot review PR #6](https://github.com/regen-coordination/knowledge-commons/pull/6): topic 235, seven object files; manifest `sha256:8e6fd44a4033a1001ecb7b4fb951422719399181a2f01efa4b63c242c04f496e`; head `926c7126914c99082e4e93172af3104f7af3871c`.
 
-Both PRs are draft and request the same five eligible individual team members, excluding their author. Fresh approval readback checked every file and returned pending with zero approvals on both. Repeated topic-356 conversion returned `existing`. Original grouped reports and PRs #2/#3 are historical editions; the saved candidate and assessment digests remain unchanged.
+Both PRs were delivered as drafts and request the same five eligible individual team members, excluding their author. Fresh approval readback checked every file and returned pending with zero approvals on both. Repeated topic-356 conversion returned `existing`. Original grouped reports and PRs #2/#3 are historical editions; the saved candidate and assessment digests remain unchanged.
 
 Local exports are under `reports/ingestion/objects/eba2a43f-caa7-4f88-a1d8-a21a595c7b17-56100aa9c028` and `reports/ingestion/objects/f1c554cb-5a08-4014-b00a-4df51c512ba8-8e6fd44a4033`. New files are generally 68–87 lines, with provenance folded away. The shared PR gives reviewers a file list while each file stands on its own.
 
