@@ -37,3 +37,5 @@ bun run build
 `bun run build` bundles the Worker without deploying. For `bun run dev`, secret configuration, endpoint checks, and the Prompt 2 handoff, follow the [first-deployment runbook](docs/runbooks/first-deployment.md). Use `bun run format` for Biome formatting/lint fixes and `bun run ontology:generate` after changing canonical schemas. Root `agent/skills` remains the contributor instruction library; read the relevant skill through [AGENTS.md](AGENTS.md).
 
 The pre-Cloudflare work now includes current-revision GitHub approval evaluation, private Geo operation previews, and a complete topic-356 demo delivered in [report PR #3](https://github.com/regen-coordination/knowledge-commons/pull/3). See the [current handoff](docs/runbooks/pre-cloudflare-handoff.md), [demo script](docs/runbooks/tomorrow-demo.md), and [human calibration worksheet](docs/runbooks/integrity-calibration.md). Geo encoding/submission and authentic human calibration remain pending.
+
+Current review delivery uses **one Article, Source or Claim per Markdown file**, with each object's own evidence and Integrity assessment. See [object-review operations](docs/runbooks/object-reviews.md).

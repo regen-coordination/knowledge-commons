@@ -5,6 +5,7 @@ import {
   type IngestionRecord,
   ingestionRequestSchema,
   MODEL,
+  objectReportsDigest,
   PROMPT,
   PROMPT_VERSION,
   RESERVE_MICROUSD,
@@ -15,7 +16,12 @@ import { type Bindings, decodeRun, runtime, type StoredRun } from "./bindings";
 import { CODE_REVISION } from "./build-info";
 import type { ReportArtifact } from "./job";
 import { preparations } from "./preparations";
-import { getReview, type ReviewEdition, reviewRun } from "./review";
+import {
+  getReview,
+  type ReviewEdition,
+  reviewRun,
+  reviewWorkflowId,
+} from "./review";
 import { Store } from "./store";
 
 export const ingestions = new Hono<{ Bindings: Bindings }>();
@@ -280,13 +286,15 @@ ingestions.on(["GET", "POST"], "/:runId/review", async (c) => {
   const recorded = await getReview(env, id);
   if (
     recorded?.assessment.status === "completed" &&
-    recorded.delivery?.status === "delivered"
+    recorded.delivery?.status === "delivered" &&
+    recorded.delivery.files
   )
     return c.json({ runId: id, dispatch: "existing" }, 202);
 
   let state: string | null = null;
   try {
-    state = (await (await env.REVIEW.get(id)).status()).status;
+    state = (await (await env.REVIEW.get(reviewWorkflowId(id))).status())
+      .status;
   } catch {}
   if (state === "errored") {
     const retry = await env.DB.prepare(
@@ -296,7 +304,7 @@ ingestions.on(["GET", "POST"], "/:runId/review", async (c) => {
       .run();
     if (!retry.meta.changes)
       return c.json({ error: "review_retry_limit_or_busy" }, 409);
-    await (await env.REVIEW.get(id)).restart();
+    await (await env.REVIEW.get(reviewWorkflowId(id))).restart();
     return c.json({ runId: id, dispatch: "resumed" }, 202);
   }
   if (state !== null) return c.json({ runId: id, dispatch: "existing" }, 202);
@@ -321,7 +329,9 @@ ingestions.get("/:runId/review/report", async (c) => {
     edition.runId !== id ||
     edition.candidateDigest !== review.candidateDigest ||
     edition.assessmentDigest !== review.assessment.digest ||
-    edition.markdownDigest !== review.edition.digest ||
+    (edition.filesDigest ?? edition.markdownDigest) !== review.edition.digest ||
+    (edition.files &&
+      (await objectReportsDigest(edition.files)) !== edition.filesDigest) ||
     (await digest(edition.markdown)) !== edition.markdownDigest
   )
     return c.json({ error: "review_report_integrity_failure" }, 500);

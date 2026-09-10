@@ -11,8 +11,11 @@ import {
   integrityJsonSchema,
   integrityRequest,
   MODEL,
+  type ObjectReport,
+  objectReportsDigest,
   type ProviderResponse,
   parseModelResponse,
+  renderObjectReports,
   renderReport,
   type ValidationRequest,
   validateDraft,
@@ -43,6 +46,8 @@ export type ReviewEdition = {
   assessmentDigest: string | null;
   markdown: string;
   markdownDigest: string;
+  files?: ObjectReport[];
+  filesDigest?: string;
 };
 export async function getReview(
   env: Runtime,
@@ -312,21 +317,36 @@ export async function executeReview(
         `**Assessment attempt:** blocked (${review.assessment.error}). Extraction remains available.\n\n## Integrity score`,
       );
     const markdownDigest = await digest(markdown);
-    if (review.edition?.digest !== markdownDigest) {
-      const ref = `runs/${runId}/reviews/${markdownDigest.slice(7)}.json`;
+    const files = await renderObjectReports(
+      run,
+      draft,
+      assessment,
+      review.assessment.error,
+    );
+    const filesDigest = await objectReportsDigest(files);
+    if (review.edition?.digest !== filesDigest) {
+      if (review.edition)
+        await store.put(
+          `runs/${runId}/reviews/state-${(await digest(review)).slice(7)}.json`,
+          review,
+        );
+      const ref = `runs/${runId}/reviews/${filesDigest.slice(7)}.json`;
       const edition: ReviewEdition = {
         runId,
         candidateDigest,
         assessmentDigest: review.assessment.digest,
         markdown,
         markdownDigest,
+        files,
+        filesDigest,
       };
       await store.put(ref, edition);
-      review.edition = { ref, digest: markdownDigest };
+      review.edition = { ref, digest: filesDigest };
       review.delivery = {
-        branch: `codex/report-${runId}-${markdownDigest.slice(7, 19)}`,
-        path: `reports/ingestion/topic-${run.topicId}/${runId}-${markdownDigest.slice(7, 19)}.md`,
-        markdownDigest,
+        branch: `codex/report-${runId}-${filesDigest.slice(7, 19)}`,
+        path: `reports/ingestion/topic-${run.topicId}/${runId}-${filesDigest.slice(7, 19)}`,
+        markdownDigest: filesDigest,
+        files: files.map(({ markdown: _, ...file }) => file),
         baseSha: null,
         commitSha: null,
         prNumber: null,
@@ -347,7 +367,7 @@ export async function executeReview(
           throw new IngestionError("github_not_configured");
         await (
           adapters?.delivery ?? new GitHubDelivery(env.GITHUB_TOKEN ?? "")
-        ).deliver(markdown, delivery, save);
+        ).deliver(files, delivery, save);
       } catch (error) {
         delivery.status = "blocked";
         delivery.error = safeError(error);
@@ -368,19 +388,25 @@ export async function reviewRun(env: Runtime, run: IngestionRecord) {
   const existing = await getReview(env, run.id);
   if (
     existing?.assessment.status === "completed" &&
-    existing.delivery?.status === "delivered"
+    existing.delivery?.status === "delivered" &&
+    existing.delivery.files
   )
     return "existing";
 
   try {
-    await env.REVIEW.create({ id: run.id, params: { runId: run.id } });
+    await env.REVIEW.create({
+      id: reviewWorkflowId(run.id),
+      params: { runId: run.id },
+    });
     return "created";
   } catch {
     try {
-      await (await env.REVIEW.get(run.id)).status();
+      await (await env.REVIEW.get(reviewWorkflowId(run.id))).status();
       return "existing";
     } catch {
       return "pending-retry";
     }
   }
 }
+
+export const reviewWorkflowId = (runId: string) => `${runId}-objects-v1`;

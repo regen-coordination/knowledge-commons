@@ -2,13 +2,13 @@
 
 **Human calibration is pending.** The machine has scored the first report; two independent human reviews have been requested from the project owner but have not been supplied. This worksheet prepares that work without inventing ratings or approval.
 
-Start with [report PR #2](https://github.com/regen-coordination/knowledge-commons/pull/2) and its [saved scored edition](../../reports/ingestion/reviews/f1c554cb-5a08-4014-b00a-4df51c512ba8-6a3f20c6efa5.md). This is a historical calibration source, separate from the next demo's commitment-pooling topic. Keep the model's ratings collapsed until each person finishes their independent review.
+Start with [object review PR #6](https://github.com/regen-coordination/knowledge-commons/pull/6) and its [individual object files](../../reports/ingestion/objects/f1c554cb-5a08-4014-b00a-4df51c512ba8-8e6fd44a4033). This is a historical calibration source, separate from the next demo's commitment-pooling topic. For an independent first pass, each reviewer should record their judgment before reading the machine-rating table.
 
 ## Exact review binding
 
 - Run: `f1c554cb-5a08-4014-b00a-4df51c512ba8`.
 - Candidate: `sha256:9dbb3793d8957c0358ff94426450b330afdf3dbf18c0c1480c0cb43ab6f6e7a7`.
-- Report: `sha256:6a3f20c6efa53272db9a55d83f091c038f2dc07b7ae13b350527a334c3fe7330`.
+- Object-file manifest: `sha256:8e6fd44a4033a1001ecb7b4fb951422719399181a2f01efa4b63c242c04f496e`. Each file records its object ID and revision.
 - Profile: `commons-pilot-integrity/0.1-draft`.
 - Scope: calibration of this report against frozen evidence; no knowledge-promotion approval.
 
