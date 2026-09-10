@@ -788,3 +788,262 @@ test("completed review submissions reuse delivery without dispatching and enforc
     h.db.close();
   }
 });
+
+test("review recovers after an R2 failure before initialization, with caller and retry limits", async () => {
+  const h = await harness();
+  try {
+    const { runId } = await (await h.submit()).json<{ runId: string }>();
+    await executeJob(h.env, runId, h.steps);
+    const { executeReview, getReview } = await import("./review");
+    const get = h.env.ARTIFACTS.get;
+    h.env.ARTIFACTS.get = async () => {
+      throw new Error("transient R2 outage");
+    };
+    await expect(executeReview(h.env, runId)).rejects.toThrow(
+      "transient R2 outage",
+    );
+    h.env.ARTIFACTS.get = get;
+    expect(await getReview(h.env, runId)).toBeNull();
+    let restarts = 0;
+    h.env.REVIEW = {
+      async get() {
+        return {
+          async status() {
+            return { status: "errored" };
+          },
+          async restart() {
+            restarts++;
+          },
+        };
+      },
+    } as unknown as Runtime["REVIEW"];
+    const retry = (env = h.env) =>
+      app.request(
+        `/v1/ingestions/${runId}/review`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        },
+        env,
+      );
+    expect((await retry({ ...h.env, PILOT_CALLER_ID: "bob" })).status).toBe(
+      404,
+    );
+    expect(await getReview(h.env, runId)).toBeNull();
+    expect((await retry()).status).toBe(202);
+    expect(restarts).toBe(1);
+    expect((await getReview(h.env, runId))?.assessment.status).toBe("pending");
+    h.db
+      .query("UPDATE reviews SET lease_until=? WHERE run_id=?")
+      .run(Date.now() + 60000, runId);
+    expect((await retry()).status).toBe(409);
+    h.db.query("UPDATE reviews SET lease_until=0 WHERE run_id=?").run(runId);
+    for (let i = 0; i < 2; i++) expect((await retry()).status).toBe(202);
+    expect((await retry()).status).toBe(409);
+    expect(restarts).toBe(3);
+    expect((await executeReview(h.env, runId)).assessment.status).toBe(
+      "completed",
+    );
+  } finally {
+    h.db.close();
+  }
+});
+
+test("incompatible extraction provenance fails before capture or spending", async () => {
+  for (const field of [
+    "promptVersion",
+    "promptDigest",
+    "extractionSchemaDigest",
+    "registryDigest",
+    "requestedModel",
+  ] as const) {
+    const h = await harness();
+    try {
+      const { runId } = await (await h.submit()).json<{ runId: string }>();
+      const run = await h.store.run(runId);
+      run[field] = "older-revision";
+      await h.store.save(run);
+      let captures = 0;
+      await expect(
+        executeJob(h.env, runId, h.steps, {
+          capture: async () => {
+            captures++;
+            return fixtureCapture(run.createdAt);
+          },
+          provider: new FixtureProvider(),
+        }),
+      ).rejects.toThrow("extraction_revision_mismatch");
+      expect(captures).toBe(0);
+      expect(
+        h.db.query("SELECT COUNT(*) AS count FROM attempts").get(),
+      ).toEqual({ count: 0 });
+      const failed = await h.store.run(runId);
+      expect(failed[field]).toBe("older-revision");
+      expect(failed.resumable).toBe(false);
+    } finally {
+      h.db.close();
+    }
+  }
+});
+
+test("extraction sends its persisted request and reuses it after response persistence", async () => {
+  const h = await harness();
+  try {
+    const { runId } = await (await h.submit()).json<{ runId: string }>();
+    const packet = await fixtureCapture(new Date().toISOString());
+    let calls = 0;
+    let inputBytes: string | undefined;
+    const adapters = {
+      capture: async () => packet,
+      provider: {
+        async extract(capture: typeof packet.capture, request: unknown) {
+          calls++;
+          inputBytes = h.artifacts.get(`runs/${runId}/extraction-input.json`)!;
+          const saved = JSON.parse(inputBytes);
+          expect(saved.request).toEqual(request);
+          expect(saved.requestDigest).toBe(await digest(request));
+          expect(saved.captureDigest).toBe(capture.digest);
+          const run = await h.store.run(runId);
+          expect(run.extractionInput?.digest).toBe(await digest(saved));
+          expect(run.attempt).toBe(1);
+          return new FixtureProvider().extract(capture);
+        },
+      },
+    };
+    const interrupted: Steps = {
+      async do(name, _config, fn) {
+        if (name === "validate-and-report")
+          throw new Error("transient interruption");
+        return fn();
+      },
+    };
+    await expect(
+      executeJob(h.env, runId, interrupted, adapters),
+    ).rejects.toThrow();
+    await executeJob(h.env, runId, h.steps, adapters);
+    expect(calls).toBe(1);
+    expect(h.artifacts.get(`runs/${runId}/extraction-input.json`)).toBe(
+      inputBytes,
+    );
+    const run = await h.store.run(runId);
+    expect(run.state).toBe("completed");
+    expect((await h.get(`/v1/ingestions/${runId}/report`)).status).toBe(200);
+    expect(h.artifacts.get(run.reportRef!)).toContain("Extraction input");
+  } finally {
+    h.db.close();
+  }
+});
+
+test("changed or missing extraction input cannot relabel a saved response, including cached steps", async () => {
+  for (const alteration of [
+    "request",
+    "captureDigest",
+    "codeRevision",
+    "missing",
+  ] as const) {
+    const h = await harness();
+    try {
+      const { runId } = await (await h.submit()).json<{ runId: string }>();
+      const cached = new Map<string, unknown>();
+      const steps: Steps = {
+        async do(name, _config, fn) {
+          if (cached.has(name))
+            return cached.get(name) as Awaited<ReturnType<typeof fn>>;
+          if (name === "validate-and-report" && !cached.has("interrupted")) {
+            cached.set("interrupted", true);
+            throw new Error("interruption after extraction");
+          }
+          const value = await fn();
+          cached.set(name, value);
+          return value;
+        },
+      };
+      await expect(executeJob(h.env, runId, steps)).rejects.toThrow();
+      const ref = `runs/${runId}/extraction-input.json`;
+      const response = h.artifacts.get(`runs/${runId}/response.json`);
+      if (alteration === "missing") h.artifacts.delete(ref);
+      else {
+        const input = JSON.parse(h.artifacts.get(ref)!);
+        if (alteration === "request")
+          input.request.instructions = "changed prompt";
+        else input[alteration] = `sha256:${"f".repeat(64)}`;
+        h.artifacts.set(ref, JSON.stringify(input));
+      }
+      await expect(executeJob(h.env, runId, steps)).rejects.toThrow(
+        alteration === "missing"
+          ? "extraction_input_missing"
+          : "extraction_input_revision_mismatch",
+      );
+      expect((await h.store.run(runId)).resumable).toBe(false);
+      expect(h.artifacts.get(`runs/${runId}/response.json`)).toBe(response);
+      expect(
+        h.db.query("SELECT COUNT(*) AS count FROM attempts").get(),
+      ).toEqual({ count: 1 });
+    } finally {
+      h.db.close();
+    }
+  }
+});
+
+test("legacy incomplete responses require reconciliation while completed history stays immutable", async () => {
+  const h = await harness();
+  try {
+    const { runId } = await (await h.submit()).json<{ runId: string }>();
+    await executeJob(h.env, runId, h.steps);
+    const run = await h.store.run(runId);
+    delete run.extractionInput;
+    await h.store.save(run, false);
+    h.artifacts.delete(`runs/${runId}/extraction-input.json`);
+    const original = JSON.stringify(await h.store.run(runId));
+    const originalArtifacts = [...h.artifacts];
+    await executeJob(h.env, runId, h.steps);
+    expect(JSON.stringify(await h.store.run(runId))).toBe(original);
+    expect([...h.artifacts]).toEqual(originalArtifacts);
+    run.state = "failed";
+    await h.store.save(run);
+    await expect(executeJob(h.env, runId, h.steps)).rejects.toThrow(
+      "extraction_input_missing",
+    );
+    expect(h.artifacts.has(`runs/${runId}/extraction-input.json`)).toBe(false);
+  } finally {
+    h.db.close();
+  }
+});
+
+test("extraction input persistence failure cannot reserve or call the provider", async () => {
+  const h = await harness();
+  try {
+    const { runId } = await (await h.submit()).json<{ runId: string }>();
+    const put = h.env.ARTIFACTS.put;
+    let fail = true;
+    h.env.ARTIFACTS.put = (async (key: string, value: string) => {
+      if (key.endsWith("/extraction-input.json") && fail) {
+        fail = false;
+        throw new Error("temporary input write failure");
+      }
+      return put.call(h.env.ARTIFACTS, key, value);
+    }) as typeof put;
+    let calls = 0;
+    const adapters = {
+      capture: () => fixtureCapture(new Date().toISOString()),
+      provider: {
+        async extract(
+          capture: Awaited<ReturnType<typeof fixtureCapture>>["capture"],
+        ) {
+          calls++;
+          return new FixtureProvider().extract(capture);
+        },
+      },
+    };
+    await expect(executeJob(h.env, runId, h.steps, adapters)).rejects.toThrow();
+    expect(calls).toBe(0);
+    expect(h.db.query("SELECT COUNT(*) AS count FROM attempts").get()).toEqual({
+      count: 0,
+    });
+    await executeJob(h.env, runId, h.steps, adapters);
+    expect(calls).toBe(1);
+    expect((await h.store.run(runId)).state).toBe("completed");
+  } finally {
+    h.db.close();
+  }
+});

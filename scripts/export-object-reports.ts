@@ -1,4 +1,4 @@
-import { mkdir, open, readFile } from "node:fs/promises";
+import { mkdir, open, readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import {
   type ObjectReport,
@@ -19,6 +19,16 @@ export async function exportObjectReports(
     `${report.runId}-${report.filesDigest.slice(7, 19)}`,
   );
   await mkdir(directory, { recursive: true });
+  const expected = new Set(report.files.map((file) => file.name));
+  const checkMembership = async (complete: boolean) => {
+    const entries = await readdir(directory, { withFileTypes: true });
+    if (
+      entries.some((entry) => !entry.isFile() || !expected.has(entry.name)) ||
+      (complete && entries.length !== expected.size)
+    )
+      throw new Error("Object report directory membership mismatch");
+  };
+  await checkMembership(false); // Allow resuming a partial export, but never mix editions.
   const paths: string[] = [];
   for (const file of report.files) {
     const path = resolve(directory, file.name);
@@ -38,5 +48,6 @@ export async function exportObjectReports(
     }
     paths.push(path);
   }
+  await checkMembership(true);
   return { directory, paths, digest: report.filesDigest };
 }

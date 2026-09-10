@@ -2,19 +2,25 @@ import {
   type Capture,
   MODEL,
   type ProviderResponse,
-  providerRequest,
   readBounded,
 } from "@knowledge-commons/pipeline";
+import type { ExtractionRequest } from "./extraction-input";
 export interface ExtractionProvider {
-  extract(capture: Capture): Promise<ProviderResponse>;
+  extract(
+    capture: Capture,
+    request: ExtractionRequest,
+  ): Promise<ProviderResponse>;
 }
 export class OpenAIProvider implements ExtractionProvider {
   constructor(
     private readonly key: string,
     private readonly fetcher: typeof fetch = fetch,
   ) {}
-  async extract(capture: Capture): Promise<ProviderResponse> {
-    return this.request(providerRequest(capture));
+  async extract(
+    _capture: Capture,
+    request: ExtractionRequest,
+  ): Promise<ProviderResponse> {
+    return this.request(request);
   }
   async request(request: unknown): Promise<ProviderResponse> {
     const start = Date.now();

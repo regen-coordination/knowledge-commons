@@ -8,14 +8,7 @@ import {
   type IntegrityAssessment,
   integrityTotal,
 } from "./integrity";
-
-// Source/model text cannot supply Markdown, HTML, images, or links.
-const prose = (text: string) =>
-  text
-    .replace(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g, "[contact redacted]")
-    .replace(/0x[a-fA-F0-9]{40,}/g, "[address redacted]")
-    .replace(/[\\`*_{}[\]()<>|#!]/g, "\\$&")
-    .replace(/[\r\n]+/g, " ");
+import { reportProse as prose } from "./report-prose";
 
 export function renderReport(
   run: IngestionRecord,
@@ -275,7 +268,7 @@ Unknown usage is never zero. Fixture usage is explicitly synthetic.
 - **Manifest:** runs/${run.id}/manifest.json
 - **Capture:** ${run.captureRef}
 - **Candidate:** ${run.candidateRef}
-- **Provider response:** ${run.responseRef}
+- **Provider response:** ${run.responseRef}${run.extractionInput ? `\n- **Extraction input:** ${run.extractionInput.ref} · ${run.extractionInput.digest}` : ""}
 
 ${
   assessment
