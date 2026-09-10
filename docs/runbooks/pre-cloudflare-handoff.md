@@ -1,6 +1,6 @@
 # Regen Knowledge Commons pre-Cloudflare handoff
 
-The local API now verifies report approvals, creates private Geo previews, and ingests the new commitment-pooling demo source. The implementation baseline is being prepared as a draft code PR with CI. Hosted activation awaits Cloudflare access; Geo target details and authentic human calibration results remain pending.
+The local API now verifies report approvals, creates private Geo previews, and ingests the new commitment-pooling demo source. The implementation baseline is in [draft code PR #4](https://github.com/regen-coordination/knowledge-commons/pull/4), with passing GitHub push and PR CI on implementation commit `93c794246da343ce43e768ce4bf9e936365faafa`. Hosted activation awaits Cloudflare access; Geo target details and authentic human calibration results remain pending.
 
 ## Implemented and exercised
 
@@ -37,3 +37,7 @@ Local checks passed: `bun run check`, `bun test` (65 tests, 309 assertions), `bu
 After Cloudflare access, follow preflight and record actual deployment identity, remaining-budget handling, real remote ingestion and rollback evidence. After Geo details arrive, read the publication/ontology skills and [design decision](../architecture/0005-review-verification-and-geo-preparation.md), then resolve mappings and verify the intended SDK/runtime and proposal visibility before any external action. The agent never votes; two authenticated exact-scope human decisions and verified execution/indexing are still required for accepted knowledge.
 
 Final packaging check: frozen installation passed after renaming the CLI command to `review:prepare` to avoid Bun's `prepare` lifecycle hook. Final code revision is `sha256:d716e864e03bc616edf3b7cd4c06a85230ac250a5e543e75e8d430e5c183ebc4`; the saved demo preserves its original submission revision. Generated runtime types and registry are marked as generated for PR review. Markdown hard-break whitespace and Wrangler-generated union formatting are intentionally permitted.
+
+Remote verification: [push CI](https://github.com/regen-coordination/knowledge-commons/actions/runs/34428078114) and [PR CI](https://github.com/regen-coordination/knowledge-commons/actions/runs/34428115834) passed frozen install, checks, tests and the Worker dry-run build. This handoff-only follow-up does not change the implementation revision. Both demo Workflows recorded successful terminal results: ingestion at `2026-09-10 01:58:25.822` and review/PR delivery at `2026-09-10 01:58:55.724`. A local runtime cancellation warning also appeared; it did not prevent either recorded completion. PR #3 report bytes were independently compared with the saved file and matched exactly.
+
+The local server is stopped. The temporary ignored `.dev.vars.pilot` containing the verification GitHub credential was removed; the user's original `.env.pilot`, private captures and D1/R2 evidence remain intact. No implementation or report PR was merged.
