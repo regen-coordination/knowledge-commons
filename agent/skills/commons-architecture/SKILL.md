@@ -15,3 +15,15 @@ Read root `AGENTS.md`, the relevant design decision under `docs/architecture`, a
 6. Record a short design decision when it prevents future ambiguity: problem, chosen interface/ownership, rationale, rejected alternative, revisit trigger, and validation. Report actual commands and results; label planned checks as unrun.
 
 Output a concrete design or change with files, behavior, and evidence. Use a diagram only when it makes dependencies or state transitions clearer. Do not create an architecture report or additional approval loop for every small edit.
+
+<!-- shared-engineering:begin -->
+## Domain model changes
+
+Use the shared `domain-driven-design` skill through root `AGENTS.md` when behavior,
+identity, lifecycle, or integration meaning changes. Identify the owning rule and
+the state required to enforce it; separate evidence capture, review, approval, and
+publication outcomes. These workflow stages do not mandate separate services.
+Route semantic changes through `ontology-change` and publication/recovery through
+`publish-reconcile`. Keep scenarios and verification with the existing interface
+and decision records, not a second ontology or DDD rule registry.
+<!-- shared-engineering:end -->
