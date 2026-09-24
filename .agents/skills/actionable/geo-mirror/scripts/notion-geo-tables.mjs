@@ -14,7 +14,7 @@
 //   • "Proposed rename"              → Name (a proposal)
 //   • "Proposed <X>"                 → X    (a proposal)
 // Property IDs are resolved from Geo, never from a hand-written list.
-import { SystemIds } from '@geoprotocol/geo-sdk';
+import { SystemIds } from '../../../../scripts/geo/src/functions.ts';
 
 export const GEO = 'https://api-testnet.geobrowser.io/graphql';
 export const STATUS = { approved: 'Approved', hold: 'Hold', sent: 'Sent to Geo', live: 'Live on Geo' };

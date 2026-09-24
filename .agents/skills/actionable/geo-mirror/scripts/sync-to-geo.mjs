@@ -12,8 +12,7 @@
 //   node --env-file=.env scripts/sync-to-geo.mjs <plan.json>              # dry-run
 //   node --env-file=.env scripts/sync-to-geo.mjs <plan.json> --publish    # write
 import { readFileSync } from 'node:fs';
-import { Graph } from '@geoprotocol/geo-sdk';
-import { publishOps } from '../../../../scripts/geo/src/functions.ts';
+import { Graph, publishOps } from '../../../../scripts/geo/src/functions.ts';
 
 const args = process.argv.slice(2);
 const planFile = args[0];

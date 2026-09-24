@@ -428,3 +428,7 @@ export function printOps(ops: any, outputDir: string, fn: string) {
   }
 }
 
+// Re-exports for downstream scripts that resolve via this file
+export { Graph, SystemIds } from "@geoprotocol/geo-sdk";
+
+
