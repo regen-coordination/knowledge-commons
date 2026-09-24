@@ -70,3 +70,28 @@ reads can return stale data.
 Fetch the upstream tarball and re-copy per the tables above, then re-apply
 the path remapping. The toolkit `package.json` in `.agents/scripts/geo/`
 pins the SDK version; check the upstream repo for updates first.
+
+## Update 2026-09
+
+Upstream `geo-explorers/content-management` has restructured since the August
+extraction. As of HEAD `6191c3dd` (2026-09-18) the skill tiers are now named
+`skills/actionable/` and `skills/non-actionable/` (replacing the earlier tier
+names), and the agent manifest/routing authority has moved to
+`agents/AGENT-WORKFLOW.md` (commit `dec51bd7`, 2026-09-16) and
+`agents/MD-FILES.md` (commit `6191c3dd`, 2026-09-18) — vendor-neutral agent
+routing, no longer Claude-specific.
+
+A new curated distribution repo now exists upstream:
+[`geo-explorers/geo-editor-agent`](https://github.com/geo-explorers/geo-editor-agent)
+— a self-contained, provenance-pinned distribution build (skills + subagents +
+docs shipped as a "give your AI one prompt" agent). Its vendored
+content-management snapshot is pinned at SHA `cc319d24` (recorded in its
+`.upstream-sha` and `UPSTREAM.md`) with a `SKILL-VERSIONS.json` integrity
+manifest. This repo's toolkit is **not** a vendored copy of that distribution;
+our extraction remains by-value with path remapping, not by-reference. There
+are now **two upstream lineages** to track:
+
+1. [`geo-explorers/content-management`](https://github.com/geo-explorers/content-management)
+   — the source toolkit (HEAD `6191c3dd`, 2026-09-18).
+2. [`geo-explorers/geo-editor-agent`](https://github.com/geo-explorers/geo-editor-agent)
+   — the curated distribution (HEAD `875549162f`, 2026-09-23).

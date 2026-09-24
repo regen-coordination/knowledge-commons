@@ -46,7 +46,7 @@ commons as the default context:
 Geo is a decentralized knowledge graph built on [The Graph](https://thegraph.com).
 Data lives both offchain and onchain: writes are encoded, uploaded to IPFS,
 posted onchain, then exposed by an indexer via a GraphQL API
-([GRC-20 spec](https://github.com/yanivtal/graph-improvement-proposals/blob/new-ops/grcs/0020-knowledge-graph.md)).
+([GRC-20 spec](https://github.com/geobrowser/grcs/blob/main/grcs/grc-0020.md)).
 Spaces are containers for knowledge — **personal spaces** take direct writes;
 **DAO spaces** (like the Knowledge Commons) take writes via proposals + voting.
 Entities, types, properties, and relations are all themselves entities — the
@@ -150,11 +150,11 @@ tasks in `.agents/tasks/`. Routing + rules: [`operations.md`](./operations.md).
 
 - [geobrowser/geo-sdk](https://github.com/geobrowser/geo-sdk) — the SDK (`@geoprotocol/geo-sdk`, 0.20.3) + README/CHANGELOG
 - [geobrowser/geo-skills](https://github.com/geobrowser/geo-skills) — official agent skills (`geo-query`, `geo-publish`)
-- [GRC-20 Knowledge Graph spec](https://github.com/yanivtal/graph-improvement-proposals/blob/new-ops/grcs/0020-knowledge-graph.md) — the underlying data-model standard
+- [GRC-20 Knowledge Graph spec](https://github.com/geobrowser/grcs/blob/main/grcs/grc-0020.md) (GRC-20, Final, `908dca8`, 2026-02-12) — the underlying data-model standard
 - [GRC-20 serialization spec](https://github.com/geobrowser/grc-20/blob/main/spec.md) — ops/edits encoding (cited by the imported toolkit)
 - [geobrowser.io](https://www.geobrowser.io) — the browser app + wallet export
 - [The Graph blog: Introducing GRC-20](https://thegraph.com/blog/grc20-knowledge-graph/) — background on the standard
-- [geo-explorers](https://github.com/geo-explorers) — community tooling ([geo-sdk-tutorial](https://github.com/geo-explorers/geo-sdk-tutorial) curator pipeline, [content-management](https://github.com/geo-explorers/content-management) entity-ops toolkit)
+- [geo-explorers](https://github.com/geo-explorers) — community tooling ([geo-sdk-tutorial](https://github.com/geo-explorers/geo-sdk-tutorial) curator pipeline, [content-management](https://github.com/geo-explorers/content-management) entity-ops toolkit, [geo-editor-agent](https://github.com/geo-explorers/geo-editor-agent) curated distribution)
 
 Each doc ends with its own Sources section listing the specific URLs cited.
 
@@ -162,7 +162,7 @@ Each doc ends with its own Sources section listing the specific URLs cited.
 
 - [geo-sdk README](https://github.com/geobrowser/geo-sdk) — data flow, spaces/entities/relations, ops & edits, sponsored transactions
 - [@geoprotocol/geo-sdk on npm](https://www.npmjs.com/package/@geoprotocol/geo-sdk) — version 0.20.3, MIT
-- [GRC-20 spec](https://github.com/yanivtal/graph-improvement-proposals/blob/new-ops/grcs/0020-knowledge-graph.md) — core data model
+- [GRC-20 spec](https://github.com/geobrowser/grcs/blob/main/grcs/grc-0020.md) (GRC-20, Final, `908dca8`, 2026-02-12) — core data model
 - [geo-query SKILL.md](https://github.com/geobrowser/geo-skills/blob/main/geo-query/SKILL.md) — endpoint, Person type ID fixture
 - [geo-publish SKILL.md](https://github.com/geobrowser/geo-skills/blob/main/geo-publish/SKILL.md) — minimal publish pattern, credential handling
 

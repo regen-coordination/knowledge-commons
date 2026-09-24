@@ -73,4 +73,4 @@ Commons space and its 18 types), and the troubleshooting matrix.
 - [geo-query SKILL.md](https://github.com/geobrowser/geo-skills/blob/main/geo-query/SKILL.md) — official querying skill (endpoint, core queries, gotchas)
 - [geo-query reference.md](https://github.com/geobrowser/geo-skills/blob/main/geo-query/reference.md) — full filter grammar, nesting-cost measurements, well-known IDs, troubleshooting
 - [@geoprotocol/geo-sdk](https://github.com/geobrowser/geo-sdk) — `geo.api.graphql` client surface
-- [GRC-20 Knowledge Graph spec](https://github.com/yanivtal/graph-improvement-proposals/blob/new-ops/grcs/0020-knowledge-graph.md) — underlying data model (entities, relations, types, properties)
+- [GRC-20 Knowledge Graph spec](https://github.com/geobrowser/grcs/blob/main/grcs/grc-0020.md) (GRC-20, Final, `908dca8`, 2026-02-12) — underlying data model (entities, relations, types, properties)
