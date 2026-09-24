@@ -3,8 +3,8 @@
   "skills": {
     "actionable/geo-mirror": {
       "version": "0.12.0",
-      "approved_commit": "aa696945fe2da7bc7d9b77b5ef46c163fb2ea826",
-      "content_sha256": "9a6bc835ee2bd234ac97ee54e393f47e10bce2a6ff8ef8cb35f9eccf62dee811"
+      "approved_commit": "00e435d69f4c3fe9e5f3ad56f35e5fbad031111b",
+      "content_sha256": "8c401320fa1917a42756992a4dc6eb16c1f26a16d81510f2231db9dba7cfe610"
     },
     "actionable/geo-write": {
       "version": "0.11.0",
