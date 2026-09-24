@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/mirror-claims-topics.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // geo-mirror — Claims + Topics mirror (Geo → Notion). READ-ONLY on Geo.
 // Mirrors a space's curated Debate-claims tab and Topics tab into TWO linked
 // inline Notion databases under a parent page:

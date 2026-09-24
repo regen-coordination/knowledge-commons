@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/extract-space.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // geo-mirror — extract half (Geo → structured JSON). READ-ONLY, no key needed.
 // TYPE-GENERIC: mirrors ANY entity type (News story, Episode, Event, Person, …),
 // not just News stories. For each entity it captures its own scalar values

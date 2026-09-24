@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/diff-notion-vs-geo.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // geo-mirror Part 2 — kept for existing prompts and docs.
 // Forwards to plan-notion-changes.mjs, which works on ANY Notion table with a
 // "Geo ID" column (not only the "Geo … — <space>" tables this script used to find).

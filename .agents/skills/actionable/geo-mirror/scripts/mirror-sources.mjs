@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/mirror-sources.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // geo-mirror — Accepted sources mirror (Geo → Notion). READ-ONLY on Geo.
 // "Source" is not a Geo type: it is any entity (Publisher, Project, Person, Think tank…)
 // that a space has tagged "Source accepted by the space". This mirrors every such

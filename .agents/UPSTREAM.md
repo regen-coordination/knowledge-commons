@@ -11,14 +11,14 @@ Licence: MIT, (c) 2026 jwalkingjew.
 
 | Ported from | Into this repo | Note |
 |---|---|---|
-| `skills/actionable/geo-publish` | `.agents/skills/geo-write/` (absorbed into composite) | publish gates, dry-run → confirm flow |
-| `skills/actionable/geo-clean` | `.agents/skills/geo-write/` (absorbed into composite) | merge, delete, move, fix data types |
-| `skills/actionable/geo-mirror` | `.agents/skills/geo-mirror/` | Geo ⇄ Notion mirror (Part 1 + Part 2) |
-| `skills/non-actionable/geo-query` | `.agents/skills/geo-read/` | GraphQL queries, performance rules, canonical IDs |
-| `skills/non-actionable/geo-describe` | `.agents/skills/geo-write/` (absorbed into composite) | descriptions, copyright/accuracy gates |
-| `skills/non-actionable/image-banner-recompose` | `.agents/skills/geo-write/` (absorbed into composite) | banner recompose |
+| `skills/actionable/geo-publish` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | publish gates, dry-run → confirm flow |
+| `skills/actionable/geo-clean` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | merge, delete, move, fix data types |
+| `skills/actionable/geo-mirror` | `.agents/skills/actionable/geo-mirror/` | Geo ⇄ Notion mirror (Part 1 + Part 2) |
+| `skills/non-actionable/geo-query` | `.agents/skills/non-actionable/geo-read/` | GraphQL queries, performance rules, canonical IDs |
+| `skills/non-actionable/geo-describe` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | descriptions, copyright/accuracy gates |
+| `skills/non-actionable/image-banner-recompose` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | banner recompose |
 | `skills/non-actionable/ontology-advisor` | `.agents/agents/geo-ontology/` | modelling reference + scripts |
-| `skill-dev/skill-quality-check/` | `.agents/skills/skill-quality-check/` | authoring standard + linter |
+| `skill-dev/skill-quality-check/` | `.agents/skills/non-actionable/skill-quality-check/` | authoring standard + linter |
 | `src/`, `lib/`, `scripts/` | `.agents/scripts/geo/` | entity-ops toolkit |
 | `agents/AGENT-WORKFLOW.md` | `docs/geo/agent-workflow.md` | Notion operating contract (upstream refs) |
 | `agents/MD-FILES.md` | `docs/geo/md-files.md` | markdown manifest for this repo |
@@ -41,7 +41,7 @@ Licence: MIT, (c) 2026 jwalkingjew.
 | `SETUP.md` | `docs/geo/setup.md` | human-only setup steps |
 | `src/functions.ts` | `.agents/scripts/geo/src/functions.ts` | reconciled, commons blocks preserved |
 | `src/constants.ts` | `.agents/scripts/geo/src/constants.ts` | reconciled, commons blocks preserved |
-| `skills/SKILL-VERSIONS.json` convention | `.agents/SKILL-VERSIONS.json` | integrity manifest for commons skills |
+| `skills/SKILL-VERSIONS.json` convention | `.agents/skills/SKILL-VERSIONS.json` | integrity manifest for commons skills |
 
 ## Not ported (with reasons)
 
@@ -50,5 +50,12 @@ Licence: MIT, (c) 2026 jwalkingjew.
 - **CLAUDE.md self-heal rule** — supply-chain hazard (tells an agent to fetch and run remote install scripts); rejected per working agreement "use capabilities actually available in this environment".
 - **Eval suites** — deferred to follow-up issue (per-skill eval suites).
 - **Context pack** (`context/` files) — upstream's 6-file curated context is not ported; this repo uses live graph + docs layer instead.
+
+## `.upstream-sha` pins
+
+Each upstream lineage has a pinned SHA recorded in a `.upstream-sha` file at the repo root:
+
+- `.upstream-sha-content-management` — content-management source toolkit
+- `.upstream-sha-geo-editor-agent` — geo-editor-agent curated distribution
 
 Integration date: 2026-09-23

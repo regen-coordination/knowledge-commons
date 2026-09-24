@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/mirror-to-notion.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // geo-mirror — Notion write half. TYPE-GENERIC: mirrors the generic extract JSON
 // into ONE linked Notion database PER entity type (primary type first, then each
 // related type — Claim, Person, Article, Topic, …). Every row keyed by Geo ID so
@@ -6,7 +11,7 @@
 // a parent page the integration is shared into.
 //
 // Env:  NOTION_TOKEN=secret_...
-// Usage: node scripts/mirror-to-notion.mjs <extract.json> --parent <PAGE_ID> [--dry-run]
+// Usage: node scripts/mirror-to-notion.mjs <extract.json> --parent <PAGE_ID> [--publish]
 import { readFileSync } from 'node:fs';
 
 const NOTION = 'https://api.notion.com/v1';
@@ -15,8 +20,8 @@ const TOKEN = process.env.NOTION_TOKEN;
 const args = process.argv.slice(2);
 const jsonFile = args[0];
 const parentPage = (() => { const i = args.indexOf('--parent'); return i >= 0 ? args[i + 1] : process.env.NOTION_PARENT_PAGE; })();
-const dryRun = args.includes('--dry-run');
-if (!jsonFile || jsonFile.startsWith('--')) { console.error('usage: mirror-to-notion.mjs <extract.json> --parent <PAGE_ID> [--dry-run]'); process.exit(1); }
+const dryRun = !args.includes('--publish');
+if (!jsonFile || jsonFile.startsWith('--')) { console.error('usage: mirror-to-notion.mjs <extract.json> --parent <PAGE_ID> [--publish]'); process.exit(1); }
 if (!dryRun && !TOKEN) { console.error('NOTION_TOKEN missing from env'); process.exit(1); }
 if (!dryRun && !parentPage) { console.error('--parent <PAGE_ID> required'); process.exit(1); }
 

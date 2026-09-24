@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/bulk-set-property.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // Bulk-fill a Notion property across many rows — the fast path.
 //
 // WHY THIS EXISTS: setting a property row-by-row through an agent costs one

@@ -1,3 +1,8 @@
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/notion-geo-tables.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // Shared helpers for publishing Notion edits back to Geo (geo-mirror Part 2).
 //
 // The one convention: a Notion database with a "Geo ID" column holds content

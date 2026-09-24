@@ -1,3 +1,8 @@
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/sync-to-geo.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // geo-mirror Part 2 — SYNC (plan → Geo). Publishes reviewed Notion edits back to
 // Geo as updateEntity ops, through the repo's canonical publishOps (personal-vs-DAO
 // routing + circuit-breaker). DRY_RUN by default — flip to publish only after the
@@ -8,7 +13,7 @@
 //   node --env-file=.env scripts/sync-to-geo.mjs <plan.json> --publish    # write
 import { readFileSync } from 'node:fs';
 import { Graph } from '@geoprotocol/geo-sdk';
-import { publishOps } from '../../../../src/functions.ts';
+import { publishOps } from '../../../../scripts/geo/src/functions.ts';
 
 const args = process.argv.slice(2);
 const planFile = args[0];

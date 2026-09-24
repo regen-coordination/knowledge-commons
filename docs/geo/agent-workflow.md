@@ -21,16 +21,16 @@ All work happens inside this repository. Never write outside it.
 Every piece of work is tracked. **No silent work.**
 
 ### Step 1 — Log the task BEFORE you start
-Describe what you are about to do, then set status to **In progress**.
+Open or update a **GitHub issue** describing what you are about to do, then set status to **In progress**.
 
 ### Step 2 — Do the work
 Only inside this repo. Follow the hard rules in §5.
 
 ### Step 3 — Close the task
-When finished, write **what was done** and **where the result can be seen**.
+Update the **GitHub issue**: write **what was done** and **where the result can be seen**.
 
 ### Step 4 — If you hit a problem
-Log it as an issue. Do not bury a problem in a task note.
+Log it as a **GitHub issue**. Do not bury a problem in a task note.
 
 ## 3. Hard rules
 

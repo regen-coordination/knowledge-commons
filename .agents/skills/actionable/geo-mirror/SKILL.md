@@ -33,19 +33,19 @@ Two directions, gated separately:
 
 ```bash
 # dry run (default)
-node --env-file=.env .agents/skills/geo-mirror/scripts/mirror-claims-topics.mjs \
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/mirror-claims-topics.mjs \
   --space <SPACE_ID> --parent <NOTION_PAGE_ID> --out /tmp/extract.json
 # publish after editor confirms
-node --env-file=.env .agents/skills/geo-mirror/scripts/mirror-claims-topics.mjs \
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/mirror-claims-topics.mjs \
   --space <SPACE_ID> --parent <NOTION_PAGE_ID> --publish
 ```
 
 ### Accepted sources mirror
 
 ```bash
-node --env-file=.env .agents/skills/geo-mirror/scripts/mirror-sources.mjs \
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/mirror-sources.mjs \
   --parent <NOTION_PAGE_ID> --out /tmp/sources.json
-node --env-file=.env .agents/skills/geo-mirror/scripts/mirror-sources.mjs \
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/mirror-sources.mjs \
   --parent <NOTION_PAGE_ID> --publish
 ```
 
@@ -53,10 +53,10 @@ node --env-file=.env .agents/skills/geo-mirror/scripts/mirror-sources.mjs \
 
 ```bash
 # extract (read-only)
-node .agents/skills/geo-mirror/scripts/extract-space.mjs <SPACE_ID> \
+node .agents/skills/actionable/geo-mirror/scripts/extract-space.mjs <SPACE_ID> \
   --since YYYY-MM-DD --out mirror.json
-# mirror to Notion
-node --env-file=.env .agents/skills/geo-mirror/scripts/mirror-to-notion.mjs \
+# mirror to Notion (dry-run default; add --publish after review)
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/mirror-to-notion.mjs \
   mirror.json --parent <NOTION_PAGE_ID>
 ```
 
@@ -64,12 +64,12 @@ node --env-file=.env .agents/skills/geo-mirror/scripts/mirror-to-notion.mjs \
 
 ```bash
 # plan (read-only)
-node --env-file=.env .agents/skills/geo-mirror/scripts/plan-notion-changes.mjs \
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/plan-notion-changes.mjs \
   --page <PAGE_ID> --out plan.json
-# dry run
-node --env-file=.env .agents/skills/geo-mirror/scripts/sync-to-geo.mjs plan.json
+# dry run (default)
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/sync-to-geo.mjs plan.json
 # publish after editor confirms
-node --env-file=.env .agents/skills/geo-mirror/scripts/sync-to-geo.mjs \
+node --env-file=.env .agents/skills/actionable/geo-mirror/scripts/sync-to-geo.mjs \
   plan.json --publish
 ```
 
@@ -80,7 +80,7 @@ node --env-file=.env .agents/skills/geo-mirror/scripts/sync-to-geo.mjs \
 3. **Scope is required** — never mirror a whole space without narrowing
    (date range, topic, limit, or ids-file).
 4. **Geo ID is the key** — never edit or remove the Geo ID column.
-5. **Part 2 routes through geo-write gates** — dry-run → `go` → `publish`.
+5. **Part 2 two-phase gate** — dry-run → editor review → `--publish`. The script uses the canonical `publishOps` from `.agents/scripts/geo/src/functions.ts` (personal-vs-DAO routing + circuit-breaker). The editor's Notion review replaces geo-write's per-entity ontology/duplicate checks for this flow; scoped changes to known entities only.
 
 ## What this skill does NOT do
 

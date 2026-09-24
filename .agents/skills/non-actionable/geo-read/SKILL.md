@@ -53,5 +53,9 @@ and ID tables live there.
 - `references/discovery.md` — the 6-stage gap-discovery procedure, guardrails,
   press source-discovery.
 - `references/discovery-schema.md`, `references/drafting-conventions.md`,
-  `references/ner_prompt.md`, `references/stage6-publish.md` — discovery support.
-- `scripts/` — discovery tooling (harvest, diagnostics, theming, publish_gaps).
+  `references/ner_prompt.md` — discovery support.
+- `scripts/` — discovery tooling (harvest, diagnostics, theming).
+
+**Note:** Stage 6 publish scripts (`publish_gaps.mjs`, `build_dashboard.mjs`) and
+`stage6-publish.md` live in **geo-write** (`.agents/skills/actionable/geo-write/`)
+because they perform DAO writes. They are listed here for discovery context only.

@@ -118,6 +118,9 @@ def verify():
         elif c is None:
             print(f"  ✗ MISSING   {name} — in manifest but not found locally")
             drift.append(name)
+        elif not a.get("approved_commit"):
+            print(f"  ✗ UNAPPROVED {name} — approved_commit is empty")
+            drift.append(name)
         elif a["content_sha256"] == c["content_sha256"]:
             print(f"  ✓ OK        {name}  v{a.get('version','?')}  @ {a['approved_commit'][:10]}")
         else:

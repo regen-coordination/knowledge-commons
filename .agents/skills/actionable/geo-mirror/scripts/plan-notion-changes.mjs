@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// Provenance: ported from geo-explorers/content-management
+// Source: skills/actionable/geo-mirror/scripts/plan-notion-changes.mjs
+// Pinned SHA: 6191c3dd8233e59b85093cef3d1982f728154bc1
+// Date: 2026-09-23
+//
 // geo-mirror Part 2 — plan Notion → Geo changes for ANY mirrored table.
 // READ-ONLY on Geo. Writes a plan file that sync-to-geo.mjs dry-runs and publishes.
 //

@@ -41,7 +41,53 @@ Each skill is one `SKILL.md` with YAML frontmatter (`name`, `version`,
 | `.agents/skills/actionable/geo-write/SKILL.md` | 0.11.0 | Create, update and delete entities and relations. Mandatory gates and two-phase dry-run → publish | **yes** |
 | `.agents/skills/actionable/geo-mirror/SKILL.md` | 0.12.0 | Geo ⇄ Notion. Part 1 mirrors any entity type into Notion; Part 2 publishes changes back from any table with a `Geo ID` column | **yes** (Part 2) |
 
-## 4. Operating docs — `docs/geo/`
+## 4. Skill references — `.agents/skills/*/references/`
+
+| File | Skill | Contents |
+|---|---|---|
+| `geo-read/references/querying.md` | geo-read | GraphQL grammar, core queries, performance patterns, well-known IDs |
+| `geo-read/references/discovery.md` | geo-read | 6-stage gap-discovery procedure, guardrails, press source-discovery |
+| `geo-read/references/discovery-schema.md` | geo-read | Gap-finding ontology schema |
+| `geo-read/references/drafting-conventions.md` | geo-read | Discovery output drafting conventions |
+| `geo-read/references/ner_prompt.md` | geo-read | NER extraction prompt |
+| `geo-read/references/stage6-publish.md` | geo-read | DAO publish mechanics for gap findings (uses geo-write primitives) |
+| `geo-write/references/publishing.md` | geo-write | Publishing mechanics, DAO propose→vote, SDK gotchas |
+| `geo-write/references/cleaning.md` | geo-write | Clean operations: merge, delete, move, fix data types |
+| `geo-write/references/cleaning-reference.md` | geo-write | Extended cleaning reference |
+| `geo-write/references/describing.md` | geo-write | Entity description procedures |
+| `geo-write/references/description-rules.md` | geo-write | Description authoring rules |
+| `geo-write/references/accuracy-verification.md` | geo-write | Accuracy and closeness checks |
+| `geo-write/references/closeness-and-accuracy-checks.md` | geo-write | Closeness and accuracy verification |
+| `geo-write/references/copyright-and-licensing.md` | geo-write | Copyright and licensing rules |
+| `geo-write/references/banner-recompose.md` | geo-write | Banner image recompose procedures |
+| `geo-write/references/big-merge.md` | geo-write | Large merge operations |
+| `skill-quality-check/references/skill-quality-standard.md` | skill-quality-check | Agent Skill authoring standard |
+
+## 5. Agent references — `.agents/agents/*/references/`
+
+| File | Agent | Contents |
+|---|---|---|
+| `geo-curate/references/orchestration.md` | geo-curate | 5-step orchestrator algorithm, Discovery + Gates + Plan template |
+| `geo-ontology/references/ONTOLOGY.md` | geo-ontology | Modelling reference: type vs property vs relation |
+| `geo-ontology/references/README.md` | geo-ontology | Ontology agent orientation |
+| `geo-research/references/research-agent-source-policy.md` | geo-research | Trusted-sources policy |
+| `geo-research/references/research-agent-allowlist.md` | geo-research | Source allowlist |
+| `geo-research/references/research-agent-mvp.md` | geo-research | MVP research agent spec |
+
+## 6. Toolkit docs — `.agents/scripts/geo/`
+
+| File | Contents |
+|---|---|
+| `.agents/scripts/geo/README.md` | Toolkit orientation + SDK pin |
+| `.agents/scripts/geo/curator-courses/README.md` | Curator course reference patterns |
+
+## 7. Task docs — `.agents/tasks/`
+
+| File | Contents |
+|---|---|
+| `.agents/tasks/daily-report/task.md` | End-of-day daily update task |
+
+## 8. Operating docs — `docs/geo/`
 
 | File | Contents |
 |---|---|
@@ -56,3 +102,12 @@ Each skill is one `SKILL.md` with YAML frontmatter (`name`, `version`,
 | `docs/geo/plan.md` | Owner-review work list (record) |
 | `docs/geo/commoning.md` | Commoning craft notes |
 | `docs/geo/mission.md` | Mission/scope synthesis |
+
+## 9. Repo root
+
+| File | Contents |
+|---|---|
+| `README.md` | Repository orientation |
+| `.agents/agents.md` | Repo guidelines + Geo routing table + skill tier guidance |
+| `.agents/system-prompt.md` | Working persona for agents in this repo |
+| `.agents/UPSTREAM.md` | Upstream lineage tracking |
