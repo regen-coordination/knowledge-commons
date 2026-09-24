@@ -72,8 +72,9 @@ Geo-specific routing, hard rules, and environment detail live in
 Geo hard rules in short (full list in `docs/geo/operations.md`): never write to
 Geo by hand; deletion is the red line; never fabricate IDs; the Knowledge
 Commons is a DAO space — propose → vote → execute; no type-structure writes;
-never handle the private key; verify after publishing. The shared Geo toolkit is
-`.agents/scripts/geo/`.
+never handle the private key; verify after publishing. The agent runs everything
+up to the dry-run and stops there; the human types the publish. The shared Geo
+toolkit is `.agents/scripts/geo/`.
 
 *(Other utilities, when the commons adopts them, get their own scoped section
 here and their own skills/agents — they don't expand this one.)*
