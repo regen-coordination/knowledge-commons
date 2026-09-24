@@ -3,7 +3,7 @@ name: geo-read
 description: Read and diagnose the Geo knowledge graph — GraphQL queries (entities, types, properties, relations, schema discovery, well-known IDs) and gap-discovery passes over a space's content stream. Use when looking up, searching, inspecting, or querying the graph ("look up", "find entity", "query geo", "search the graph", "what type is", "show me relations", "get entity"), fact-checking or reviewing a submission, running discovery ("run discovery", "discover gaps", "what's missing in {space}", "discovery pass"), or finding press sources for a topic+date. Read-only — never writes; publishing a discovered gap routes through the geo-write skill.
 metadata:
   author: geobrowser
-  version: 0.1.0
+  version: 0.2.9
 ---
 
 # Geo Knowledge Graph — Reading & Discovery

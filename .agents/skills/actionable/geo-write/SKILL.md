@@ -3,7 +3,7 @@ name: geo-write
 description: Write to the Geo knowledge graph — publish/create/update/delete entities, relations, and page blocks via the GRC-20 SDK; clean the graph (find/merge duplicates, delete orphans, move/copy entities between spaces, fix data types, find blank properties, fix stale or duplicate-type relations, delete space data); write rules-compliant entity descriptions at scale; and recompose images into 2364x640 banners. Runs mandatory safeguards (ontology/correct-type check, semantic-duplicate check, schema check, type-required check, two-phase dry-run/confirm) before any write. Triggers on "publish", "create entity", "add person", "add to geo", "add to my space", "submit proposal", "create relation", "update entity", "delete entity", "find duplicates", "merge", "deduplicate", "delete orphan", "move entity", "copy entity", "delete space data", "fix data type", "find blank properties", "fix stale relations", "clean", "cleanup", "write descriptions", "describe these entities", "make a banner", "header image".
 metadata:
   author: geobrowser
-  version: 0.1.0
+  version: 0.11.0
 ---
 
 # Geo Knowledge Graph — Writing (publish · clean · describe · banners)

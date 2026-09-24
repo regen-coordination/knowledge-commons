@@ -50,5 +50,5 @@ writes.
 
 - `references/orchestration.md` — the five-step orchestrator algorithm, hard
   rules, the Discovery + Gates + Plan template, script generation, dry-run flow.
-- Siblings: `skills/geo-read`, `skills/geo-write`, `agents/geo-ontology`,
+- Siblings: `skills/non-actionable/geo-read`, `skills/actionable/geo-write`, `agents/geo-ontology`,
   `agents/geo-research`. Routing + hard rules: `docs/geo/operations.md`.

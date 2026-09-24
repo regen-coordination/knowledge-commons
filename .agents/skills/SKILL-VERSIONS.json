@@ -1,0 +1,25 @@
+{
+  "_doc": "Approved version of each editor-facing skill. Regenerate with skill-dev/skill_versions.py generate after reviewing a change.",
+  "skills": {
+    "actionable/geo-mirror": {
+      "version": "0.12.0",
+      "approved_commit": "",
+      "content_sha256": "6eadad9748f6b947eec57439f26dee715486f769b13d70122a53c0667291fe08"
+    },
+    "actionable/geo-write": {
+      "version": "0.11.0",
+      "approved_commit": "",
+      "content_sha256": "ec850801b915ad43673d1b3ebd324ca8a86d110d39dd406b24ca679f4f55323b"
+    },
+    "non-actionable/geo-read": {
+      "version": "0.2.9",
+      "approved_commit": "",
+      "content_sha256": "d99e9e2ffd72e87dacf6f6a8f2c74b1b1d1c6bcce1668edff16371b47c687a9a"
+    },
+    "non-actionable/skill-quality-check": {
+      "version": "0.1.0",
+      "approved_commit": "",
+      "content_sha256": "74a907fab092413a08115e30d16911b0ce90fc51325093a9d97b485b0034fa99"
+    }
+  }
+}
