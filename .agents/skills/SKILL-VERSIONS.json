@@ -3,18 +3,18 @@
   "skills": {
     "actionable/geo-mirror": {
       "version": "0.12.0",
-      "approved_commit": "00e435d69f4c3fe9e5f3ad56f35e5fbad031111b",
-      "content_sha256": "8c401320fa1917a42756992a4dc6eb16c1f26a16d81510f2231db9dba7cfe610"
+      "approved_commit": "658e176c06db06a498fe19964438c71bd15f4b10",
+      "content_sha256": "9f74d8fd728585b58be16b3bb235a0451f1efeee16e7340837f6c5af1c7829d2"
     },
     "actionable/geo-write": {
       "version": "0.11.0",
-      "approved_commit": "aa696945fe2da7bc7d9b77b5ef46c163fb2ea826",
-      "content_sha256": "4a1ceaf54b880a28e2bfc768957a09b9c0b1c160f0fe58a6444619abf84d276c"
+      "approved_commit": "658e176c06db06a498fe19964438c71bd15f4b10",
+      "content_sha256": "cd03456b0f43a1859b9d53f3f98968e03df122ebc1ce7bea1a0cbfe8342fa1c9"
     },
     "non-actionable/geo-read": {
       "version": "0.2.9",
-      "approved_commit": "aa696945fe2da7bc7d9b77b5ef46c163fb2ea826",
-      "content_sha256": "dd0fbca8590424b929b09c8b804f5b0aa497284f0a998e577f484ead120425ce"
+      "approved_commit": "658e176c06db06a498fe19964438c71bd15f4b10",
+      "content_sha256": "b0ade3ba352e06c1791e9d4ea62b8a6647ea5bb75c9232b56176f9dab5303e10"
     },
     "non-actionable/skill-quality-check": {
       "version": "0.1.0",
