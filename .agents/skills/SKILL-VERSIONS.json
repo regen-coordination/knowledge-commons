@@ -1,11 +1,6 @@
 {
   "_doc": "Approved version of each editor-facing skill. Regenerate with skill-dev/skill_versions.py generate after reviewing a change.",
   "skills": {
-    "actionable/geo-mirror": {
-      "version": "0.12.0",
-      "approved_commit": "658e176c06db06a498fe19964438c71bd15f4b10",
-      "content_sha256": "9f74d8fd728585b58be16b3bb235a0451f1efeee16e7340837f6c5af1c7829d2"
-    },
     "actionable/geo-write": {
       "version": "0.11.0",
       "approved_commit": "658e176c06db06a498fe19964438c71bd15f4b10",

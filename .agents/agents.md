@@ -40,7 +40,7 @@ the naming difference is intentional and compatible. Agent and task definition
 files use the protocol's lowercase `agent.md` / `task.md`.
 
 Skill tiers (safety-critical distinction per upstream):
-- **`skills/actionable/`** — skills that can change Geo: geo-write, geo-mirror.
+- **`skills/actionable/`** — skills that can change Geo: geo-write.
   These need the wallet key and run behind the two-phase dry-run → publish gate.
 - **`skills/non-actionable/`** — read-only skills: geo-read, skill-quality-check.
   No key needed; safe to run anywhere.
@@ -71,19 +71,17 @@ Geo-specific routing, hard rules, and environment detail live in
 | --- | --- |
 | look up / search / inspect / query the graph; gap-discovery pass | **geo-read** skill (`.agents/skills/non-actionable/geo-read/`) |
 | publish / create / update / delete; clean, merge, dedupe; descriptions; banners | **geo-write** skill (`.agents/skills/actionable/geo-write/`) |
-| mirror Geo ↔ Notion (refresh mirrors or publish Notion edits back) | **geo-mirror** skill (`.agents/skills/actionable/geo-mirror/`) |
 | research/enrich an entity with cited web sources (read-only drafts) | **geo-research** agent (`.agents/agents/geo-research/`) |
 | turn "I want to X" into plan → script → dry-run → confirm → publish | **geo-curate** agent (`.agents/agents/geo-curate/`) |
 | modelling advice — type vs property vs relation, drift | **geo-ontology** agent (`.agents/agents/geo-ontology/`) |
 | generic Geo task — lookups, audits, duplicates, "what needs doing" | **geo-agent** agent (`.agents/agents/geo-agent/`) |
 | plan a Geo task up to but not including execution | **geo-task** agent (`.agents/agents/geo-task/`) |
-| refresh Notion mirrors from Geo | **geo-mirror-refresh** agent (`.agents/agents/geo-mirror-refresh/`) |
 | file the end-of-day daily update | **daily-report** task (`.agents/tasks/daily-report/`) |
 | review / lint a skill before shipping | **skill-quality-check** skill (`.agents/skills/non-actionable/skill-quality-check/`) |
 
 **Which skills to give whom:**
 - Non-technical curators: **non-actionable only** (geo-read, skill-quality-check).
-- Trained editors: **both tiers** with the key handoff (geo-write, geo-mirror).
+- Trained editors: **both tiers** with the key handoff (geo-write).
 - Browser-only users: **read-only queries** with nothing installed.
 
 **Reading order:** `agents.md` → `operations.md` → `setup.md`.

@@ -8,7 +8,7 @@
 Every Markdown file in this repository: what it contains, who reads it, and
 when it is loaded.
 
-**The repository is the canonical source.** Where a Notion row and a file
+**The repository is the canonical source.** Where a summary and a file
 disagree, the file wins.
 
 ## 1. Entry points — read first
@@ -23,7 +23,6 @@ disagree, the file wins.
 | File | Contents | Read by | Trigger |
 |---|---|---|---|
 | `.agents/agents/geo-research/agent.md` | Research agent: research a question under the trusted-sources allowlist and return a cited draft | Loaded as an agent | On routing |
-| `.agents/agents/geo-mirror-refresh/agent.md` | Mirror-refresh agent: refresh Notion mirrors or mirror a space into a Notion page | Loaded as an agent | On routing |
 | `.agents/agents/geo-agent/agent.md` | Generic Geo agent: works any Geo task end to end up to the dry-run | Loaded as an agent | On routing |
 | `.agents/agents/geo-task/agent.md` | Planning agent: prepares a Geo-work task up to but not including execution | Loaded as an agent | On routing |
 | `.agents/agents/geo-curate/agent.md` | Curation agent: plan → script → dry-run → confirm → publish | Loaded as an agent | On routing |
@@ -39,7 +38,6 @@ Each skill is one `SKILL.md` with YAML frontmatter (`name`, `version`,
 | `.agents/skills/non-actionable/geo-read/SKILL.md` | 0.2.9 | Query the graph over GraphQL: lookups, type/space scoping, relations, schema discovery, performance rules, canonical space IDs | no |
 | `.agents/skills/non-actionable/skill-quality-check/SKILL.md` | — | Skill-authoring standard + linter | no |
 | `.agents/skills/actionable/geo-write/SKILL.md` | 0.11.0 | Create, update and delete entities and relations. Mandatory gates and two-phase dry-run → publish | **yes** |
-| `.agents/skills/actionable/geo-mirror/SKILL.md` | 0.12.0 | Geo ⇄ Notion. Part 1 mirrors any entity type into Notion; Part 2 publishes changes back from any table with a `Geo ID` column | **yes** (Part 2) |
 
 ## 4. Skill references — `.agents/skills/`
 
@@ -94,8 +92,7 @@ Paths are repo-relative, so each row resolves from the repository root.
 | File | Contents |
 |---|---|
 | `docs/geo/operations.md` | Skill routing & hard rules for Geo work |
-| `docs/geo/setup.md` | Human-only setup: wallet key, Notion token, network allowlist |
-| `docs/geo/agent-workflow.md` | Operating contract: task lifecycle, hard rules, upstream references |
+| `docs/geo/setup.md` | Human-only setup: wallet key, network allowlist |
 | `docs/geo/md-files.md` | This manifest |
 | `docs/geo/querying.md` | GraphQL querying guide (conceptual background) |
 | `docs/geo/publishing.md` | Publishing mechanics and governance (conceptual background) |
