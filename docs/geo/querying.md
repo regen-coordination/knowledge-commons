@@ -4,8 +4,8 @@ How to read from Geo's GraphQL API. Reads require no key. The default context
 for this repo is the **Knowledge Commons** space (`bd727a6ad6ec4a058f681ea9002a1fbf`,
 testnet) and its 18 types — see [`ontology.md`](./ontology.md). This is the
 high-level layer — query grammar, recipes, performance rules, and ID tables
-live in the **geo-read skill** (`.agents/skills/geo-read/`, full reference at
-`.agents/skills/geo-read/references/querying.md`), which
+live in the **geo-read skill** (`.agents/skills/non-actionable/geo-read/`, full reference at
+`.agents/skills/non-actionable/geo-read/references/querying.md`), which
 agents must follow rather than improvising.
 
 > Namespaced under `docs/geo/` — see [`README.md`](./README.md) for the

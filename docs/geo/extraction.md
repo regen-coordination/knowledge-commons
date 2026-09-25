@@ -26,7 +26,7 @@ below are the audit trail of where everything went.
 | --- | --- | --- |
 | `skills/actionable/{geo-clean,geo-discovery,geo-orchestrate,geo-publish}` | `.agents/skills/…` | verbatim + path remap |
 | `skills/non-actionable/{daily-report,geo-describe,geo-press-review,geo-query,image-banner-recompose,ontology-advisor}` | `.agents/skills/…` | verbatim + path remap; **geo-describe locally modified 2026-08-31** (v0.2.1: added description-rules rule 7, disambiguate early) |
-| `skill-dev/skill-quality-check/` | `.agents/skills/skill-quality-check/` | skill-authoring standard + linter |
+| `skill-dev/skill-quality-check/` | `.agents/skills/non-actionable/skill-quality-check/` | skill-authoring standard + linter |
 | `agents/geo-research.md` | `.agents/skills/geo-research/SKILL.md` | agent def → folder skill |
 | `src/`, `lib/`, `scripts/{press-review-coverage-map,check-space-list,inject-publish-example}.ts` | `.agents/scripts/geo/…` | entity-ops toolkit |
 | `validate_migration.ts`, `package.json`, `tsconfig.json`, `LICENSE`, `.env.example` | `.agents/scripts/geo/…` | `.env.example` → `env.example.geo` |

@@ -11,8 +11,8 @@ geo-write) plus skill-quality-check; delegation agents live in
 
 | If the user wants to… | Use |
 | --- | --- |
-| **publish / create / update / delete** entities, relations, or content; "add X to Geo"; "publish…"; submit a proposal; **clean / merge / deduplicate / fix data**; write entity descriptions; make banners | **geo-write** skill (`.agents/skills/geo-write/`) |
-| **look up / search / inspect / query** the graph; "what type is…"; "show relations"; review or fact-check a submission; run a **gap-discovery pass**; find press sources for a topic+date | **geo-read** skill (`.agents/skills/geo-read/`) |
+| **publish / create / update / delete** entities, relations, or content; "add X to Geo"; "publish…"; submit a proposal; **clean / merge / deduplicate / fix data**; write entity descriptions; make banners | **geo-write** skill (`.agents/skills/actionable/geo-write/`) |
+| **look up / search / inspect / query** the graph; "what type is…"; "show relations"; review or fact-check a submission; run a **gap-discovery pass**; find press sources for a topic+date | **geo-read** skill (`.agents/skills/non-actionable/geo-read/`) |
 | turn "I want to X" into plan → script → dry-run → confirm → publish | **geo-curate** agent (`.agents/agents/geo-curate/`) |
 | research/enrich an entity with cited web sources (read-only drafts) | **geo-research** agent (`.agents/agents/geo-research/`) |
 | modelling advice — type vs property vs relation, ontology drift | **geo-ontology** agent (`.agents/agents/geo-ontology/`) |

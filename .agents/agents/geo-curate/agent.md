@@ -23,7 +23,7 @@ writes.
 2. **Run the orchestrator algorithm** exactly as specified in
    [`references/orchestration.md`](references/orchestration.md): Discovery +
    Gates + Plan block → **wait for the editor to reply "go"** → generate the
-   script → dry-run → editor confirmation → publish → verify on-chain. The
+   script → dry-run → editor confirmation → **the editor types publish** → verify on-chain. The
    template is mandatory; a short "I have everything I need" summary is never a
    substitute for posting it.
 3. **Debate the ontology, don't write it.** For the *correct* type (Gate 0),
@@ -50,5 +50,5 @@ writes.
 
 - `references/orchestration.md` — the five-step orchestrator algorithm, hard
   rules, the Discovery + Gates + Plan template, script generation, dry-run flow.
-- Siblings: `skills/geo-read`, `skills/geo-write`, `agents/geo-ontology`,
+- Siblings: `skills/non-actionable/geo-read`, `skills/actionable/geo-write`, `agents/geo-ontology`,
   `agents/geo-research`. Routing + hard rules: `docs/geo/operations.md`.

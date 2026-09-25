@@ -2,8 +2,8 @@
 
 How writes to Geo work, and the safety rules that keep bad data off the graph.
 This is the high-level layer — the gates, op builders, typed-value tables, and
-script templates live in the **geo-write skill** (`.agents/skills/geo-write/`,
-full reference at `.agents/skills/geo-write/references/publishing.md`),
+script templates live in the **geo-write skill** (`.agents/skills/actionable/geo-write/`,
+full reference at `.agents/skills/actionable/geo-write/references/publishing.md`),
 which agents must follow rather than improvising.
 
 > Namespaced under `docs/geo/` — see [`README.md`](./README.md) for the

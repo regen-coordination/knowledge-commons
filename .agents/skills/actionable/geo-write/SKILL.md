@@ -3,7 +3,7 @@ name: geo-write
 description: Write to the Geo knowledge graph — publish/create/update/delete entities, relations, and page blocks via the GRC-20 SDK; clean the graph (find/merge duplicates, delete orphans, move/copy entities between spaces, fix data types, find blank properties, fix stale or duplicate-type relations, delete space data); write rules-compliant entity descriptions at scale; and recompose images into 2364x640 banners. Runs mandatory safeguards (ontology/correct-type check, semantic-duplicate check, schema check, type-required check, two-phase dry-run/confirm) before any write. Triggers on "publish", "create entity", "add person", "add to geo", "add to my space", "submit proposal", "create relation", "update entity", "delete entity", "find duplicates", "merge", "deduplicate", "delete orphan", "move entity", "copy entity", "delete space data", "fix data type", "find blank properties", "fix stale relations", "clean", "cleanup", "write descriptions", "describe these entities", "make a banner", "header image".
 metadata:
   author: geobrowser
-  version: 0.1.0
+  version: 0.11.0
 ---
 
 # Geo Knowledge Graph — Writing (publish · clean · describe · banners)
@@ -17,8 +17,9 @@ one rule: nothing reaches the graph without the safeguarded flow.
   **DAO space** (testnet). Project writes go propose → vote → execute, never a
   direct personal-space write unless the editor explicitly says so.
 - **Safeguarded flow (never skipped):** validate data (local) → space-scoped
-  dedup check → build ops → dry-run report → review → publish → verify on-chain.
-  Each step exists because a real production publish skipped it.
+  dedup check → build ops → dry-run table report → editor review → publish → verify on-chain.
+  Use the required report format in `references/publishing.md`; each step exists
+  because a real production publish skipped it.
 - **Deletion is the red line.** Destructive ops additionally run the cleaning
   gates (orphan check, both-scored escalation, explicit human confirmation;
   `publishOps` refuses batches removing data from >50 relations/values unless
