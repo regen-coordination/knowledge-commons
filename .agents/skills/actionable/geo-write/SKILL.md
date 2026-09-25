@@ -17,8 +17,9 @@ one rule: nothing reaches the graph without the safeguarded flow.
   **DAO space** (testnet). Project writes go propose → vote → execute, never a
   direct personal-space write unless the editor explicitly says so.
 - **Safeguarded flow (never skipped):** validate data (local) → space-scoped
-  dedup check → build ops → dry-run report → review → publish → verify on-chain.
-  Each step exists because a real production publish skipped it.
+  dedup check → build ops → dry-run table report → editor review → publish → verify on-chain.
+  Use the required report format in `references/publishing.md`; each step exists
+  because a real production publish skipped it.
 - **Deletion is the red line.** Destructive ops additionally run the cleaning
   gates (orphan check, both-scored escalation, explicit human confirmation;
   `publishOps` refuses batches removing data from >50 relations/values unless

@@ -11,9 +11,9 @@ Licence: MIT, (c) 2026 jwalkingjew.
 
 | Ported from | Into this repo | Note |
 |---|---|---|
-| `skills/actionable/geo-publish` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | publish gates, dry-run → confirm flow |
+| `skills/actionable/geo-publish` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | publish gates; v0.11.0 dry-run table + safe key-file handling (`a2f9a153`) |
 | `skills/actionable/geo-clean` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | merge, delete, move, fix data types |
-| `skills/non-actionable/geo-query` | `.agents/skills/non-actionable/geo-read/` | GraphQL queries, performance rules, canonical IDs |
+| `skills/non-actionable/geo-query` | `.agents/skills/non-actionable/geo-read/` | GraphQL queries, performance rules, canonical IDs; v0.2.9 adds space-scoped entity values/relations (`f5b443f1`) |
 | `skills/non-actionable/geo-describe` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | descriptions, copyright/accuracy gates |
 | `skills/non-actionable/image-banner-recompose` | `.agents/skills/actionable/geo-write/` (absorbed into composite) | banner recompose |
 | `skills/non-actionable/ontology-advisor` | `.agents/agents/geo-ontology/` | modelling reference + scripts |

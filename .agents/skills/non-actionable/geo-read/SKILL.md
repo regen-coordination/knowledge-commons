@@ -18,6 +18,10 @@ and ID tables live there.
   reads. (`testnet-api.geobrowser.io` is retired.)
 - **Default space:** Knowledge Commons `bd727a6ad6ec4a058f681ea9002a1fbf`
   (DAO, testnet).
+- **Single-space entity views:** filter both `values` and `relations` by the
+  named space's exact ID; default to Knowledge Commons if no space was named.
+  Leave them unscoped only for an explicit cross-space view (see
+  `references/querying.md`).
 - **Canonical spaces resolve by verified ID, never fuzzy name matching** — a
   fuzzy match silently scopes the whole query to the wrong space.
 - **Never assume an ID** — discover schema (property/relation/type IDs) from the

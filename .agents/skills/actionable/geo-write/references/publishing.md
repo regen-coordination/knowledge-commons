@@ -19,11 +19,17 @@ This repo publishes into the **Knowledge Commons** (`bd727a6ad6ec4a058f681ea9002
 2. **SDK available**: either this repo with `bun install` run inside `.agents/scripts/geo/` (`node_modules/@geoprotocol/geo-sdk` exists), or the skill's own `node_modules`. **Post-migration (v20 contracts) this must be `@geoprotocol/geo-sdk` v0.20+** — 0.19.x and earlier publish to the retired contracts and their edits silently go nowhere after the grace window.
 3. **Wallet key** in **`.env` at the project root** — `GEO_PRIVATE_KEY=0x...` (this is exactly what the setup guide creates, alongside `DEMO_SPACE_ID=`). Scripts read `GEO_PRIVATE_KEY`, fall back to the legacy `PK_SW`, and also accept a separate `.env.geo-publish` if present. Export the key from <https://www.geobrowser.io/export-wallet>.
 
-**Never put the key in the transcript.** Do NOT `cat`/`grep` the value, do NOT `export` it in-session, do NOT ask the user to paste it. To check it's configured without reading it — this accepts **all** valid setups (`.env` with `GEO_PRIVATE_KEY`, `.env` with legacy `PK_SW`, or `.env.geo-publish`):
+**Never expose the key.** Do not read or print its value, export it into a transcript, or ask the user to paste it. A permission refusal while checking environment setup is not evidence that the key is missing.
+
+If you need to confirm the working directory has an environment file, check only whether either supported file exists; this does **not** confirm that it contains a key:
 ```bash
-cat .env .env.geo-publish 2>/dev/null | grep -qE '^(GEO_PRIVATE_KEY|PK_SW)=' && echo ok || echo "missing — add GEO_PRIVATE_KEY=0x... to .env"
+found=0
+for file in .env .env.geo-publish; do
+  if test -f "$file"; then printf 'env file present: %s\n' "$file"; found=1; fi
+done
+if [ "$found" -eq 0 ]; then printf 'no env file found in %s\n' "$PWD"; fi
 ```
-Only if that prints `missing`, ask the user to add one line themselves in their editor — `GEO_PRIVATE_KEY=0x...` in `.env` — and reply "done". **Do not block on a missing key when `.env` already has `GEO_PRIVATE_KEY`** (that was a real bug: the old check looked for `PK_SW` only and wrongly reported no key).
+Do not stop a dry run or ask for the key based on this check. At publish, let the script be authoritative: `functions.ts` checks `GEO_PRIVATE_KEY` and the legacy `PK_SW`, and its missing-key error names the current directory. If that actual error stops a publish, report the error and ask the user to configure the key locally; never ask them to reveal it. Do not reopen key/setup questions at the publish gate.
 
 4. **Network egress (sandboxed environments only).** Reads and the dry-run only need `api-testnet.geobrowser.io`. **Publishing needs three more hosts** and is commonly blocked when an allowlist was set up for reads only (or pre-migration):
    - `api-testnet.geobrowser.io` — IPFS upload of the edit (happens *before* the transaction; a reads-only or old `testnet-api` allowlist misses it)
@@ -38,8 +44,8 @@ Only if that prints `missing`, ask the user to add one line themselves in their 
 2. The duplicate search is **name-only, across ALL types and ALL spaces**. Never filter by the type you're about to create — "Bitcoin" the Project is a duplicate concern of "Bitcoin" the Token.
 3. "Looks straightforward" is NOT a reason to skip the template. Always post it.
 4. **Two-phase execution:** `go` authorizes the dry-run only. Publishing needs a *second* explicit `publish`.
-   - After `go`: write the script with `DRY_RUN = true`, run the dry-run yourself, show the op count + a sample.
-   - Then ask: *"Output looks right? Type **publish** to publish to Geo, or **stop** to discard."*
+   - After `go`: write the script with `DRY_RUN = true` and run the dry run. Report it using the mandatory table format below; do not substitute a prose summary, bare op count, or one-sample report.
+   - End the report with the explicit publish/stop choice, then wait for the user's reply.
    - On `publish`: flip `DRY_RUN = false`, re-run, surface the tx hash + verify URL.
    - On `stop`: leave the script on disk, change nothing on Geo.
    - Never auto-publish on `go`.
@@ -148,7 +154,53 @@ Property IDs from `values.nodes[].property.id`; **the property's declared type f
 
 1. **Write** `scripts/<YYYY-MM-DD>-<slug>.ts` with `DRY_RUN = true` (template below).
 2. **Run** it yourself: `node --env-file=.env.geo-publish scripts/<file>.ts` (or `--env-file=.env` for repo/PK_SW users; or `bun run` with `--env-file`). Prints ops, touches nothing.
-3. **Surface** op count + first-op sample + path, then the publish/stop prompt. The dry-run output MUST list every created entity as `Creating: <name> [<type>, …]` — type coverage stays visible at the human gate (see the Gate-4 helper below).
+3. **Report the dry run in this format.** Keep every section, writing `none` when empty. This is the editor's review gate; a bare count or prose summary hides mistakes.
+
+````
+## Dry run — {N} entities → {space name} ({DAO · proposal → vote → execute | personal})
+
+**1. What changes**
+| # | Entity | Type | Operation | New or existing |
+|---|---|---|---|---|
+| 1 | {name} | {type} | {create/update/delete} | {new/existing} |
+
+**2. Values** — show the declared data type and the type being written
+| Entity | Property | Value | Schema type | Writing as | Check |
+|---|---|---|---|---|---|
+| {name} | {property} | {value} | {declared type} | {Geo value type} | PASS / ISSUE |
+
+**3. Relations**
+| From | Relation | To | Target exists? | Target space |
+|---|---|---|---|---|
+| {name} | {relation} | {target} | {yes/no + evidence} | {space} |
+
+**4. Safeguards**
+| Gate | Result | Evidence or issue |
+|---|---|---|
+| 0 ontology / correct type | PASS / ISSUE | {evidence} |
+| 1 semantic duplicate | PASS / ISSUE | {scope and result} |
+| 2 schema / data type | PASS / ISSUE | {properties checked and mismatches} |
+| 3 relation target | PASS / ISSUE | {entity IDs checked} |
+| 4 type required | PASS / ISSUE | {created entities checked} |
+
+**5. Operation totals**
+| Operation | Count |
+|---|---:|
+| createEntity | {n} |
+| createRelation | {n} |
+| updateEntity | {n} |
+| deleteRelation | {n} |
+| **Total** | **{n}** |
+
+**6. Needs your eyes**
+- {anything inferred, guessed, skipped, missing, or not verified}
+- {or "none — every value and target was verified from its source"}
+
+Nothing has been written. Type **publish** to publish, or **stop** to discard.
+````
+
+For a large plan, show the first three ordinary rows, the totals, and **every** unusual row (missing data, inferred values, duplicate hits, or new relation targets). State exactly how many ordinary rows are not shown; never let a sample hide an exception.
+
 4. On `publish`: set `DRY_RUN = false`, re-run, report tx hash + `https://www.geobrowser.io/space/<spaceId>/<entityId>`.
 
 Self-contained script template (portable — direct SDK, no repo helpers required):
