@@ -3,13 +3,13 @@
   "skills": {
     "actionable/geo-write": {
       "version": "0.11.0",
-      "approved_commit": "658e176c06db06a498fe19964438c71bd15f4b10",
-      "content_sha256": "cd03456b0f43a1859b9d53f3f98968e03df122ebc1ce7bea1a0cbfe8342fa1c9"
+      "approved_commit": "def7d37b5130b8a2a2982087956b66ece878ee2e",
+      "content_sha256": "ba48aa8b7652177cdce450cae1b89d65e00d17856e99898b4fb3355b35bac84f"
     },
     "non-actionable/geo-read": {
       "version": "0.2.9",
-      "approved_commit": "658e176c06db06a498fe19964438c71bd15f4b10",
-      "content_sha256": "b0ade3ba352e06c1791e9d4ea62b8a6647ea5bb75c9232b56176f9dab5303e10"
+      "approved_commit": "def7d37b5130b8a2a2982087956b66ece878ee2e",
+      "content_sha256": "bae02cdcee47514a1f92d93f364d075fbfdf339bfb7fed6a56931bee090afb21"
     },
     "non-actionable/skill-quality-check": {
       "version": "0.1.0",
