@@ -21,7 +21,7 @@ This repo's cleanup targets the **Knowledge Commons** (`bd727a6ad6ec4a058f681ea9
 5. **Wallet key**: the script needs `GEO_PRIVATE_KEY=` (or the legacy `PK_SW=`) and `DEMO_SPACE_ID=` in its environment. Never read `.env` contents or ask for the key. Use [`publishing.md`'s prerequisites](publishing.md#prerequisites) for safe file checks and missing-key handling.
 6. **Network allowlist** (if the host sandboxes outbound traffic): the hosts come from the SDK's `GeoTestnetConfig` (apiOrigin, chain.rpcUrl, sponsorship.rpcUrl) — currently `testnet-api-v2.geobrowser.io` (GraphQL; the announced `api-testnet.geobrowser.io` alias serves the same data), `rpc-geo-testnet-irdc0cgb0w.t.conduit.xyz` (RPC, chain id 55516) and `rpc.zerodev.app` (gas sponsorship, publish-time), plus the IPFS gateway. Hosts surface on first failed publish — add as they appear, and re-check the config after SDK bumps (final vanity URLs like `rpc-testnet.geobrowser.io` may land in a later release).
 
-If a prerequisite other than the wallet key is confirmed missing, stop and tell the editor what must be fixed. For the key, follow [`publishing.md`'s handling](publishing.md#prerequisites); a blocked file check does not prove it is missing.
+If any required non-key prerequisite is unavailable, stop and tell the editor what is missing; do not omit it or work around it. For the key, follow [`publishing.md`'s handling](publishing.md#prerequisites); a blocked file check does not prove it is missing.
 
 ## HARD RULES (failure = bug)
 

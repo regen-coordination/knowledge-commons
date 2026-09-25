@@ -4,12 +4,12 @@
     "actionable/geo-write": {
       "version": "0.11.0",
       "approved_commit": "21e907a12acdf5e1ee0ed7f286e8ef762509977f",
-      "content_sha256": "a1f06e01bd3c442707d04ca0ad93c8f29274866a9435a2b597dbf1249e671a6c"
+      "content_sha256": "105c2e0acd048ad823998a389a9e0125813d4537423b9d9c378b24f0eeb29153"
     },
     "non-actionable/geo-read": {
       "version": "0.2.9",
       "approved_commit": "21e907a12acdf5e1ee0ed7f286e8ef762509977f",
-      "content_sha256": "8c02869a0a111ce451e4906c6b414bbb9cd404fd123f52b800a04b97d37db492"
+      "content_sha256": "196a668e725c7f76d51fad07ad27e2b049337ca4518d6a60622be0a6587bbdfc"
     },
     "non-actionable/skill-quality-check": {
       "version": "0.1.0",
