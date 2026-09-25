@@ -168,7 +168,7 @@ exact ID to both connections:
 } }
 ```
 
-Use the exact ID from [Canonical spaces](#canonical-spaces-name--id--scope-with-these-never-fuzzy-resolve-a-canonical-space): the space the user named, or Knowledge Commons (`bd727a6ad6ec4a058f681ea9002a1fbf`) if none was named. Read these connections unscoped only when the user asks for a cross-space view.
+Use the exact ID from [Canonical spaces](#canonical-spaces-name--id--scope-with-these-never-fuzzy-resolve-a-canonical-space): the space the user named, or Knowledge Commons if none was named. Read these connections unscoped only when the user asks for a cross-space view.
 
 ### Search entities by type (optionally by space)
 
@@ -602,11 +602,7 @@ No Node/Bun? `curl -s --compressed <endpoint> -H 'Content-Type: application/json
 14. **"Published" = entity `createdAt` (added to Geo), NOT the `Publish datetime` property (source dateline).** For "how many published in the last N hours" questions, filter entity `createdAt`; the `Publish datetime` property is the outlet's original dateline and runs hours earlier — mixing them up answered "0" when the true count was 13. See "'Published' is two different timestamps."
 15. **Never pair a big root page with unfiltered nested relations.** `entitiesConnection(first: 1000){ nodes { relations(first: 1000) } }` is multiplicative and OOM-kills the API (real incident: 5 pod restarts). When nesting per-node relations, keep the **root page ≤ 100** and **filter nested relations by `typeId`**. `first: 1000` is a hard cap, not a default. See "Memory blow-up".
 16. **Scope canonical spaces by the hardcoded ID** ([Canonical spaces](#canonical-spaces-name--id--scope-with-these-never-fuzzy-resolve-a-canonical-space) table) — **never** fuzzy-resolve a canonical space name live; `space(name:)`/`search()` has silently matched the wrong space (`World affairs → AI`), scoping the whole query wrong.
-17. **For a single-space entity view, filter both `values` and `relations` by `spaceId`.**
-    Use the named space's exact ID, or default to Knowledge Commons
-    (`bd727a6ad6ec4a058f681ea9002a1fbf`) if none was named. Leave both unscoped only
-    for an explicit cross-space view. See "A single-space view must also scope
-    `values` and `relations`."
+17. **Single-space entity view?** Scope both `values` and `relations` by `spaceId`; see the detailed guidance above.
 
 ## More
 

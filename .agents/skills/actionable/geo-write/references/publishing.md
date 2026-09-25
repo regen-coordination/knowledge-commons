@@ -29,7 +29,7 @@ for file in .env .env.geo-publish; do
 done
 if [ "$found" -eq 0 ]; then printf 'no env file found in %s\n' "$PWD"; fi
 ```
-Do not stop a dry run or ask for the key based on this check. At publish, let the script be authoritative: `functions.ts` checks `GEO_PRIVATE_KEY` and the legacy `PK_SW`, and its missing-key error names the current directory. If that actual error stops a publish, report the error and ask the user to configure the key locally; never ask them to reveal it. Do not reopen key/setup questions at the publish gate.
+Do not stop the plan or dry run based on this check. Do not ask the user to confirm key setup more than once per session, and never at the publish gate; if they say it is set, accept that. At publish, `functions.ts` checks `GEO_PRIVATE_KEY` and the legacy `PK_SW`; its missing-key error names the current directory. If publish returns that exact error, report it and the local configuration action. Never ask the user to share the key.
 
 4. **Network egress (sandboxed environments only).** Reads and the dry-run only need `api-testnet.geobrowser.io`. **Publishing needs three more hosts** and is commonly blocked when an allowlist was set up for reads only (or pre-migration):
    - `api-testnet.geobrowser.io` — IPFS upload of the edit (happens *before* the transaction; a reads-only or old `testnet-api` allowlist misses it)
@@ -218,7 +218,10 @@ const DRY_RUN = true;
 
 // Key: GEO_PRIVATE_KEY preferred, PK_SW fallback. Normalize 0x prefix.
 const raw = process.env.GEO_PRIVATE_KEY ?? process.env.PK_SW;
-if (!raw) throw new Error('No key. Set GEO_PRIVATE_KEY in .env.geo-publish (or PK_SW in .env).');
+if (!raw) throw new Error(
+  `GEO_PRIVATE_KEY not found in the environment; legacy PK_SW is also absent. ` +
+  `Load the supported .env file with --env-file (cwd: ${process.cwd()}).`,
+);
 const privateKey = (raw.startsWith('0x') ? raw : `0x${raw}`) as `0x${string}`;
 const SPACE = process.env.DEMO_SPACE_ID!;        // target = your personal space
 
@@ -261,7 +264,7 @@ else {
 }
 ```
 
-(Repo users may instead import `publishOps`/`printOps` from `../../../scripts/geo/src/functions.js` — that path uses `PK_SW`/`DEMO_SPACE_ID` and handles personal-vs-DAO automatically.)
+(Repo users may instead import `publishOps`/`printOps` from `../../../scripts/geo/src/functions.js`; that path reads `GEO_PRIVATE_KEY` (with legacy `PK_SW` fallback) and `DEMO_SPACE_ID`, and handles personal-vs-DAO publishing.)
 
 ### Gate-4 helper — mandatory in every generated script
 

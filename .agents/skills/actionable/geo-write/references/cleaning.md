@@ -18,10 +18,10 @@ This repo's cleanup targets the **Knowledge Commons** (`bd727a6ad6ec4a058f681ea9
 2. **Bun installed** (`bun --version` works).
 3. **`bun install` already run** (`node_modules/` exists).
 4. **Repo migrated to the 2026-07 Geo infrastructure**: `@geoprotocol/geo-sdk` pinned **≥ 0.20.0** (beta pins like `^0.20.0-beta.8` count) in `package.json`, with all endpoints derived from the SDK's network config — quick check: `grep -q 'GeoTestnetConfig' .agents/scripts/geo/src/functions.ts && echo migrated`. The old infrastructure (SDK ≤ 0.19.x, hardcoded `testnet-api.geobrowser.io` / old Conduit RPC URLs) is decommissioned: during the short post-migration grace window the old endpoints still respond — everything LOOKS fine — but edits published there are not carried over, and then the endpoints go offline for good. If the check fails, STOP — migrating `src/` and the SDK pin is repo work, never something to patch around inside a generated script.
-5. **`.env` filled in**: `GEO_PRIVATE_KEY=` (or legacy `PK_SW=`) and `DEMO_SPACE_ID=` set. Never `cat .env` or grep the key's value — to verify presence use `test -f .env && grep -qE '^(GEO_PRIVATE_KEY|PK_SW)=' .env && echo ok`.
+5. **Wallet key**: the script needs `GEO_PRIVATE_KEY=` (or the legacy `PK_SW=`) and `DEMO_SPACE_ID=` in its environment. Never read `.env` contents or ask for the key. Use [`publishing.md`'s prerequisites](publishing.md#prerequisites) for safe file checks and missing-key handling.
 6. **Network allowlist** (if the host sandboxes outbound traffic): the hosts come from the SDK's `GeoTestnetConfig` (apiOrigin, chain.rpcUrl, sponsorship.rpcUrl) — currently `testnet-api-v2.geobrowser.io` (GraphQL; the announced `api-testnet.geobrowser.io` alias serves the same data), `rpc-geo-testnet-irdc0cgb0w.t.conduit.xyz` (RPC, chain id 55516) and `rpc.zerodev.app` (gas sponsorship, publish-time), plus the IPFS gateway. Hosts surface on first failed publish — add as they appear, and re-check the config after SDK bumps (final vanity URLs like `rpc-testnet.geobrowser.io` may land in a later release).
 
-If any prerequisite is missing, STOP and ask the editor to fix it. Do not work around.
+If a prerequisite other than the wallet key is confirmed missing, stop and tell the editor what must be fixed. For the key, follow [`publishing.md`'s handling](publishing.md#prerequisites); a blocked file check does not prove it is missing.
 
 ## HARD RULES (failure = bug)
 

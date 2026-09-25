@@ -60,6 +60,7 @@ and ID tables live there.
   `references/ner_prompt.md` — discovery support.
 - `scripts/` — discovery tooling (harvest, diagnostics, theming).
 
-**Note:** Stage 6 publish scripts (`publish_gaps.mjs`, `build_dashboard.mjs`) and
-`stage6-publish.md` live in **geo-write** (`.agents/skills/actionable/geo-write/`)
-because they perform DAO writes. They are listed here for discovery context only.
+**Note:** Stage 6 publish scripts (`publish_gaps.mjs`, `build_dashboard.mjs`)
+and [stage6-publish.md](../../actionable/geo-write/references/stage6-publish.md)
+live in **geo-write** because they perform DAO writes. They are listed here for
+discovery context only.
