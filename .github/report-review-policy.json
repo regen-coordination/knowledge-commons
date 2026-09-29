@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "repository": "regen-coordination/knowledge-commons",
+  "baseBranch": "main",
+  "reportPaths": ["reports/ingestion/**"],
+  "reviewerSource": {
+    "organization": "regen-coordination",
+    "teamSlug": "knowledge-commons",
+    "resolveMembersAtDelivery": true,
+    "requestIndividuals": true,
+    "excludePullRequestAuthor": true,
+    "excludeBots": true,
+    "requireRepositoryWriteAccessForCounting": true,
+    "onLookupFailure": "block-review-request-and-report-error"
+  },
+  "approvalRequirements": {
+    "distinctHumans": 2,
+    "currentTeamMembersOnly": true,
+    "currentHeadCommitOnly": true,
+    "latestReviewPerPersonOnly": true,
+    "changesRequestedBlocks": true,
+    "dismissedReviewsDoNotCount": true,
+    "freshApprovalsAfterChanges": true,
+    "autoMerge": false,
+    "githubApprovalIsGeoApproval": false
+  },
+  "pullRequest": {
+    "createAsDraft": true,
+    "labels": ["automated/codex", "draft"],
+    "verifyRequestedReviewersByReadback": true
+  },
+  "enforcement": {
+    "status": "native-team-review-rule-active",
+    "mergeRuleScope": "ingestion-report-paths-only",
+    "rulesetId": 22708247,
+    "rulesetUrl": "https://github.com/regen-coordination/knowledge-commons/rules/22708247",
+    "requiresPullRequestsForMain": true,
+    "individualReviewerDelivery": "implemented-local-verified",
+    "strictHeadAndGeoApprovalVerification": "report-head-implemented-geo-scope-pending",
+    "reportApprovalEvaluation": "authenticated-on-demand-snapshot"
+  }
+}
