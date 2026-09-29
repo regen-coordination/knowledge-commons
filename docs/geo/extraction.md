@@ -26,7 +26,7 @@ below are the audit trail of where everything went.
 | --- | --- | --- |
 | `skills/actionable/{geo-clean,geo-discovery,geo-orchestrate,geo-publish}` | `.agents/skills/…` | verbatim + path remap |
 | `skills/non-actionable/{daily-report,geo-describe,geo-press-review,geo-query,image-banner-recompose,ontology-advisor}` | `.agents/skills/…` | verbatim + path remap; **geo-describe locally modified 2026-08-31** (v0.2.1: added description-rules rule 7, disambiguate early) |
-| `skill-dev/skill-quality-check/` | `.agents/skills/skill-quality-check/` | skill-authoring standard + linter |
+| `skill-dev/skill-quality-check/` | `.agents/skills/non-actionable/skill-quality-check/` | skill-authoring standard + linter |
 | `agents/geo-research.md` | `.agents/skills/geo-research/SKILL.md` | agent def → folder skill |
 | `src/`, `lib/`, `scripts/{press-review-coverage-map,check-space-list,inject-publish-example}.ts` | `.agents/scripts/geo/…` | entity-ops toolkit |
 | `validate_migration.ts`, `package.json`, `tsconfig.json`, `LICENSE`, `.env.example` | `.agents/scripts/geo/…` | `.env.example` → `env.example.geo` |
@@ -70,3 +70,28 @@ reads can return stale data.
 Fetch the upstream tarball and re-copy per the tables above, then re-apply
 the path remapping. The toolkit `package.json` in `.agents/scripts/geo/`
 pins the SDK version; check the upstream repo for updates first.
+
+## Update 2026-09
+
+Upstream `geo-explorers/content-management` has restructured since the August
+extraction. As of HEAD `6191c3dd` (2026-09-18) the skill tiers are now named
+`skills/actionable/` and `skills/non-actionable/` (replacing the earlier tier
+names), and the agent manifest/routing authority has moved to
+`agents/AGENT-WORKFLOW.md` (commit `dec51bd7`, 2026-09-16) and
+`agents/MD-FILES.md` (commit `6191c3dd`, 2026-09-18) — vendor-neutral agent
+routing, no longer Claude-specific.
+
+A new curated distribution repo now exists upstream:
+[`geo-explorers/geo-editor-agent`](https://github.com/geo-explorers/geo-editor-agent)
+— a self-contained, provenance-pinned distribution build (skills + subagents +
+docs shipped as a "give your AI one prompt" agent). Its vendored
+content-management snapshot is pinned at SHA `cc319d24` (recorded in its
+`.upstream-sha` and `UPSTREAM.md`) with a `SKILL-VERSIONS.json` integrity
+manifest. This repo's toolkit is **not** a vendored copy of that distribution;
+our extraction remains by-value with path remapping, not by-reference. There
+are now **two upstream lineages** to track:
+
+1. [`geo-explorers/content-management`](https://github.com/geo-explorers/content-management)
+   — the source toolkit (HEAD `6191c3dd`, 2026-09-18).
+2. [`geo-explorers/geo-editor-agent`](https://github.com/geo-explorers/geo-editor-agent)
+   — the curated distribution (HEAD `875549162f`, 2026-09-23).

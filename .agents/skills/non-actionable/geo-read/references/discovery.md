@@ -157,19 +157,20 @@ findings to `drafts.json` (`{target_space, publish_date, discoverer, findings:[{
 recommended_action, gap_types:[…], subject?, suggested_type?, sources:[…], topics?, tags?}]}`),
 get your personal-space id from geo-write's `whoami.mjs`, then:
 ```
-NODE_PATH=<geo-write-skill>/node_modules bun --env-file=.env.geo-write run \
-  scripts/publish_gaps.mjs --findings drafts.json --author <your-personal-space> [--dry-run]
+NODE_PATH=.agents/skills/actionable/geo-write/node_modules bun --env-file=.env.geo-write run \
+  .agents/skills/actionable/geo-write/scripts/publish_gaps.mjs --findings drafts.json --author <your-personal-space> [--dry-run]
 ```
 It works on ANY space: the target datasets space's DAO address + type are resolved at runtime
 (DAO → propose+vote; personal → publishEdit), and the Gap-finding ontology IDs are shared
 constants. `--dry-run` builds + prints ops without submitting; drop it to publish. Mechanics +
 gotchas (FAST needs a separate YES vote; real `voteProposal` sig; `url`→`text`; dates in
-`datetime`) are baked in and documented in `references/stage6-publish.md`.
+`datetime`) are baked in and documented in `../../actionable/geo-write/references/stage6-publish.md`.
 
 **Dashboard — build once per space, then reuse.** The findings display is a Topic with live-query
 tables; because they're live, every operator's findings show up automatically. Build it once:
 ```
-bun … run scripts/build_dashboard.mjs --space <host> --datasets <datasets-space> --author <you>
+bun --env-file=.env.geo-write run .agents/skills/actionable/geo-write/scripts/build_dashboard.mjs \
+  --space <host> --datasets <datasets-space> --author <you>
 ```
 It's **idempotent** — if a dashboard already exists it prints that URL and exits (publish into the
 shared datasets space and your findings appear there); pass `--force` only to build your own.
@@ -187,12 +188,12 @@ A ranked Gap finding set (two tracks) + a theme map with depth tiers, and — on
 - `scripts/prioritize.py` — Stage 4 (gate + two-track rank)
 - `scripts/theme_heat.py` — Stage 5 (theme clustering + cross-source classification)
 - `scripts/theme_gaps.py` — Stage 5b (theme-level gap diagnosis → theme Gap findings)
-- `scripts/publish_gaps.mjs` — Stage 6 publisher (any space: runtime DAO resolution + shared ontology constants)
-- `scripts/build_dashboard.mjs` — Stage 6 dashboard (build once per space, idempotent reuse; live-query tables)
+- `.agents/skills/actionable/geo-write/scripts/publish_gaps.mjs` — Stage 6 publisher (any space: runtime DAO resolution + shared ontology constants)
+- `.agents/skills/actionable/geo-write/scripts/build_dashboard.mjs` — Stage 6 dashboard (build once per space, idempotent reuse; live-query tables)
 - `references/ner_prompt.md` — Stage 2 extraction prompt
 - `references/discovery-schema.md` — the Gap finding entity schema for Stage 6
 - `references/drafting-conventions.md` — human-first naming/description/action + required props (Stage 6)
-- `references/stage6-publish.md` — Stage 6 DAO publish mechanics + gotchas (propose+vote, voteProposal signature, url→text, dates)
+- `../../actionable/geo-write/references/stage6-publish.md` — Stage 6 DAO publish mechanics + gotchas (propose+vote, voteProposal signature, url→text, dates)
 
 ## Press source-discovery (salvaged from the retired geo-press-review skill)
 

@@ -17,8 +17,8 @@ Run generate ONLY on a clean tree (commit first) so the recorded commit and the
 content hash agree.
 
 Usage:
-  python3 skill-dev/skill_versions.py generate
-  python3 skill-dev/skill_versions.py verify
+  python3 .agents/scripts/geo/skill_versions.py generate
+  python3 .agents/scripts/geo/skill_versions.py verify
 """
 import hashlib
 import json
@@ -28,7 +28,7 @@ from pathlib import Path
 
 REPO = Path(subprocess.check_output(
     ["git", "rev-parse", "--show-toplevel"], text=True).strip())
-SKILLS_DIR = REPO / "skills"
+SKILLS_DIR = REPO / ".agents" / "skills"
 MANIFEST = SKILLS_DIR / "SKILL-VERSIONS.json"
 
 
@@ -117,6 +117,9 @@ def verify():
             drift.append(name)
         elif c is None:
             print(f"  ✗ MISSING   {name} — in manifest but not found locally")
+            drift.append(name)
+        elif not a.get("approved_commit"):
+            print(f"  ✗ UNAPPROVED {name} — approved_commit is empty")
             drift.append(name)
         elif a["content_sha256"] == c["content_sha256"]:
             print(f"  ✓ OK        {name}  v{a.get('version','?')}  @ {a['approved_commit'][:10]}")
