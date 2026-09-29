@@ -30,4 +30,6 @@ Before the first update, record the last known-good Worker version and test the 
 
 Pause new ingestion by removing its spending allowance if needed; inspect in-flight workflows separately. A reserved paid attempt may already be in progress. Failed extraction or assessment with a saved response can reuse it; an uncertain attempt with no saved response needs reconciliation. Review delivery reconciles the existing deterministic PR. Private Geo preview has no external effects to roll back.
 
+Extraction recovery now also requires its saved, digest-bound `extraction-input.json` and compatible prompt/schema/registry revisions. `extraction_revision_mismatch`, `extraction_input_revision_mismatch` and `extraction_input_missing` require reconciliation; do not clear attempts or reconstruct provenance for historical responses. Completed historical runs stay unchanged. See the [request identity decision](../architecture/0007-review-recovery-and-extraction-provenance.md).
+
 The first deployment has no previous hosted version to roll back to. If it fails, stop new requests and fix/redeploy from the verified local baseline while preserving remote evidence and reservations.
