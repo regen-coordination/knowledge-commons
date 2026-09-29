@@ -1,6 +1,44 @@
 import { expect, test } from "bun:test";
-import { digest, type SubmittedReview } from "@knowledge-commons/pipeline";
+import {
+  digest,
+  type ObjectReport,
+  objectReportsDigest,
+  type SubmittedReview,
+} from "@knowledge-commons/pipeline";
 import { type Delivery, GitHubDelivery } from "./github";
+
+test("one PR delivers all object files, verifies every file for approvals, and reuses delivery", async () => {
+  const h = await fixture();
+  const files: ObjectReport[] = await Promise.all(
+    [1, 2].map(async (n) => {
+      const objectId = `00000000-0000-4000-8000-00000000000${n}`;
+      const markdown = `# Object ${n}\n\nIts own assessment and evidence.`;
+      return {
+        objectId,
+        name: `claim-object-${n}-${objectId}.md`,
+        markdown,
+        markdownDigest: await digest(markdown),
+      };
+    }),
+  );
+  h.d.path = "reports/ingestion/topic-356/12345678-abcd";
+  h.d.files = files.map(({ markdown: _, ...f }) => f);
+  h.d.markdownDigest = await objectReportsDigest(files);
+  await h.adapter.deliver(files, h.d, h.save);
+  expect(h.state.fileContents.size).toBe(2);
+  expect(h.d.status).toBe("delivered");
+  await h.adapter.deliver(files, h.d, h.save);
+  expect(h.state.creates).toBe(1);
+  expect(h.state.notifications).toBe(1);
+  expect((await h.adapter.evaluate(h.d)).reportDigest).toBe(h.d.markdownDigest);
+  h.state.fileContents.set(
+    `${h.d.path}/${files[1]!.name}`,
+    "changed second file",
+  );
+  await expect(h.adapter.evaluate(h.d)).rejects.toThrow(
+    "github_content_mismatch",
+  );
+});
 
 test("approval readback is exact, current, read-only and fails closed on races or API errors", async () => {
   const h = await fixture();
@@ -82,6 +120,7 @@ async function fixture() {
     rejectReviewers: false,
     moveHead: false,
     corrupt: false,
+    fileContents: new Map<string, string>(),
     reviews: [] as SubmittedReview[],
     memberReads: 0,
     changeMembership: false,
@@ -112,7 +151,8 @@ async function fixture() {
     if (path === "/git/commits/base")
       return response({ tree: { sha: "base-tree" } });
     if (path === "/git/trees") {
-      expect(body.tree[0].content).toBe(markdown);
+      if (!d.files) expect(body.tree[0].content).toBe(markdown);
+      for (const f of body.tree) state.fileContents.set(f.path, f.content);
       return response({ sha: "report-tree" });
     }
     if (path === "/git/commits") return response({ sha: "report-commit" });
@@ -123,9 +163,12 @@ async function fixture() {
     if (path.startsWith("/contents/"))
       return response({
         encoding: "base64",
-        content: Buffer.from(state.corrupt ? "corrupt" : markdown).toString(
-          "base64",
-        ),
+        content: Buffer.from(
+          state.corrupt
+            ? "corrupt"
+            : (state.fileContents.get(path.slice("/contents/".length)) ??
+                markdown),
+        ).toString("base64"),
       });
     if (path === "/pulls" && method === "GET")
       return response(state.pr ? [state.pr] : []);

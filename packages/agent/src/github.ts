@@ -2,6 +2,8 @@ import {
   digest,
   evaluateReportReviews,
   IngestionError,
+  type ObjectReport,
+  objectReportsDigest,
   readBounded,
   type SubmittedReview,
 } from "@knowledge-commons/pipeline";
@@ -23,6 +25,7 @@ type Pull = {
 export type Delivery = {
   branch: string;
   path: string;
+  files?: Omit<ObjectReport, "markdown">[];
   markdownDigest: string;
   baseSha: string | null;
   commitSha: string | null;
@@ -34,7 +37,7 @@ export type Delivery = {
 };
 export interface ReportDelivery {
   deliver(
-    markdown: string,
+    markdown: string | ObjectReport[],
     delivery: Delivery,
     save: () => Promise<void>,
   ): Promise<void>;
@@ -118,20 +121,7 @@ export class GitHubDelivery implements ReportDelivery {
       };
     };
     const before = await snapshot();
-    const file = await this.api<{ content: string; encoding: string }>(
-      `${base}/contents/${d.path}?ref=${d.commitSha}`,
-    );
-    if (
-      file.encoding !== "base64" ||
-      (await digest(
-        new TextDecoder().decode(
-          Uint8Array.from(atob(file.content.replace(/\s/g, "")), (c) =>
-            c.charCodeAt(0),
-          ),
-        ),
-      )) !== d.markdownDigest
-    )
-      throw new IngestionError("github_content_mismatch");
+    await this.verifyContent(d);
     const after = await snapshot();
     if ((await digest(before)) !== (await digest(after)))
       throw new IngestionError("github_review_changed_during_evaluation");
@@ -158,14 +148,78 @@ export class GitHubDelivery implements ReportDelivery {
       snapshotDigest: await digest(after),
     };
   }
-  async deliver(markdown: string, d: Delivery, save: () => Promise<void>) {
-    if ((await digest(markdown)) !== d.markdownDigest)
-      throw new IngestionError("delivery_digest_mismatch");
-    if (
-      !/^codex\/report-[a-f0-9-]+$/.test(d.branch) ||
-      !/^reports\/ingestion\/topic-\d+\/[a-f0-9-]+\.md$/.test(d.path)
-    )
+  private entries(d: Delivery) {
+    if (!/^codex\/report-[a-f0-9-]+$/.test(d.branch))
       throw new IngestionError("delivery_path_invalid");
+    if (d.files) {
+      if (
+        !/^reports\/ingestion\/topic-\d+\/[a-f0-9-]+$/.test(d.path) ||
+        !d.files.length ||
+        d.files.length > 100 ||
+        d.files.some(
+          (f) => !/^(article|source|claim)-[a-z0-9-]+\.md$/.test(f.name),
+        )
+      )
+        throw new IngestionError("delivery_path_invalid");
+      return d.files.map((f) => ({ ...f, path: `${d.path}/${f.name}` }));
+    }
+    if (!/^reports\/ingestion\/topic-\d+\/[a-f0-9-]+\.md$/.test(d.path))
+      throw new IngestionError("delivery_path_invalid");
+    return [{ path: d.path, markdownDigest: d.markdownDigest }];
+  }
+  private async verifyContent(d: Delivery) {
+    const readback: ObjectReport[] = [];
+    for (const entry of this.entries(d)) {
+      const file = await this.api<{ content: string; encoding: string }>(
+        `${base}/contents/${entry.path}?ref=${d.commitSha}`,
+      );
+      if (file.encoding !== "base64")
+        throw new IngestionError("github_content_mismatch");
+      const markdown = new TextDecoder().decode(
+        Uint8Array.from(atob(file.content.replace(/\s/g, "")), (c) =>
+          c.charCodeAt(0),
+        ),
+      );
+      if ((await digest(markdown)) !== entry.markdownDigest)
+        throw new IngestionError("github_content_mismatch");
+      if ("name" in entry)
+        readback.push({
+          name: entry.name,
+          objectId: entry.objectId,
+          markdownDigest: entry.markdownDigest,
+          markdown,
+        });
+    }
+    if (d.files && (await objectReportsDigest(readback)) !== d.markdownDigest)
+      throw new IngestionError("github_content_mismatch");
+  }
+  async deliver(
+    markdown: string | ObjectReport[],
+    d: Delivery,
+    save: () => Promise<void>,
+  ) {
+    const contentDigest =
+      typeof markdown === "string"
+        ? await digest(markdown)
+        : await objectReportsDigest(markdown);
+    if (
+      contentDigest !== d.markdownDigest ||
+      (typeof markdown !== "string") !== Boolean(d.files)
+    )
+      throw new IngestionError("delivery_digest_mismatch");
+    const entries = this.entries(d);
+    const treeFiles = entries.map((entry) => ({
+      path: entry.path,
+      mode: "100644",
+      type: "blob",
+      content:
+        typeof markdown === "string"
+          ? markdown
+          : markdown.find((f) => "name" in entry && f.name === entry.name)
+              ?.markdown,
+    }));
+    if (treeFiles.some((f) => f.content === undefined))
+      throw new IngestionError("delivery_file_missing");
     // Resolve intent once, before writes. Replays use the original base even when main moves.
     if (!d.baseSha) {
       const ref = await this.api<{ object: { sha: string } }>(
@@ -190,9 +244,7 @@ export class GitHubDelivery implements ReportDelivery {
           "POST",
           {
             base_tree: commit.tree.sha,
-            tree: [
-              { path: d.path, mode: "100644", type: "blob", content: markdown },
-            ],
+            tree: treeFiles,
           },
         );
         const created = await this.api<{ sha: string }>(
@@ -216,17 +268,7 @@ export class GitHubDelivery implements ReportDelivery {
     // Never overwrite another writer's branch, including a reviewer edit.
     if (branch?.object.sha !== d.commitSha)
       throw new IngestionError("github_branch_changed");
-    const file = await this.api<{ content: string; encoding: string }>(
-      `${base}/contents/${d.path}?ref=${d.commitSha}`,
-    );
-    const bytes = Uint8Array.from(atob(file.content.replace(/\s/g, "")), (c) =>
-      c.charCodeAt(0),
-    );
-    if (
-      file.encoding !== "base64" ||
-      (await digest(new TextDecoder().decode(bytes))) !== d.markdownDigest
-    )
-      throw new IngestionError("github_content_mismatch");
+    await this.verifyContent(d);
     const marker = `<!-- commons-report:${d.markdownDigest} -->`;
     let pr: Pull;
     if (d.prNumber) pr = await this.api<Pull>(`${base}/pulls/${d.prNumber}`);
@@ -238,11 +280,13 @@ export class GitHubDelivery implements ReportDelivery {
       pr =
         matches[0] ??
         (await this.api<Pull>(`${base}/pulls`, "POST", {
-          title: "docs(agent): review Regen Knowledge Commons ingestion",
+          title: d.files
+            ? "docs(agent): review individual Regen Knowledge Commons objects"
+            : "docs(agent): review Regen Knowledge Commons ingestion",
           head: d.branch,
           base: "main",
           draft: true,
-          body: `## Summary\n- Machine-extracted candidate and separately recorded Integrity assessment for human review.\n- Draft knowledge; no Geo submission or human approvals recorded.\n\n## Validation\n- Report digest: ${d.markdownDigest}\n- Require two eligible human reviews of the current revision. Scores and PR merges do not authorize Geo publication.\n\n${marker}`,
+          body: `## Summary\n${d.files ? `- One knowledge object per Markdown file (${d.files.length} files); open each file to review its content, evidence and Integrity ratings.\n` : ""}- Machine-extracted candidate and separately recorded Integrity assessment for human review.\n- Draft knowledge; no Geo submission or human approvals recorded.\n\n## Validation\n- Report digest: ${d.markdownDigest}\n- Require two eligible human reviews of the current revision. Scores and PR merges do not authorize Geo publication.\n\n${marker}`,
         }));
       d.prNumber = pr.number;
       d.prUrl = pr.html_url;

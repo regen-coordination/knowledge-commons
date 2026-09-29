@@ -17,6 +17,51 @@ import { Store } from "./store";
 
 const token = "test-only-ingestion-".repeat(4);
 
+test("legacy review upgrades to isolated object files without assessment calls or rewriting history", async () => {
+  const h = await harness();
+  const { runId } = await (await h.submit()).json<{ runId: string }>();
+  await executeJob(h.env, runId, h.steps);
+  const { executeReview } = await import("./review");
+  const first = await executeReview(h.env, runId);
+  const fresh = JSON.parse(h.artifacts.get(first.edition!.ref)!);
+  const { files: _files, filesDigest: _filesDigest, ...legacy } = fresh;
+  const ref = `runs/${runId}/reviews/legacy.json`;
+  h.artifacts.set(ref, JSON.stringify(legacy));
+  first.edition = { ref, digest: legacy.markdownDigest };
+  first.delivery = null;
+  h.db
+    .query("UPDATE reviews SET record=? WHERE run_id=?")
+    .run(JSON.stringify(first), runId);
+  const original = h.artifacts.get(ref);
+  let calls = 0;
+  const result = await executeReview(h.env, runId, {
+    assess: async () => {
+      calls++;
+      throw new Error("must not call");
+    },
+  });
+  expect(calls).toBe(0);
+  expect(result.assessment.digest).toBe(first.assessment.digest);
+  expect(h.artifacts.get(ref)).toBe(original);
+  expect(result.edition!.ref).not.toBe(ref);
+  const files = JSON.parse(h.artifacts.get(result.edition!.ref)!).files;
+  expect(files).toHaveLength(3);
+  expect(
+    files.every((f: { markdown: string }) =>
+      f.markdown.includes("## Integrity assessment"),
+    ),
+  ).toBe(true);
+  expect(result.delivery!.files).toHaveLength(3);
+  const response = await h.get(`/v1/ingestions/${runId}/review/report`);
+  expect(response.status).toBe(200);
+  const tampered = JSON.parse(h.artifacts.get(result.edition!.ref)!);
+  tampered.files[1].markdown += "tampered";
+  h.artifacts.set(result.edition!.ref, JSON.stringify(tampered));
+  expect((await h.get(`/v1/ingestions/${runId}/review/report`)).status).toBe(
+    500,
+  );
+});
+
 test("alternate demo flows through export and private Geo preparation with caller isolation", async () => {
   const h = await harness();
   const response = await h.submit("alternate", {
@@ -565,7 +610,9 @@ test("Integrity assessment is separate, missing scores stay missing, and deliver
     let deliveries = 0;
     const delivery = {
       async deliver(
-        _markdown: string,
+        _markdown:
+          | string
+          | import("@knowledge-commons/pipeline").ObjectReport[],
         d: import("./github").Delivery,
         save: () => Promise<void>,
       ) {

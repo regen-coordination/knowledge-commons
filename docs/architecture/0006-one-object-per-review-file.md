@@ -1,0 +1,11 @@
+# One knowledge object per review file
+
+Reviewers need to read an Article, Source or Claim in isolation. Current review delivery therefore creates one Markdown file per object, with its own content, uncertainties, evidence references, five machine Integrity ratings and exact identity/revision. One ingestion still produces one draft PR containing the complete file set. Report approval scope remains that PR's exact revision; file separation does not create individual knowledge approvals.
+
+Pipeline `renderObjectReports` owns presentation. The manifest digest binds layout, filenames, stable object IDs and individual file digests. Delivery creates all files in one Git tree and verifies every file on readback, including during approval evaluation. Stable IDs in descriptive filenames prevent similarly named objects from colliding. Export checks the entire manifest before writing, rejects unsafe names and preserves existing file bytes.
+
+The new layout is `commons-object-report/0.1`. Original ingestion reports and historical grouped review editions remain immutable. The private review artifact retains its legacy Markdown representation for compatibility, alongside the new object files. `review.edition.digest` and delivery `markdownDigest` now identify the file manifest for object editions; each file has its own `markdownDigest`. Legacy editions still use their single Markdown digest. Current export and PR delivery use the object files only.
+
+A generation-specific Workflow identity, `<run-id>-objects-v1`, allows completed legacy reviews to be reformatted with their saved assessment. The shared review lease prevents overlapping writes. Prior delivery state is archived before the edition pointer advances. Repeated dispatch reuses the new generation and deterministic PR. Reformatting a successfully assessed run requires no provider call. Failed/missing assessments remain explicit; normal new ingestion assessment still follows the existing budget rules.
+
+Historical PRs and review artifacts preserve their original revision. Reformatting creates a new draft PR, so earlier approvals are never carried onto changed report files. The current run/PR links are recorded in the [object-review handoff](../runbooks/object-reviews.md).

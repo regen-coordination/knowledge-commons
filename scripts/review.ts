@@ -1,4 +1,5 @@
 import { digest, readBounded } from "../packages/pipeline/src/index";
+import { exportObjectReports } from "./export-object-reports";
 
 const runId = process.argv[2];
 const token = process.env.PILOT_API_TOKEN;
@@ -25,29 +26,36 @@ async function request(path: string, method = "GET") {
 }
 if (process.argv.includes("--export")) {
   const report = await request("/review/report");
-  if (
-    report.runId !== runId ||
-    (await digest(report.markdown)) !== report.markdownDigest
-  )
-    throw new Error("Review report digest mismatch");
-  const { mkdir, open, readFile } = await import("node:fs/promises");
-  const path = `reports/ingestion/reviews/${runId}-${report.markdownDigest.slice(7, 19)}.md`;
-  await mkdir("reports/ingestion/reviews", { recursive: true });
-  try {
-    const handle = await open(path, "wx");
-    try {
-      await handle.writeFile(report.markdown);
-    } finally {
-      await handle.close();
-    }
-  } catch (error) {
+  if (report.runId !== runId) throw new Error("Review run identity mismatch");
+  if (report.files) {
+    console.info(
+      await exportObjectReports(report, "reports/ingestion/objects"),
+    );
+  } else {
     if (
-      (error as NodeJS.ErrnoException).code !== "EEXIST" ||
-      (await readFile(path, "utf8")) !== report.markdown
+      report.runId !== runId ||
+      (await digest(report.markdown)) !== report.markdownDigest
     )
-      throw error;
+      throw new Error("Review report digest mismatch");
+    const { mkdir, open, readFile } = await import("node:fs/promises");
+    const path = `reports/ingestion/reviews/${runId}-${report.markdownDigest.slice(7, 19)}.md`;
+    await mkdir("reports/ingestion/reviews", { recursive: true });
+    try {
+      const handle = await open(path, "wx");
+      try {
+        await handle.writeFile(report.markdown);
+      } finally {
+        await handle.close();
+      }
+    } catch (error) {
+      if (
+        (error as NodeJS.ErrnoException).code !== "EEXIST" ||
+        (await readFile(path, "utf8")) !== report.markdown
+      )
+        throw error;
+    }
+    console.info({ path, digest: report.markdownDigest });
   }
-  console.info({ path, digest: report.markdownDigest });
 } else if (process.argv.includes("--status"))
   console.info(await request("/review"));
 else console.info(await request("/review", "POST"));

@@ -223,4 +223,5 @@ export * from "./approvals";
 export * from "./geo";
 export * from "./ingestion";
 export * from "./integrity";
+export * from "./object-reports";
 export { renderReport } from "./report";
