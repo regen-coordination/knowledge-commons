@@ -1,0 +1,13 @@
+{
+  "name": "regen-knowledge-commons-kms",
+  "private": true,
+  "type": "module",
+  "description": "org-os-kms instance root for the Regen Knowledge Commons (proposal). Not a Bun workspace member; the root workspaces list only packages/*.",
+  "scripts": {
+    "ingest:dry": "node packages/org-os-kms/src/cli.mjs ingest --dir . --dry",
+    "ingest": "node packages/org-os-kms/src/cli.mjs ingest --dir .",
+    "publish:dry": "node packages/org-os-kms/src/cli.mjs publish --dir . --dry",
+    "geo:plan": "node packages/org-os-kms/src/cli.mjs geo register --dir ."
+  },
+  "dependencies": { "js-yaml": "^4.1.0" }
+}
