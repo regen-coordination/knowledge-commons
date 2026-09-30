@@ -1,0 +1,21 @@
+# Crosswalk — toolkit-framework object types → Rather's Knowledge Commons Geo space types → Afo's v1 candidate classes.
+# status: proposal (KC-11). Afo owns the ontology pin (KC-18); nothing here ratifies anything.
+# Geo types: .agents/scripts/geo/src/constants.ts @ main 8c0dafe. v1 classes: docs/ontology/v1-candidate.md @ codex/ingestion-review-fixes.
+# relation: direct = same concept · near = overlapping, needs a rule · none = no counterpart.
+status: proposal
+rows:
+  - { framework: encyclopedia-entry,  geo: Article,        geo_relation: direct, v1: Article,          v1_relation: direct }
+  - { framework: concept-lineage,     geo: Knowledge,      geo_relation: near,   v1: null,             v1_relation: none,  note: "closest v1 is the proposed derivedFrom / adaptedBy predicates" }
+  - { framework: claim-evidence,      geo: [Claim, Evidence], geo_relation: near, v1: Claim,           v1_relation: direct, note: "one framework object → a Claim plus typed Evidence (v1-candidate: 'a Claim with typed evidence records')" }
+  - { framework: resource,            geo: Tool,           geo_relation: near,   v1: Tool,             v1_relation: near,  note: "Geo Resource is a root type never applied to entities; tools map to Tool, other resources have no class" }
+  - { framework: signal,              geo: null,           geo_relation: none,   v1: null,             v1_relation: none }
+  - { framework: source-system,       geo: [Organization, Network], geo_relation: near, v1: Source,    v1_relation: near,  note: "v1 carries sourceSystem as a field on Source" }
+  - { framework: public-use-boundary, geo: "(property) public-use status", geo_relation: near, v1: "(field) publicUseBoundary", v1_relation: direct }
+  - { framework: track,               geo: Playbook,       geo_relation: near,   v1: Playbook,         v1_relation: near }
+  - { framework: option-entry,        geo: Pattern,        geo_relation: near,   v1: Pattern,          v1_relation: near }
+  - { framework: implementation-record, geo: null,         geo_relation: none,   v1: CaseStudy,        v1_relation: near }
+  - { framework: relationship-record, geo: "(relation entities)", geo_relation: direct, v1: "(predicates, proposed)", v1_relation: near }
+  - { framework: organization,        geo: Organization,   geo_relation: direct, v1: Organization,     v1_relation: direct }
+  - { framework: "(instance vocabulary: topics)", geo: Topic, geo_relation: direct, v1: "(field) topics", v1_relation: near }
+never:
+  - { framework: person, reason: "the framework never publishes person; identity stays out of knowledge stores (ReFi DAO ADR-0002)" }
