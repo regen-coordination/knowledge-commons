@@ -1,0 +1,24 @@
+entries:
+  regen-knowledge-commons:
+    title: Regen Knowledge Commons
+    type: knowledge-garden
+    url: https://github.com/regen-coordination/knowledge-commons
+    steward: Regen Coordination — Knowledge Commons working group
+    return_path: https://github.com/regen-coordination/knowledge-commons
+    public_use: ok-with-caveat
+  refi-dao-commons:
+    title: ReFi DAO Knowledge Commons
+    type: knowledge-garden
+    url: https://knowledge.refidao.com
+    steward: ReFi DAO Steward Council
+    return_path: https://github.com/ReFiDAO/refi-dao-commons
+    public_use: ok-with-caveat
+    notes: Peer instance. Pulled over AT Proto from did:plc:ie6nze3zltsffksdwlhl2hbw (dev identity until its Phase 3).
+  regen-toolkit:
+    title: Regen Web3 Toolkit
+    type: knowledge-garden
+    url: https://regen-toolkit-site.vercel.app
+    steward: Regen Coordination / Regen Web3 Toolkit team
+    return_path: GitHub issues/PRs on the regen-toolkit repo; content contributions via the toolkit editorial workflow
+    public_use: ok-with-caveat
+    notes: Peer instance. Pull-only today; publishes nothing until its three gates hold.

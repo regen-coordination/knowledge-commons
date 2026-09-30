@@ -1,0 +1,17 @@
+# Federation manifest — Regen Knowledge Commons (org-os-kms instance; PROPOSAL)
+version: "3.0"
+spec: "organizational-os/3.0"
+identity:
+  name: "Regen Knowledge Commons"
+  type: "Project"
+upstream:
+  name: "org-os"
+  packages: "kms-geo-v0.1"
+network: "regen-coordination"
+peers:
+  - name: "refi-dao-commons"
+    repo: "https://github.com/ReFiDAO/refi-dao-commons"
+    trust: "read"            # a Peer instance: pulled over AT Proto; its canon and gate stay in refi-dao-os
+  - name: "regen-toolkit"
+    repo: "https://github.com/regen-coordination/regen-toolkit"
+    trust: "read"            # a Peer instance: the toolkit's own store, publishing off until its three gates hold

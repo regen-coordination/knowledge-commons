@@ -1,0 +1,31 @@
+# kms.yaml — the Regen Knowledge Commons as an org-os-kms instance (PROPOSAL, branch proposal/org-os-kms-instance).
+# Least-Geo path: Geo holds the shared ids and the indexing; content stays in each peer's repo.
+# This instance holds no content store of its own: it pulls peers and registers ids. See kms/README.md.
+instance: regen-knowledge-commons
+adapter: repo-data
+target: .
+framework: '@regen-commons/toolkit-framework'
+self_ref: data/kb/source-system.yaml#regen-knowledge-commons
+federation_namespace: RegenOS
+render:
+  site_data: data/kms-index.json
+publish:
+  static: false            # pull-only: nothing is published from here until the group decides it (Linear KC-35)
+  apply: false
+atproto:
+  did: null                # the Regen KC gets its own identity only when the group and a non-US PDS say so
+  handle: kc.regencoordination.xyz   # moved here from regen-toolkit (INDEX Q19); unvalidated by any council
+  pds: null
+  nsid_authority: xyz.regencoordination.kb
+geo:
+  parent_space: bd727a6ad6ec4a058f681ea9002a1fbf   # Knowledge Commons space (testnet), .agents/scripts/geo/src/constants.ts
+  space: null              # the Regen KC project space id — for the group to confirm; no registration from here until set
+  network: testnet
+connectors:
+  # One declaration per peer host: the connector has no DID-document resolution (CONNECTORS §7).
+  - name: atproto
+    config:
+      peers: [did:plc:ie6nze3zltsffksdwlhl2hbw]              # ReFi DAO Knowledge Commons (dev identity; replaced at its Phase 3)
+      pds: https://auriporia.us-west.host.bsky.network        # that DID's PDS host (the entryway answers 401 to sync calls)
+      types: [encyclopedia-entry]                             # fixture scope (INDEX Q20)
+      limit: 10
