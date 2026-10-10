@@ -7,6 +7,11 @@ identity:
 upstream:
   name: "org-os"
   packages: "kms-geo-v0.1"
+  method_parent:                    # the documents an instance's ontology, methodology and policy inherit from
+    ontology: "https://github.com/regen-coordination/org-os-template/blob/main/packages/toolkit-framework/architecture/ontology-core.md"
+    methodology: "https://github.com/regen-coordination/org-os-template/blob/main/packages/toolkit-framework/process/methodology-core.md"
+    publication_policy: "https://github.com/regen-coordination/org-os-template/blob/main/packages/toolkit-framework/process/publication-policy-core.md"
+    read_at: "4e8b4ee · 2026-10-10"
 network: "regen-coordination"
 peers:
   - name: "refi-dao-commons"

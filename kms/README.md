@@ -40,4 +40,10 @@ Ten ReFi DAO encyclopedia entries pulled on 2026-09-30 with `npm run ingest` (sc
 
 ## Framework docs
 
-See org-os-template#7 (METHODOLOGY-CORE, PUBLICATION-POLICY-CORE). They are referenced here, not copied.
+The Method parent of every instance is the framework's three cores:
+
+- [ontology core](https://github.com/regen-coordination/org-os-template/blob/main/packages/toolkit-framework/architecture/ontology-core.md)
+- [methodology core](https://github.com/regen-coordination/org-os-template/blob/main/packages/toolkit-framework/process/methodology-core.md)
+- [publication policy core](https://github.com/regen-coordination/org-os-template/blob/main/packages/toolkit-framework/process/publication-policy-core.md)
+
+They are referenced here, not copied.
