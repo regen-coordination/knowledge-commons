@@ -15,3 +15,14 @@ Read root `AGENTS.md`, the relevant publication design, and the exact candidate/
 6. Verify the Knowledge Commons website’s observed deployed release, not just the R2 write. Reconcile correction/retraction and rollback through recorded history. Keep source evidence and stable identities across migrations.
 
 Output actual proposal/version, approval, transaction, checkpoint, artifact, and website evidence relevant to the action. State which stages are unverified. Never claim production readiness from a testnet demonstration or from an API upload alone.
+
+<!-- shared-engineering:begin -->
+## Lifecycle and consistency
+
+For changes to publication behavior, use the shared `domain-driven-design` skill
+through root `AGENTS.md`. Model the affected transition and its authority without
+collapsing attempted, executed, indexed, and published states. Check exact-revision
+approval, repeated requests, and uncertain external results where relevant. Reuse
+the recorded identifiers and existing reconciliation mechanism; do not introduce
+event sourcing or a new workflow service merely because the process has stages.
+<!-- shared-engineering:end -->

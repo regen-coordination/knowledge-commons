@@ -1,5 +1,7 @@
 # Regen Knowledge Commons object reviews
 
+> October 29, 2026 orientation: use the [review index](../../reports/ingestion/INDEX.md) for edition tracking and the current review checkpoint, including topic-356 corrections. Earlier heads, CI results, draft states and zero-review statements below are dated evidence. See the [consolidation plan](../plans/2026-10-29-consolidation.md) for the proposed stack and merge sequence.
+
 Each current Markdown review file contains exactly one Article, Source or Claim. Each file includes its content, relevant uncertainties, evidence references, machine Integrity ratings, human-review checklist and object revision. The Source's unassessed dimensions stay unassessed; the Article's score is never copied onto Claims.
 
 One ingestion produces one draft PR with the complete file set. For the two saved real runs this means seven Markdown files each: one Article, one Source and five Claims. Reviewers can open and comment on each file separately. Two approvals still apply to the exact PR head and complete review scope; separate files do not change the knowledge-promotion policy.

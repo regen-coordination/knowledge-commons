@@ -1,5 +1,7 @@
 # Automatic report PRs and Integrity assessment
 
+> October 29, 2026 orientation: use the [review index](../../reports/ingestion/INDEX.md) for edition tracking and the current review checkpoint, including topic-356 corrections. Earlier heads, CI results, draft states and zero-review statements below are dated evidence. See the [consolidation plan](../plans/2026-10-29-consolidation.md) for the proposed stack and merge sequence.
+
 **Current continuation:** [pre-Cloudflare handoff](pre-cloudflare-handoff.md) records report PR #3, approval evaluation, private Geo preparation, and the remaining $6.65 conservative allowance. Historical results below retain their original run/budget context.
 
 ## Current result

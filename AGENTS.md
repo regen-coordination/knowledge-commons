@@ -12,6 +12,29 @@ Read the [README](README.md) for current project status. Use the nearest applica
 - Current reviews use one knowledge object per Markdown file, with its own evidence and Integrity ratings. Keep historical grouped reports immutable.
 - `reports/ingestion` holds review-safe calibration records. Raw captures remain private. Geo is the proposed accepted-knowledge authority; R2 releases are reproducible projections.
 
+## Shared engineering guidance
+
+Use the personal `pragmatic-programming` skill for coding work and
+`domain-driven-design` when changing domain meaning, behavior, identity, lifecycle,
+consistency, or integration contracts. If not discovered, read the relevant
+`~/.agents/skills/<skill-name>/SKILL.md` when available. On an environment without
+these personal skills, follow this repository's guidance and report the missing
+shared guidance; do not install or duplicate it automatically. Load only relevant
+references. Existing repository rules and explicit user decisions govern the work.
+
+Use `commons-architecture` to apply the engineering method and select verification
+through the existing Verification and communication section. For domain changes,
+route to the semantic or publication skill below. Keep examples grounded in the
+pilot and preserve distinctions between an object's identity, a reviewed revision,
+and an external publication result. Shared guidance does not establish ratification
+or replace the existing human approval contract.
+
+## Instruction routing
+
+For standalone Geo operations, read [.agents/agents.md](.agents/agents.md) and
+[Geo operations](docs/geo/operations.md). `agent/skills` supplies contributor
+guidance; `packages/agent` is the runtime. These paths have different roles.
+
 ## Repo skills
 
 Skills are authored in `agent/skills`. Read the relevant `SKILL.md` directly when the harness has not registered that directory. Do not assume automatic discovery or create duplicate skill copies.

@@ -14,3 +14,13 @@ Read `docs/ontology/v1-candidate.md` and the active pin record when one exists. 
 5. Describe migration and activation. Record the exact version/digest Afo has approved, using an existing decision if available. Never infer ratification from a request to draft or from a code merge. Geo mapping activation also needs the verified deployment path.
 
 Output the semantic change, examples, compatibility effects, verified checks, and pin status. Reuse the ingestion report for empirical model errors instead of embedding transient scores in the ontology definition.
+
+<!-- shared-engineering:begin -->
+## Domain reasoning
+
+Use the shared `domain-driven-design` skill through root `AGENTS.md` when changing
+meaning or identity. Explain the affected behavior with the supported example and
+rejected near-miss already required above. Distinguish stable object identity from
+reviewed revision and source evidence. Keep ontology definitions authoritative and
+preserve explicit pin activation; a new model or regenerated schema is not ratification.
+<!-- shared-engineering:end -->
