@@ -1,0 +1,76 @@
+{
+  "layout": "commons-object-report/0.1",
+  "kind": "scoped-editorial-correction",
+  "preparedAt": "2026-10-30T05:18:52.506Z",
+  "preparedBy": "process:codex-editorial-correction",
+  "originalExtractionRunId": "eba2a43f-caa7-4f88-a1d8-a21a595c7b17",
+  "originalCandidateDigest": "sha256:e75aa050d3b1ace6a67866d0650b24aba8c197b031eec42474bd344b4e837a38",
+  "originalReview": {
+    "pr": "https://github.com/regen-coordination/knowledge-commons/pull/5",
+    "head": "306e794320f4ec2e4bd88ea25b9f1cd2876c709c",
+    "filesDigest": "sha256:56100aa9c028cdea3c6766219e48a7e2aeef9994fdd126f3c45fd2a965da8feb",
+    "assessmentDigest": "sha256:e3698658107133d0c8b2377fb8bda451cd0292325ef59dcf13a1500f6497ce3c"
+  },
+  "scope": {
+    "changedObjectId": "151b3276-7203-81ae-8099-3d4e272df3b4",
+    "contextObjectIds": [
+      "de363ca6-da32-839b-8893-f8f8485b80fb"
+    ],
+    "completeReplacementForOriginalSevenObjectEdition": false,
+    "otherOriginalObjects": "Unchanged historical objects; not re-rendered or reassessed by this scoped correction"
+  },
+  "candidateDigest": "sha256:336901f9074177d30e4ab72f3c277e5d8efed1dff6980019a3e23eb53e098de5",
+  "assessment": {
+    "status": "not-assessed",
+    "candidateDigest": "sha256:336901f9074177d30e4ab72f3c277e5d8efed1dff6980019a3e23eb53e098de5",
+    "objectIds": [
+      "de363ca6-da32-839b-8893-f8f8485b80fb",
+      "151b3276-7203-81ae-8099-3d4e272df3b4"
+    ],
+    "dimensions": {
+      "origin": null,
+      "traceability": null,
+      "support": null,
+      "context": null,
+      "publicUse": null
+    },
+    "reason": "The prior assessment binds the original candidate and endorses its incorrect disputed classification. It is not reused for this correction. No new model or human rating was supplied."
+  },
+  "assessmentDigest": "sha256:0c1aa99c1b2a500107760893567ba5348b0672c3a45a971b5860f3a694ab2208",
+  "filesDigest": "sha256:cbe6e84526a4e5105211c4b30f4315e09b096c312b7277c1048bfb595c542918",
+  "objects": [
+    {
+      "id": "de363ca6-da32-839b-8893-f8f8485b80fb",
+      "class": "Source",
+      "revision": 1,
+      "contentDigest": "sha256:34b2416baa507566cf3776500d5767cfb0cc5337e2584b1c6631749d8a8380b2",
+      "previousRevision": null
+    },
+    {
+      "id": "151b3276-7203-81ae-8099-3d4e272df3b4",
+      "class": "Claim",
+      "revision": 2,
+      "contentDigest": "sha256:a6af0117e0d847d6713ddd3fa8da98a27334ecbb190c686d205458043096f90a",
+      "previousRevision": "sha256:29dbdfab9288255e8305a35a7f987c1005ffe23407dd35ab81d73b89d327faed"
+    }
+  ],
+  "files": [
+    {
+      "name": "claim-possible-network-and-funding-evolution-151b3276-7203-81ae-8099-3d4e272df3b4.md",
+      "objectId": "151b3276-7203-81ae-8099-3d4e272df3b4",
+      "markdownDigest": "sha256:0e34eec0276255cdb20445f3dadc2406c862e2882625a6d6cca1eb8e679435b4"
+    },
+    {
+      "name": "source-proposal-to-develop-a-commitment-pooling-playboo-de363ca6-da32-839b-8893-f8f8485b80fb.md",
+      "objectId": "de363ca6-da32-839b-8893-f8f8485b80fb",
+      "markdownDigest": "sha256:921b79307c8fd3ac1a67673f67294ec5b73206f944f0b49796333d925017b7fb"
+    }
+  ],
+  "humanReview": "pending",
+  "approvals": [],
+  "knowledgeApproval": "not-granted",
+  "publication": "disabled",
+  "geoSubmission": "disabled",
+  "ontology": "unratified",
+  "editionDigest": "sha256:cd79d38da98c206d646feda6b01a90ac937d2aaa323943153ba598b1f200d27b"
+}

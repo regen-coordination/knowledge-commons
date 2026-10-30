@@ -35,6 +35,19 @@ Prepare a new candidate revision and bound assessment/review edition for any cor
 
 Other review questions belong in calibration: attribution of post 750 and its reply; repetitive uncertainties and scores; provenance versus independence; combined rubric dimensions and totals; per-object refutation conditions; point-of-use source freshness; unassessed limitations; and source visibility versus private capture/reuse scope. The reviewer offered these as calibration input, not an adopted replacement rubric.
 
+## Scoped correction prepared October 29, 2026
+
+A [new correction edition](corrections/2026-10-29-topic-356-classification-correction.md) prepares Claim `151b3276-7203-81ae-8099-3d4e272df3b4` revision 2, with its unchanged Source as evidence context. It uses `reported` / `self-report` for an attributed statement that RifaiSicilia expressed an expectation and offered help. It does not assert that the forecast happened, that the offer was fulfilled, or that the comment disputed the proposal.
+
+This is a scoped correction, not a replacement or reassessment of the original seven-object edition. The other five objects retain their historical review state. All five Integrity dimensions are unassessed for both files in the new edition; the old 8/10 rating is not reused. Human approval remains pending and Geo publication remains disabled.
+
+- Corrected Claim digest: `sha256:a6af0117e0d847d6713ddd3fa8da98a27334ecbb190c686d205458043096f90a`
+- Scoped candidate digest: `sha256:336901f9074177d30e4ab72f3c277e5d8efed1dff6980019a3e23eb53e098de5`
+- File-set digest: `sha256:cbe6e84526a4e5105211c4b30f4315e09b096c312b7277c1048bfb595c542918`
+- [Bound edition manifest](corrections/2026-10-29-topic-356-cd79d38da98c.json)
+
+The original reports and PR heads are unchanged. Review this new revision before deciding the disposition of the historical PRs; no closure or knowledge acceptance is recorded here.
+
 ## Updating this index
 
 Update review state only from verified submitted reviews or an explicit recorded human decision. Keep dated checkpoints distinct from current authorization. Record a replacement edition, its digest, review link and disposition without rewriting earlier files. See [object-review operations](../../docs/runbooks/object-reviews.md) and the [consolidation plan](../../docs/plans/2026-10-29-consolidation.md).
