@@ -3,7 +3,7 @@ name: geo-read
 description: Read and diagnose the Geo knowledge graph — GraphQL queries (entities, types, properties, relations, schema discovery, well-known IDs) and gap-discovery passes over a space's content stream. Use when looking up, searching, inspecting, or querying the graph ("look up", "find entity", "query geo", "search the graph", "what type is", "show me relations", "get entity"), fact-checking or reviewing a submission, running discovery ("run discovery", "discover gaps", "what's missing in {space}", "discovery pass"), or finding press sources for a topic+date. Read-only — never writes; publishing a discovered gap routes through the geo-write skill.
 metadata:
   author: geobrowser
-  version: 0.1.0
+  version: 0.2.9
 ---
 
 # Geo Knowledge Graph — Reading & Discovery
@@ -18,6 +18,10 @@ and ID tables live there.
   reads. (`testnet-api.geobrowser.io` is retired.)
 - **Default space:** Knowledge Commons `bd727a6ad6ec4a058f681ea9002a1fbf`
   (DAO, testnet).
+- **Single-space entity views:** filter both `values` and `relations` by the
+  named space's exact ID; default to Knowledge Commons if no space was named.
+  Leave them unscoped only for an explicit cross-space view (see
+  `references/querying.md`).
 - **Canonical spaces resolve by verified ID, never fuzzy name matching** — a
   fuzzy match silently scopes the whole query to the wrong space.
 - **Never assume an ID** — discover schema (property/relation/type IDs) from the
@@ -53,5 +57,10 @@ and ID tables live there.
 - `references/discovery.md` — the 6-stage gap-discovery procedure, guardrails,
   press source-discovery.
 - `references/discovery-schema.md`, `references/drafting-conventions.md`,
-  `references/ner_prompt.md`, `references/stage6-publish.md` — discovery support.
-- `scripts/` — discovery tooling (harvest, diagnostics, theming, publish_gaps).
+  `references/ner_prompt.md` — discovery support.
+- `scripts/` — discovery tooling (harvest, diagnostics, theming).
+
+**Note:** Stage 6 publish scripts (`publish_gaps.mjs`, `build_dashboard.mjs`)
+and [stage6-publish.md](../../actionable/geo-write/references/stage6-publish.md)
+live in **geo-write** because they perform DAO writes. They are listed here for
+discovery context only.

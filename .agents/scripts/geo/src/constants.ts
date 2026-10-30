@@ -1,9 +1,12 @@
 /**
- * Known Entity IDs from the Geo knowledge graph.
+ * Known Entity IDs from the Knowledge Graph Ontology
  *
- * System properties/types are defined in the Geo root space; project
- * ontology types live in the Regen Knowledge Commons space. Source of truth:
- * `docs/geo/ontology.md` (mirrors the live Knowledge Commons space).
+ * These are system properties and types defined in the root space.
+ * See knowledge-graph-ontology.md for the full registry.
+ *
+ * LOCAL ADDITIONS below (marked "─── Regen Knowledge Commons ───")
+ * are commons-specific blocks not present upstream; they are preserved
+ * so future diffs against upstream remain meaningful.
  */
 
 export const ROOT_SPACE_ID = "a19c345ab9866679b001d7d2138d88a1";

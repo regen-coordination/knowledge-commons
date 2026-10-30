@@ -11,8 +11,8 @@ geo-write) plus skill-quality-check; delegation agents live in
 
 | If the user wants to… | Use |
 | --- | --- |
-| **publish / create / update / delete** entities, relations, or content; "add X to Geo"; "publish…"; submit a proposal; **clean / merge / deduplicate / fix data**; write entity descriptions; make banners | **geo-write** skill (`.agents/skills/geo-write/`) |
-| **look up / search / inspect / query** the graph; "what type is…"; "show relations"; review or fact-check a submission; run a **gap-discovery pass**; find press sources for a topic+date | **geo-read** skill (`.agents/skills/geo-read/`) |
+| **publish / create / update / delete** entities, relations, or content; "add X to Geo"; "publish…"; submit a proposal; **clean / merge / deduplicate / fix data**; write entity descriptions; make banners | **geo-write** skill (`.agents/skills/actionable/geo-write/`) |
+| **look up / search / inspect / query** the graph; "what type is…"; "show relations"; review or fact-check a submission; run a **gap-discovery pass**; find press sources for a topic+date | **geo-read** skill (`.agents/skills/non-actionable/geo-read/`) |
 | turn "I want to X" into plan → script → dry-run → confirm → publish | **geo-curate** agent (`.agents/agents/geo-curate/`) |
 | research/enrich an entity with cited web sources (read-only drafts) | **geo-research** agent (`.agents/agents/geo-research/`) |
 | modelling advice — type vs property vs relation, ontology drift | **geo-ontology** agent (`.agents/agents/geo-ontology/`) |
@@ -57,6 +57,21 @@ guess and improvise.
    Read-only skills need no key.
 8. **Verify after publishing** — `success: true` ≠ "correct on chain". Confirm
    indexing through the API before reporting done.
+
+## Two upstream lineages
+
+The Geo agent layer in this repo draws from two upstream repos, both
+read-only:
+
+1. **Source toolkit:** [`geo-explorers/content-management`](https://github.com/geo-explorers/content-management)
+   — HEAD `6191c3dd` (2026-09-18). Skills (`actionable` / `non-actionable`),
+   entity-ops toolkit (`src/entity_ops.ts`), and agent routing files
+   (`agents/AGENT-WORKFLOW.md`, `agents/MD-FILES.md`).
+2. **Curated distribution:** [`geo-explorers/geo-editor-agent`](https://github.com/geo-explorers/geo-editor-agent)
+   — HEAD `875549162f` (2026-09-23). A self-contained "give your AI one prompt"
+   distribution with vendored skills, installer, health-check doctor, and a
+   pinned upstream SHA (`cc319d24`). This repo is **not** a vendored copy of it;
+   the relationship is lineage tracking, not dependency.
 
 ## Environment
 
