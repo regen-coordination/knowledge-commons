@@ -1,5 +1,7 @@
 # Provenance — imported material & deleted sources
 
+> October 29, 2026 annotation: the original audit below concerns the June master-document export and Geo captures, distinct from the July handoff and later kb-handoff migration. Later provenance-pinned adaptations are recorded in [.agents/UPSTREAM.md](../../.agents/UPSTREAM.md); see the [July migration manifest](https://github.com/regen-coordination/regen-toolkit/blob/regen-toolkit-os/docs/reports/2026-07-21-canonical-migration-manifest.md). Historical pagination warning: offset and cursor approaches were retested successfully August 31 (plan.md §D); reverify API behavior before a new full export. Original audit text and tables are retained.
+
 This is the single provenance record for the repo's imported material: (1)
 the upstream Geo extraction that seeded `.agents/` and these docs, and (2)
 the project's own source material (master doc + space captures), which has

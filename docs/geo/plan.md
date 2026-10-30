@@ -1,5 +1,7 @@
 # docs/geo — improvement plan
 
+> October 29, 2026 annotation: historical August 31 worklist, with most documented fixes completed at that checkpoint. The Person Type description correction remained parked for separate owner approval. This is a dated record, not the current sprint plan; original checks, queries and decisions are retained.
+
 > **Draft for owner review, 2026-08-31.** This is a work list, not a
 > strategy. Every item names a file, the exact change, and where the fact
 > comes from. Facts about the Geo space were checked against the live

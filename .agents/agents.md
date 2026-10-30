@@ -2,15 +2,16 @@
 kind: agents
 ---
 
-# Regen Commons — agent guidelines
+# Regen Knowledge Commons — Agent Guidelines
 
 Project instructions for any AI agent working in this repo (AGENTS.md-compatible
 per the [.agents protocol](https://dotagentsprotocol.com); workspace layer).
 
 ## What this repo is
 
-The canonical source of truth for the **Regen Knowledge Commons** — shared
-knowledge infrastructure for regenerative coordination. The repo has two layers:
+This repository provides documentation and agent tooling for the Regen Knowledge Commons. The live Geo space is authoritative for its current graph state; ingestion and KMS proposals have separate statuses. See the [project map](../docs/MAP.md) for relationships and lineage. This page remains the Geo agent operating guide.
+
+The documentation and procedural tooling have two layers:
 
 - **Docs layer** (`docs/`, root `README.md`) — high-level, human-facing: mission,
   commoning craft, plans, and the operating docs for the tools the commons runs on.

@@ -1,5 +1,7 @@
 # The craft of knowledge commoning
 
+> Scope: shared commoning practice and its relationship to the Geo core. This is a learning and reference lens, not an adopted ontology or complete peer catalog. Wider relationships are in the [project map](../MAP.md).
+
 > Companion to [`mission.md`](./mission.md). The mission records the project's
 > intent (owner-settled, distilled from the master doc); this page records the
 > **craft**: what the knowledge-commons literature says a living commons

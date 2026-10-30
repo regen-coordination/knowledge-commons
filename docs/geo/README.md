@@ -1,8 +1,8 @@
-# Regen Knowledge Commons — docs
+# Knowledge Commons on Geo — Documentation
 
-This repo is the canonical source of truth for the **Regen Knowledge Commons**
-(root `README.md`); `docs/geo/` is its documentation layer. The docs assume the
-commons as the default context:
+This directory documents the shared Knowledge Commons space on Geo, including its graph structure, operating procedures and agent tooling. It is not a full description of the Regen Knowledge Garden or the final architecture of the wider workstream.
+
+See the [project map](../MAP.md) and [Garden introduction](../regen-knowledge-garden.md). The conventions below apply to the shared Geo space.
 
 - **Space:** Knowledge Commons `bd727a6ad6ec4a058f681ea9002a1fbf` — a **DAO
   space on testnet**; all writes go through proposals and voting.
@@ -15,10 +15,10 @@ commons as the default context:
 
 | Doc | Contents |
 | --- | --- |
-| [`mission.md`](./mission.md) | Mission, scope, theory of change (synthesized from the Toolkit master doc) |
+| [`mission.md`](./mission.md) | June 2026 synthesis and August 29 owner-settled scope decisions; dated reference and decision record |
 | [`commoning.md`](./commoning.md) | The craft of knowledge commoning: commons principles from the literature → how the Geo practice expresses them |
-| [`plan.md`](./plan.md) | Work list for owner review: verified doc defects, remaining fixes, craft-reference improvements, and the re-runnable queries behind each fact |
-| [`ontology.md`](./ontology.md) | Knowledge Commons space ontology: 18 types, buckets, meta-typed hierarchy, owner conventions |
+| [`plan.md`](./plan.md) | Historical August 31 worklist and reproducible checks; one on-space correction parked |
+| [`ontology.md`](./ontology.md) | August 31 snapshot: 18 types, buckets, meta-typed hierarchy and owner conventions; live graph authoritative for current state |
 
 ## Operating docs (Geo substrate)
 
@@ -29,15 +29,9 @@ commons as the default context:
 | [`publishing.md`](./publishing.md) | Writes, high-level: how edits reach the graph, credential safety, safeguarded workflow, DAO path, safety rules |
 | [`extraction.md`](./extraction.md) | Provenance: imported upstream material → repo locations, plus deleted-source audit trail |
 
-## Open decisions
+## Dated review notes
 
-- **Ontology:** none — the space is the source of truth; structure as of
-  2026-08-31 is recorded in [`ontology.md`](./ontology.md) §2–3 (buckets +
-  meta-typing).
-- **Plan:** [`plan.md`](./plan.md) is a **draft awaiting owner review** — a
-  work list of verified defects and fixes (its §D records the live queries
-  behind each fact). Its owner-decision items become settled decisions, not
-  open debates, once the owner rules on them.
+`ontology.md` records the August 31, 2026 checkpoint. The live Geo space is authoritative for its current graph state. `plan.md` preserves the checks and fixes from that date; the Person Type description correction remained parked for owner approval.
 
 ---
 
@@ -51,6 +45,8 @@ Spaces are containers for knowledge — **personal spaces** take direct writes;
 **DAO spaces** (like the Knowledge Commons) take writes via proposals + voting.
 Entities, types, properties, and relations are all themselves entities — the
 schema is self-describing and exposed through a GraphQL indexer.
+
+Version note: endpoint, SDK and example commands reflect the documented 2026 checkpoint. Verify current Geo documentation and package versions before operational use.
 
 ### Endpoints
 

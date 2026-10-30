@@ -1,5 +1,7 @@
 # Regen Knowledge Commons — mission & scope (Phase 3 synthesis)
 
+> Status and provenance: this page synthesizes June 2026 material. Its “Where this repo fits” section records owner-settled decisions dated August 29, 2026; preserve them unless superseded. The synthesis alone is not a current charter or adopted cross-project architecture. See the [README](../../README.md) and [project map](../MAP.md).
+
 Distilled from the *Regen Knowledge Commons Toolkit* master doc (June 2026
 vNext draft / June 27 ToC; the raw export was removed from the repo
 2026-08-31 — provenance in [`extraction.md`](./extraction.md)). Every claim
