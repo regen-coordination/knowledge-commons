@@ -29,6 +29,12 @@ pilot and preserve distinctions between an object's identity, a reviewed revisio
 and an external publication result. Shared guidance does not establish ratification
 or replace the existing human approval contract.
 
+## Instruction routing
+
+For standalone Geo operations, read [.agents/agents.md](.agents/agents.md) and
+[Geo operations](docs/geo/operations.md). `agent/skills` supplies contributor
+guidance; `packages/agent` is the runtime. These paths have different roles.
+
 ## Repo skills
 
 Skills are authored in `agent/skills`. Read the relevant `SKILL.md` directly when the harness has not registered that directory. Do not assume automatic discovery or create duplicate skill copies.

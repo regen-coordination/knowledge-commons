@@ -1,22 +1,16 @@
 # Regen Knowledge Commons ingestion reports
 
-**Current format: one knowledge object per Markdown file.** Each Article, Source and Claim has its own content, evidence and Integrity assessment. One ingestion produces one PR containing those files. Use [object-review operations](../../docs/runbooks/object-reviews.md); grouped reports below are historical records.
+Start with the [review index](INDEX.md) for runs, immutable editions, human feedback and proposed PR disposition. It distinguishes the two pilot runs from the four delivered editions and their copies in the code stack.
 
-**Current demo:** [topic-356 object files](objects/eba2a43f-caa7-4f88-a1d8-a21a595c7b17-56100aa9c028), delivered as [PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5). Future original exports use `topic-<id>` folders. Historical topic-235 records remain unchanged. Human calibration uses the [independent worksheet](../../docs/runbooks/integrity-calibration.md).
+Current delivery uses **one knowledge object per Markdown file** (`commons-object-report/0.1`), with that object's content, evidence, provisional machine Integrity ratings and revision. One ingestion produces one PR containing the complete file set. The PR's exact revision remains the review scope; separate files do not create individual approvals. See [object-review operations](../../docs/runbooks/object-reviews.md).
 
-This folder is the review desk for Regen Knowledge Commons. Each ingested Hub thread gets a readable Markdown report showing what we learned, what is uncertain, how the models differed, and what the humans decided. Start with the [template](/Users/afo/Code/regen/knowledge-commons/reports/ingestion/_template.md).
+Future delivered exports use `topic-<id>/<run-id>-<edition>/`. Existing copies under `objects/` and grouped editions under `reviews/` are immutable archives; follow the index instead of creating duplicate copies. Original per-run reports, synthetic fixtures and presentation-only `readers/` editions keep their historical paths.
 
-Use one topic folder, named `<topic-id>-<short-slug>`, and one report per run, named `<date>-<run-id>.md`. Keep earlier reports when a source, model, prompt, or ontology changes. In a completed report, put the decision and the three most consequential findings first; aim for one or two pages before technical details.
+Human review of topic 356 has identified a classification error and calibration questions. No affirmative approvals were returned at the October 29 checkpoint. The review index records the findings; scores are provisional and the original outputs remain inspectable.
 
-The current layout (`commons-report/0.3`) uses a short overview, numbered claims with bold status labels, a five-row Integrity review table, and a checklist. Evidence tables and full run metadata sit in expandable Markdown details. Keep the main reading path free of long hashes and repeated provenance. OpenAI/Luna is the current extraction setup; additional models are deferred.
+The [template](_template.md) and [independent calibration worksheet](../../docs/runbooks/integrity-calibration.md) guide review. Historical grouped layouts (`commons-report/0.3`) showed the Article headline and collapsed other objects; that presentation is retained in old editions only. Current files show each object's own ratings. The draft five-dimension rubric below is preserved pending human calibration and explicit ratification.
 
-**Machine Integrity scoring is now a separate step after extraction.** It rates every proposed object against its frozen evidence, with 0–2 or null ratings, reasons, references, and a candidate-bound assessment record. The headline score belongs to the Article; individual Source/Claim scores remain in expandable details. These are provisional machine assessments, not calibrated acceptance thresholds. Human ratings stay pending. Missing or failed assessments show an explicit unavailable state, never an invented zero or total.
-
-The scored edition is delivered automatically through a draft report PR, with eligible team members requested individually. The original extraction report stays immutable. See [review operations](../../docs/runbooks/automatic-review-delivery.md) for endpoints, credentials, and recovery.
-
-Presentation updates to completed runs may be saved in `readers/topic-<id>-<run-id>.md`. Label these as reader editions, identify the renderer revision, and link the original report and its digest. They are presentation-only companions, not replacement API exports or new ingestions. Preserve the original report and saved run unchanged.
-
-This is a deliberate September 9 addition to the repo’s scope: calibration reports belong in git. They are review records, not a mirror of accepted Geo content. Do not put credentials, private discussions, full source dumps, beneficiary identities, or restricted excerpts here. Raw captures and full model outputs live in private artifact storage; the report links their stable artifact references and digests. Public excerpts must respect source-specific reuse constraints.
+Reports are review-safe calibration records, not an accepted-content store. Keep credentials, raw captures, provider responses, restricted excerpts and private discussions out of git. The [automatic-delivery runbook](../../docs/runbooks/automatic-review-delivery.md) describes artifact storage, recovery and review readback. Older handoffs are dated evidence rather than live approval status.
 
 ## Integrity review: a declared pilot profile
 
@@ -48,9 +42,9 @@ Link a private run manifest containing: run ID and UTC time; code revision or wo
 
 The ingestion runner now renders Markdown reports from its run record. Continue to label manually authored source reviews and synthetic fixture runs explicitly. Never fill missing scores, durations, approvals, or model results with plausible values.
 
-Current report: [Commitment-pooling source review — comparison not run](/Users/afo/Code/regen/knowledge-commons/reports/ingestion/356-commitment-pooling/2026-09-09-source-review.md).
+Historical source review: [Commitment-pooling source review — comparison not run](356-commitment-pooling/2026-09-09-source-review.md).
 
-Start here: [scored review in draft PR #2](https://github.com/regen-coordination/knowledge-commons/pull/2), also available as a [local scored report](reviews/f1c554cb-5a08-4014-b00a-4df51c512ba8-6a3f20c6efa5.md).
+Historical grouped edition: [scored review in PR #2](https://github.com/regen-coordination/knowledge-commons/pull/2), also available as a [local scored report](reviews/f1c554cb-5a08-4014-b00a-4df51c512ba8-6a3f20c6efa5.md).
 
 Earlier presentation-only [readable edition of the initial ingestion](readers/topic-235-f1c554cb-5a08-4014-b00a-4df51c512ba8.md).
 

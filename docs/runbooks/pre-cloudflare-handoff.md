@@ -1,5 +1,7 @@
 # Regen Knowledge Commons pre-Cloudflare handoff
 
+> October 29, 2026 orientation: use the [review index](../../reports/ingestion/INDEX.md) for edition tracking and the current review checkpoint, including topic-356 corrections. Earlier heads, CI results, draft states and zero-review statements below are dated evidence. See the [consolidation plan](../plans/2026-10-29-consolidation.md) for the proposed stack and merge sequence.
+
 The local API now verifies report approvals, creates private Geo previews, and ingests the new commitment-pooling demo source. The implementation baseline is in [draft code PR #4](https://github.com/regen-coordination/knowledge-commons/pull/4), with passing GitHub push and PR CI on implementation commit `93c794246da343ce43e768ce4bf9e936365faafa`. Hosted activation awaits Cloudflare access; Geo target details and authentic human calibration results remain pending.
 
 ## Implemented and exercised
