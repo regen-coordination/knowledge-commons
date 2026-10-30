@@ -1,0 +1,82 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "knowledge-commons",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-09",
+  "workers_dev": false,
+  "observability": {
+    "enabled": false
+  },
+  "env": {
+    "pilot": {
+      "name": "knowledge-commons-pilot",
+      "workers_dev": true,
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "knowledge-commons-pilot",
+          "database_id": "00000000-0000-0000-0000-000000000000",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "ARTIFACTS",
+          "bucket_name": "knowledge-commons-pilot-private"
+        }
+      ],
+      "workflows": [
+        {
+          "binding": "INGESTION",
+          "name": "knowledge-commons-pilot-ingestion",
+          "class_name": "IngestionWorkflow"
+        },
+        {
+          "binding": "REVIEW",
+          "name": "knowledge-commons-pilot-review",
+          "class_name": "ReviewWorkflow"
+        }
+      ],
+      "vars": {
+        "EXECUTION_MODE": "live",
+        "PILOT_CALLER_ID": "pilot-operator",
+        "PILOT_BUDGET_USD": "0"
+      }
+    },
+    "fixture": {
+      "name": "knowledge-commons-fixture",
+      "workers_dev": false,
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "knowledge-commons-fixture",
+          "database_id": "00000000-0000-0000-0000-000000000001",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "ARTIFACTS",
+          "bucket_name": "knowledge-commons-fixture-private"
+        }
+      ],
+      "workflows": [
+        {
+          "binding": "INGESTION",
+          "name": "knowledge-commons-fixture-ingestion",
+          "class_name": "IngestionWorkflow"
+        },
+        {
+          "binding": "REVIEW",
+          "name": "knowledge-commons-fixture-review",
+          "class_name": "ReviewWorkflow"
+        }
+      ],
+      "vars": {
+        "EXECUTION_MODE": "fixture",
+        "PILOT_CALLER_ID": "pilot-operator",
+        "PILOT_BUDGET_USD": "0"
+      }
+    }
+  }
+}

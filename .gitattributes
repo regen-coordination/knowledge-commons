@@ -1,0 +1,4 @@
+# Markdown hard breaks and Wrangler-generated union formatting are intentional.
+*.md whitespace=-blank-at-eol
+packages/agent/worker-configuration.d.ts whitespace=-blank-at-eol linguist-generated=true
+packages/ontology/generated/registry.json linguist-generated=true

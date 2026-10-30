@@ -1,0 +1,39 @@
+# Initial ingestion and recovery
+
+9 September 2026 · Prompt 2 implementation; ontology remains unratified
+
+The ingestion interface accepts only topic 235 and one model configuration. `pipeline` captures and checks evidence, defines the extraction shape, assembles draft objects, and renders the review report. `agent` owns Hono, Workflows, D1, R2, and the OpenAI HTTP adapter. The provider interface takes a frozen Capture and returns the original response plus request/usage metadata; tests use an explicitly named fixture adapter. The web workspace remains reserved.
+
+## Identity, capture, and evidence
+
+Discourse capture reads topic 235's native stream, obtains missing raw posts by native ID, then rechecks the manifest and post revisions. It rejects inaccessible, hidden, deleted, duplicate, changed, oversized, or incomplete material. The capture is depth 0; linked pages are not fetched. Limits are 20 posts, 5 MB of fetched JSON across one attempt, 20,000 characters per post, and a 30-second timeout per HTTP request. Exceeding a limit fails rather than truncating evidence. JSON responses and request digests remain private in the capture packet.
+
+Stable source identity is derived from the canonical Hub topic URL using a namespaced SHA-256-derived UUID shape. Display post numbers are separate from native IDs. `0.1.0-draft.2` adds optional `postNumber` to captured posts; live capture always supplies it. This is an unratified version change from draft.1. Existing draft.1 objects remain historical artifacts; the current validator does not silently relabel or migrate them. Regeneration changed the registry digest. No Afo pin or additional class was activated.
+
+The Workflow assigns the capture its actual private artifact path before final hashing. Retrieval time and artifact reference are part of the capture digest, so a fresh capture gets a new capture revision even if the post text is unchanged. D1's source revision table retains the stable Source ID and prior content digest. Candidate IDs are scoped to a run, preserving independent drafts without claiming entity reconciliation across runs.
+
+The model emits a small extraction shape rather than UUIDs, hashes, and duplicated provenance. Pipeline code creates those fields. Prompt `commons-extract/0.2` presents deterministic passage IDs from the complete raw post text (lines split at 400 UTF-16 units without splitting surrogate pairs). The model selects native-post/passage IDs; code derives exact text and offsets, preserving Markdown and disambiguating repeated lines. Unknown passage IDs fail. The earlier quotation-based 0.1 extraction failed because Luna stripped Markdown and altered quotations; its original output and usage remain in private run artifacts. Hub Claims are limited to planned, reported, or disputed; self-reports cannot become direct observations. Machine checks do not determine factual truth, privacy suitability, or human approval.
+
+## Durable execution
+
+D1 records caller/idempotency-key uniqueness before dispatching a Workflow with the run ID as its instance ID. A changed canonical request conflicts. Repeating the same request reuses the run; an interrupted dispatch can be retried with the same key. Run creation is bounded to 100 rows per database. R2 retains capture, Source, original provider response, candidate, validator result, report, and manifest artifacts. No GitHub write permission is required.
+
+A single monolithic retried job would risk paying again after a timeout. Instead, capture and validation/report steps may retry twice. The extraction step has no automatic retries and reserves its only provider attempt in D1 before the external call. If the response was persisted, subsequent execution uses it. Safe error codes are persisted inside each step before Cloudflare serializes the thrown Error, so provider quota and evidence errors survive the Workflow boundary. Execution code revisions are recorded when processing resumes under changed code. If the attempt was reserved but no response exists, the run requires reconciliation and cannot call the provider again. This intentionally favors a visible uncertain state over duplicate spending. The authenticated resume route permits at most three Workflow restarts for failures marked safe to resume. Raw provider failures remain private; API status exposes stable error codes.
+
+The shared bearer credential authenticates one internal principal, configured by `PILOT_CALLER_ID`. Run lookup, report retrieval, and resume enforce that principal. This is not per-person authentication and cannot supply human votes. Do not expose caller selection in the request body. Introduce independently authenticated identities before serving separate users.
+
+## Cost and provider configuration
+
+Only the OpenAI adapter is implemented for live use. It requests `gpt-5.6-luna` through Responses with structured JSON, `reasoning.effort: low`, `max_output_tokens: 4096`, `store: false`, and no tools. Gemini Flash-Lite, Sonnet, and Terra remain explicitly unimplemented/unrun. Fixture mode has a separate Wrangler environment and does not serve as a live substitute. Runtime fetch uses manual redirect handling and invokes the injected fetch function without a class receiver; both are required by the tested workerd runtime.
+
+Every live attempt reserves USD 0.05 atomically against the configured cumulative `PILOT_BUDGET_USD`. The default budget is zero. The reservation stays charged against the local allowance even after failure or cheaper actual usage; it is not automatically refunded. Input JSON is bounded to 96 KiB before reservation, output to 4096 tokens, and provider response bytes to 256 KiB. At the checked standard Luna rates, this leaves headroom over the bounded input/output estimate. This local ledger is not a provider invoice or an account-wide billing limit. Rates or configuration changes require another review; no cache-write feature is requested.
+
+The raw response preserves provider-reported usage, returned model ID, request ID, status, and latency. Successfully parsed output records uncached/cached input, output and reasoning tokens separately; estimated cost uses documented rates. Unparseable, incomplete, or failed responses retain their original private body; summarized usage can remain unknown. Unknown usage is not zero. Fixture usage is explicitly zero and fixture-labelled.
+
+## Reports and export
+
+Reports lead with the proposed summary and review status, preserve planned/reported Claim labels, and identify exact evidence offsets and capture digests without copying source passages. The renderer escapes model/source markup and redacts common contact/address patterns. This is a review artifact, not a guarantee that generated prose is safe for public disclosure; inspect a real report before sharing it. Human ratings and both approvals remain pending, all five Integrity dimensions remain not assessed, and no total or winner is invented.
+
+The authenticated exporter checks topic/run identity and the Markdown digest, uses a date/run filename, and refuses to overwrite different content. Repeated identical exports preserve history. The endpoint also verifies the report's binding to the stored run digest. Hashes provide consistency over authenticated transport, not a cryptographic signature. No publication or Geo operation exists.
+
+Official references checked: [Luna model and rates](https://developers.openai.com/api/docs/models/gpt-5.6-luna), [structured output](https://developers.openai.com/api/docs/guides/structured-outputs), [Cloudflare Workflows API](https://developers.cloudflare.com/workflows/build/workers-api/), and [Workflow execution rules](https://developers.cloudflare.com/workflows/build/rules-of-workflows/). The [handoff](../runbooks/first-deployment.md) distinguishes implemented behavior, successful local live extraction, and the remaining deployment prerequisites.

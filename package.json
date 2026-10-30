@@ -1,0 +1,37 @@
+{
+  "name": "knowledge-commons",
+  "private": true,
+  "packageManager": "bun@1.4.2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run code:generate && wrangler dev --config packages/agent/wrangler.jsonc --env pilot --local",
+    "format": "biome check --write .",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "ontology:generate": "bun scripts/generate-ontology.ts",
+    "ontology:check": "bun scripts/generate-ontology.ts --check",
+    "check": "bun run lint && bun run typecheck && bun run ontology:check && bun scripts/code-revision.ts --check",
+    "test": "bun test",
+    "build": "bun run code:generate && wrangler deploy --config packages/agent/wrangler.jsonc --env pilot --dry-run --outdir \"$PWD/dist/agent\"",
+    "smoke": "bun scripts/smoke.ts",
+    "worker:types": "wrangler types packages/agent/worker-configuration.d.ts --config packages/agent/wrangler.jsonc --env pilot --include-env false",
+    "db:migrate:local": "wrangler d1 migrations apply DB --config packages/agent/wrangler.jsonc --env pilot --local",
+    "dev:fixture": "bun run code:generate && wrangler dev --config packages/agent/wrangler.jsonc --env fixture --local",
+    "db:migrate:fixture": "wrangler d1 migrations apply DB --config packages/agent/wrangler.jsonc --env fixture --local",
+    "report:export": "bun scripts/export-report.ts",
+    "capture": "bun scripts/capture-topic.ts",
+    "code:generate": "bun scripts/code-revision.ts",
+    "ingestion:smoke": "bun scripts/ingestion-smoke.ts",
+    "ingest": "bun scripts/ingest.ts",
+    "review": "bun scripts/review.ts",
+    "review:prepare": "bun scripts/prepare.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.12",
+    "@types/bun": "1.4.2",
+    "typescript": "7.0.2",
+    "wrangler": "4.130.0"
+  }
+}
