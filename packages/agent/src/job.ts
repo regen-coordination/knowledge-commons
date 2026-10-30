@@ -9,7 +9,6 @@ import {
   type KnowledgeObject,
   type ProviderResponse,
   parseProvider,
-  providerRequest,
   renderReport,
   reportSchema,
   type ValidationRequest,
@@ -18,6 +17,7 @@ import {
 } from "@knowledge-commons/pipeline";
 import type { Runtime } from "./bindings";
 import { CODE_REVISION } from "./build-info";
+import { extractionInput, verifyExtractionRevision } from "./extraction-input";
 import { FixtureProvider, fixtureCapture } from "./fixture";
 import { type ExtractionProvider, OpenAIProvider } from "./provider";
 import { Store } from "./store";
@@ -77,6 +77,7 @@ export async function executeJob(
       }
     });
   try {
+    await verifyExtractionRevision(run);
     await phase("capture", safe, async () => {
       run = await store.run(runId);
       run.state = "capturing";
@@ -113,10 +114,15 @@ export async function executeJob(
       await store.save(run);
       const key = `${prefix}/response.json`;
       let response = await store.get<ProviderResponse>(key);
+      const packet = await store.get<CapturePacket>(`${prefix}/capture.json`);
+      if (!packet) throw new IngestionError("capture_missing");
+      const input = await extractionInput(
+        store,
+        run,
+        packet.capture,
+        !response,
+      );
       if (!response) {
-        const packet = await store.get<CapturePacket>(`${prefix}/capture.json`);
-        if (!packet) throw new IngestionError("capture_missing");
-        providerRequest(packet.capture); // Enforce bounds before spending reservation.
         if (run.execution === "live" && !env.OPENAI_API_KEY)
           throw new IngestionError("provider_not_configured");
         await store.reserve(run); // At most one provider request, even after an uncertain Workflow restart.
@@ -128,7 +134,7 @@ export async function executeJob(
             ? new FixtureProvider()
             : new OpenAIProvider(env.OPENAI_API_KEY ?? ""));
         try {
-          response = await provider.extract(packet.capture);
+          response = await provider.extract(packet.capture, input.request);
         } catch {
           await env.DB.prepare(
             "UPDATE attempts SET status='uncertain' WHERE run_id=?",
@@ -161,6 +167,7 @@ export async function executeJob(
       );
       if (!packet || !source || !response)
         throw new IngestionError("artifact_missing");
+      await extractionInput(store, run, packet.capture, false);
       let parsed: ReturnType<typeof parseProvider>;
       try {
         parsed = parseProvider(response);
@@ -245,6 +252,9 @@ export async function executeJob(
         "provider_invalid_response",
         "provider_refusal",
         "provider_credit_balance_exhausted",
+        "extraction_revision_mismatch",
+        "extraction_input_revision_mismatch",
+        "extraction_input_missing",
       ].includes(code) &&
       !code.startsWith("provider_http_");
     run.failure = {

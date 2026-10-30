@@ -100,6 +100,7 @@ export type IngestionRecord = Run & {
   extractionSchemaDigest: string;
   codeRevision: string;
   executionRevisions?: string[];
+  extractionInput?: { ref: string; digest: string };
   captureRef: string | null;
   responseRef: string | null;
   candidateRef: string | null;

@@ -18,6 +18,7 @@ import type { ReportArtifact } from "./job";
 import { preparations } from "./preparations";
 import {
   getReview,
+  initializeReview,
   type ReviewEdition,
   reviewRun,
   reviewWorkflowId,
@@ -200,6 +201,7 @@ ingestions.get("/:runId", async (c) => {
     failure: run.failure,
     resumable: run.resumable,
     executionRevisions: run.executionRevisions ?? [run.codeRevision],
+    extractionInput: run.extractionInput ?? null,
     sourceDigests: run.sourceDigests,
     candidateDigests: run.candidateDigests,
     captureStatus: run.captureStatus,
@@ -297,6 +299,7 @@ ingestions.on(["GET", "POST"], "/:runId/review", async (c) => {
       .status;
   } catch {}
   if (state === "errored") {
+    if (!recorded) await initializeReview(env, run);
     const retry = await env.DB.prepare(
       "UPDATE reviews SET resume_count=resume_count+1 WHERE run_id=? AND resume_count<3 AND lease_until<?",
     )

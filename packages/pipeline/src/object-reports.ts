@@ -9,6 +9,7 @@ import {
   type IntegrityAssessment,
   integrityTotal,
 } from "./integrity";
+import { reportProse as prose, redactReportText } from "./report-prose";
 
 export const OBJECT_REPORT_LAYOUT = "commons-object-report/0.1";
 export type ObjectReport = {
@@ -17,12 +18,6 @@ export type ObjectReport = {
   markdown: string;
   markdownDigest: string;
 };
-const prose = (text: string) =>
-  text
-    .replace(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g, "[contact redacted]")
-    .replace(/0x[a-fA-F0-9]{40,}/g, "[address redacted]")
-    .replace(/[\\`*_{}[\]()<>|#!]/g, "\\$&")
-    .replace(/[\r\n]+/g, " ");
 const paragraphs = (text: string) =>
   text
     .split(/\n\s*\n/)
@@ -169,7 +164,7 @@ ${evidence.map((e) => `- **${refs.get(e.id)} evidence ID:** ${e.id}`).join("\n")
 </details>
 `;
     const slug =
-      object.title
+      redactReportText(object.title)
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, "")
