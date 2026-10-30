@@ -1,4 +1,6 @@
-# Regen Knowledge Commons — ontology (current state)
+# Knowledge Commons on Geo — Core Ontology
+
+> Scope: the shared Knowledge Commons core on Geo, not the entire Garden or an adopted cross-project ontology. This is a dated checkpoint, last verified August 31, 2026. The live graph is authoritative for current state. The table below is not a fresh October export; the Type type on core ontology types remains intentional.
 
 > **Status: refreshed 2026-08-31** against the live space (see §3). The space
 > is the **source of truth** — this note mirrors it. Core types stable as of

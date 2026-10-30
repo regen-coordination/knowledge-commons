@@ -1,31 +1,73 @@
 # Regen Knowledge Commons
 
-The website, agent, ontology, and pipeline for capturing and exploring regenerative knowledge.
+Shared knowledge infrastructure for regenerative communities. We are developing ways to organize and connect useful knowledge, preserve where it came from, distinguish raw material from reviewed work, and make it easier for people to learn from one another.
 
-## V1 planning
+This repository brings together Geo documentation and agent tools and developing knowledge-ingestion, review, and organizational-knowledge approaches. It is a place to understand and build this work, not a claim that every component is deployed, every proposal is adopted, or all regenerative knowledge belongs in one repository.
 
-For today's narrower delivery, run the [first-deployment prompts](docs/plans/2026-09-09-first-deployment-prompts.md) in order: repo foundation, initial ingestion, then deployment and demo rehearsal.
+## Start here
 
-For the next implementation cycle, use the [build plan and team questions](docs/plans/2026-09-09-cycle-build-plan.md). It maps researched Linear issues to build steps and closure evidence; current cycle membership still needs confirmation.
+- [Project map](docs/MAP.md) - how Knowledge Commons, the Garden, Toolkit, and Coordination OS relate; where to find earlier research and implementation lineage.
 
-Start with the [updated discussion brief](docs/research/2026-09-08-discussion-brief.md). The v1 finish line is a functional, live Knowledge Commons website, with a demonstrated source-to-surface flow and calibrated ingestion. Reports and model comparisons come first; Geo remains the proposed accepted-knowledge layer and R2 supplies public releases.
+- [Regen Knowledge Garden](docs/regen-knowledge-garden.md) - the Regen-specific knowledge environment and its current Geo entry point.
 
-- [Pilot topics and four-model comparison](docs/research/2026-09-09-pilot-selection.md)
-- [Knowledge Object metadata and eleven-class ontology candidate](docs/ontology/v1-candidate.md) — Afo owns the pin; candidate not yet ratified
-- [Ingestion reports and template](reports/ingestion/README.md)
-- [Architecture research and proposal](docs/research/2026-09-08-v1-architecture.md) — researched September 8, revised September 9
-- [Pilot boundaries and rationale](docs/architecture/0001-pilot-boundaries.md)
-- [Agent instructions and repo skills](AGENTS.md)
+- [Geo documentation and tooling](docs/geo/README.md) - guidance for the shared Knowledge Commons space on Geo and its operating procedures.
 
-Workspace packages: `ontology`, `pipeline`, `agent`, and reserved `web`. Root `agent/skills` contains development and contribution guidance, including Matt Pocock’s pinned `codebase-design` skill. Reports are review records, not a mirror of accepted content.
+- [Agent guidelines](.agents/agents.md) - the existing agent and skill layout and its safety rules; see the [upstream record](.agents/UPSTREAM.md) for the origins of adapted tools.
 
-Current state: Bun/TypeScript workspace with a Hono Worker, draft ontology validation, and an initial ingestion implementation using Cloudflare Workflows, D1, and private R2. Prompt 2 is complete locally: real topic-235 capture, GPT-5.6 Luna extraction, evidence validation, and Markdown report export have passed through the local Workflow, D1, and private R2. The approved cumulative model budget is $7; the four-model comparison remains follow-up. The web workspace is reserved; deployment, Geo submission, and the knowledge website remain later work.
+## How the parts fit
 
-Automatic review is now implemented locally: each completed ingestion dispatches machine Integrity assessment and report PR delivery. [Draft PR #2](https://github.com/regen-coordination/knowledge-commons/pull/2) contains the first real scored edition with individual team reviewer requests. The Article received a provisional machine score of 8/10; human review remains pending. See [review operations](docs/runbooks/automatic-review-delivery.md) for `GITHUB_TOKEN`, the shared budget, and deployment requirements.
+| Part | Scope |
+| --- | --- |
+| [Knowledge Commons on Geo](https://www.geobrowser.io/space/bd727a6ad6ec4a058f681ea9002a1fbf) | A shared space for knowledge-commoning practice and reusable semantic structures. It is intended to support other communities, not contain their entire knowledge environments. |
+| [Regen Knowledge Garden](docs/regen-knowledge-garden.md) | The wider Regen-specific effort to find, connect, cultivate, review, and use knowledge from different sources. Its [Geo space](https://www.geobrowser.io/space/b818ec4b89d949d88342249e3c649cd0) is one current surface, not the whole Garden. |
+| [Regen Toolkit](https://github.com/regen-coordination/regen-toolkit) | A separate public educational and practical knowledge product. Its material may inform the Garden. |
+| [Regen Coordination OS](https://github.com/regen-coordination/regen-coordination-os) | A separate organizational coordination and memory project. Selected learning may inform the Garden without merging the projects. |
 
-## Development
+This naming also keeps Regen Commons, a separate initiative, distinct from the Regen Knowledge Commons workstream described here.
 
-Use Bun 1.4.2 and Node 24. From the repository root:
+## Development status - 29 October 2026
+
+These tracks are related, but they are not one ratified or fully deployed architecture.
+
+| Work | What is available or proposed | Where to look |
+| --- | --- | --- |
+| Geo documentation and agent tools | Present on main: documentation, read/write skill routing, research and curation agents, and related tooling. Publishing to Geo has separate governance and safety gates. | [Geo docs](docs/geo/README.md), [agent guidelines](.agents/agents.md), [upstream record](.agents/UPSTREAM.md) |
+| Ingestion and review pilot | Developed in an open pull-request stack, not merged into main at this snapshot. It includes proposed extraction, evidence validation, per-object reports, and human-review gates. Deployment, acceptance, and Geo submission are separate matters. | [Foundation PR #4](https://github.com/regen-coordination/knowledge-commons/pull/4) -> [Object review PR #7](https://github.com/regen-coordination/knowledge-commons/pull/7) -> [Corrections PR #8](https://github.com/regen-coordination/knowledge-commons/pull/8) |
+| Review examples | Review report PRs contain unratified material. PR #5 received human review feedback; PR #6 had no submitted human review at the October 29 checkpoint. Neither an open PR nor review feedback constitutes acceptance or authorization to publish. | [Review PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5), [review PR #6](https://github.com/regen-coordination/knowledge-commons/pull/6) |
+| Knowledge Commons KMS instance proposal | A separate, unmerged proposal for organizing knowledge across peer repositories. Publication is disabled in its proposal configuration, and its own documentation says it is not ready to merge as-is. | [KMS proposal](https://github.com/regen-coordination/knowledge-commons/blob/proposal/org-os-kms-instance/kms/README.md) |
+
+The ingestion pilot and KMS proposal make different architectural assumptions. Their relationship remains a design question, not something this README resolves. Follow their branch and pull-request documentation for implementation details rather than assuming branch-only commands work on main.
+
+## Working principles
+
+- Sources and stewardship matter. A source system is more than a link; preserve attribution, context, reuse boundaries, and a way to correct mistakes.
+
+- Visibility is not approval. Raw, AI-assisted, source-linked, and human-reviewed material are different states. A public graph entry is not automatically accepted knowledge.
+
+- The repository is a map, not the Garden. This documentation should help people find the work, not duplicate a growing registry of people, projects, source systems, and ideas.
+
+- Keep projects distinct and connected. Shared learning and interoperable tools do not require a single repository, ontology, or storage system.
+
+## Contributing or finding the next step
+
+For documentation corrections, source questions, or proposed changes, use this repository's [issues](https://github.com/regen-coordination/knowledge-commons/issues) or [pull requests](https://github.com/regen-coordination/knowledge-commons/pulls). For Geo reads and edits, begin with [Geo operations](docs/geo/operations.md) and its separate proposal, review, and publish rules. For the ingestion pilot, read the linked PRs and their branch-specific runbooks first.
+
+Earlier architecture, the July 2026 research handoff, the structured migration corpus, and useful upstream and peer references are indexed in the [project map](docs/MAP.md). They are important lineage, not automatic authority for the current design.
+
+## Working in this checkout
+
+The ingestion implementation is available on the #4 → #7 → #8 stack. This navigation change is prepared above that stack and the [consolidation record](docs/plans/2026-10-29-consolidation.md); those PRs remain open at preparation time. Recheck the status table when merging.
+
+| Path | Responsibility |
+| --- | --- |
+| `.agents/` | Geo operating agents, skills and standalone toolkit; start with its [guide](.agents/agents.md) |
+| `agent/skills/` | Contributor guidance for developing the ingestion pilot |
+| `packages/ontology` | Canonical draft contracts and generated schemas |
+| `packages/pipeline` | Capture, validation, reports, approvals and private Geo preparation |
+| `packages/agent` | Hono Worker, bindings and durable orchestration |
+| `packages/web` | Reserved public-contract consumer; the website is not implemented |
+
+Use Bun 1.4.2 and Node 24 for the ingestion workspace:
 
 ```sh
 bun install --frozen-lockfile
@@ -34,8 +76,8 @@ bun test
 bun run build
 ```
 
-`bun run build` bundles the Worker without deploying. For `bun run dev`, secret configuration, endpoint checks, and the Prompt 2 handoff, follow the [first-deployment runbook](docs/runbooks/first-deployment.md). Use `bun run format` for Biome formatting/lint fixes and `bun run ontology:generate` after changing canonical schemas. Root `agent/skills` remains the contributor instruction library; read the relevant skill through [AGENTS.md](AGENTS.md).
+`build` bundles the Worker without deploying. Geo's toolkit has its own dependencies and checks; root checks exclude `.agents/`. Read [AGENTS.md](AGENTS.md), the [architecture decisions](docs/architecture/0001-pilot-boundaries.md), and [local setup](docs/runbooks/first-deployment.md) before implementation or local execution. Use `bun run format` for Biome fixes, `bun run code:generate` after implementation edits, and `bun run ontology:generate` after changing canonical schemas.
 
-The pre-Cloudflare work now includes current-revision GitHub approval evaluation, private Geo operation previews, and a complete topic-356 demo delivered in [report PR #3](https://github.com/regen-coordination/knowledge-commons/pull/3). See the [current handoff](docs/runbooks/pre-cloudflare-handoff.md), [demo script](docs/runbooks/tomorrow-demo.md), and [human calibration worksheet](docs/runbooks/integrity-calibration.md). Geo encoding/submission and authentic human calibration remain pending.
+The [review index](reports/ingestion/INDEX.md) records editions and human feedback. See [object-review operations](docs/runbooks/object-reviews.md), [automatic delivery](docs/runbooks/automatic-review-delivery.md), [pre-Cloudflare handoff](docs/runbooks/pre-cloudflare-handoff.md), [deployment preflight](docs/runbooks/cloudflare-preflight.md), and [calibration worksheet](docs/runbooks/integrity-calibration.md). Deployment, real Geo encoding/submission, ontology ratification, and completed human calibration remain pending.
 
-Current review delivery uses **one Article, Source or Claim per Markdown file**, with each object's own evidence and Integrity assessment. See [object-review operations](docs/runbooks/object-reviews.md).
+The September [pilot selection](docs/research/2026-09-09-pilot-selection.md), [ontology candidate](docs/ontology/v1-candidate.md), [architecture research](docs/research/2026-09-08-v1-architecture.md), [discussion brief](docs/research/2026-09-08-discussion-brief.md), [cycle plan](docs/plans/2026-09-09-cycle-build-plan.md), and [first-deployment prompts](docs/plans/2026-09-09-first-deployment-prompts.md) preserve implementation context. Their changing choices and checkpoints are not fresh activation decisions.
