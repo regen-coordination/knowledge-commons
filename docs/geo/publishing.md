@@ -2,8 +2,8 @@
 
 How writes to Geo work, and the safety rules that keep bad data off the graph.
 This is the high-level layer — the gates, op builders, typed-value tables, and
-script templates live in the **geo-write skill** (`.agents/skills/geo-write/`,
-full reference at `.agents/skills/geo-write/references/publishing.md`),
+script templates live in the **geo-write skill** (`.agents/skills/actionable/geo-write/`,
+full reference at `.agents/skills/actionable/geo-write/references/publishing.md`),
 which agents must follow rather than improvising.
 
 > Namespaced under `docs/geo/` — see [`README.md`](./README.md) for the
@@ -101,4 +101,4 @@ Routing and the full hard-rule list: [`operations.md`](./operations.md).
 - [geo-sdk README](https://github.com/geobrowser/geo-sdk) — Ops API, client API, sponsored wallet, full flows
 - [geo-explorers/geo-sdk-tutorial](https://github.com/geo-explorers/geo-sdk-tutorial) — safeguarded curator pipeline (validate → dedup → dry-run → publish → verify)
 - [EIP-7702: Set Code for EOAs](https://eips.ethereum.org/EIPS/eip-7702) — sponsored-transaction mechanism used by `createGeoWalletClient`
-- [GRC-20 Knowledge Graph spec](https://github.com/yanivtal/graph-improvement-proposals/blob/new-ops/grcs/0020-knowledge-graph.md) — ops/edits data model
+- [GRC-20 Knowledge Graph spec](https://github.com/geobrowser/grcs/blob/main/grcs/grc-0020.md) (GRC-20, Final, `908dca8`, 2026-02-12) — ops/edits data model

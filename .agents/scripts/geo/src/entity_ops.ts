@@ -1,3 +1,7 @@
+// Provenance: by-value extract from geo-explorers/content-management
+// (HEAD 6191c3dd, 2026-09-18). Second tracked upstream lineage:
+// geo-explorers/geo-editor-agent (curated distribution).
+
 import { Graph, type Op, type PropertyValueParam } from '@geoprotocol/geo-sdk';
 import { getWalletAddress, gql, publishOps } from './functions.ts';
 import {
