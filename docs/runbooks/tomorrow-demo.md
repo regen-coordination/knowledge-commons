@@ -1,5 +1,7 @@
 # Regen Knowledge Commons five-minute demo
 
+**Current review format:** open [PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5) or the [individual object files](../../reports/ingestion/objects/eba2a43f-caa7-4f88-a1d8-a21a595c7b17-56100aa9c028). Each object has its own content, evidence and scores. Earlier grouped report links below are saved historical backups.
+
 **Rehearsed locally; hosted URL pending Cloudflare access.** Use topic 356, the Commitment Pooling proposal. Its four posts were captured completely. Linked pages were not followed. The new source and report do not contain the previous demo's Toolkit title.
 
 The saved successful run is `eba2a43f-caa7-4f88-a1d8-a21a595c7b17`. [Draft report PR #3](https://github.com/regen-coordination/knowledge-commons/pull/3) is the live review destination; the [saved scored report](../../reports/ingestion/reviews/eba2a43f-caa7-4f88-a1d8-a21a595c7b17-45a9ce3f3778.md) is the fallback. This is an existing run, not a freshly generated result each time the demo is shown.

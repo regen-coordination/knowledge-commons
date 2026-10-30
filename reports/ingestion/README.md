@@ -1,6 +1,8 @@
 # Regen Knowledge Commons ingestion reports
 
-**Current demo:** [topic-356 scored report](reviews/eba2a43f-caa7-4f88-a1d8-a21a595c7b17-45a9ce3f3778.md), delivered as [PR #3](https://github.com/regen-coordination/knowledge-commons/pull/3). Future original exports use `topic-<id>` folders. Historical topic-235 records remain unchanged. Human calibration uses the [independent worksheet](../../docs/runbooks/integrity-calibration.md).
+**Current format: one knowledge object per Markdown file.** Each Article, Source and Claim has its own content, evidence and Integrity assessment. One ingestion produces one PR containing those files. Use [object-review operations](../../docs/runbooks/object-reviews.md); grouped reports below are historical records.
+
+**Current demo:** [topic-356 object files](objects/eba2a43f-caa7-4f88-a1d8-a21a595c7b17-56100aa9c028), delivered as [PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5). Future original exports use `topic-<id>` folders. Historical topic-235 records remain unchanged. Human calibration uses the [independent worksheet](../../docs/runbooks/integrity-calibration.md).
 
 This folder is the review desk for Regen Knowledge Commons. Each ingested Hub thread gets a readable Markdown report showing what we learned, what is uncertain, how the models differed, and what the humans decided. Start with the [template](/Users/afo/Code/regen/knowledge-commons/reports/ingestion/_template.md).
 
