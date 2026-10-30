@@ -32,11 +32,12 @@ These tracks are related, but they are not one ratified or fully deployed archit
 | Work | What is available or proposed | Where to look |
 | --- | --- | --- |
 | Geo documentation and agent tools | Present on main: documentation, read/write skill routing, research and curation agents, and related tooling. Publishing to Geo has separate governance and safety gates. | [Geo docs](docs/geo/README.md), [agent guidelines](.agents/agents.md), [upstream record](.agents/UPSTREAM.md) |
-| Ingestion and review pilot | Developed in an open pull-request stack, not merged into main at this snapshot. It includes proposed extraction, evidence validation, per-object reports, and human-review gates. Deployment, acceptance, and Geo submission are separate matters. | [Foundation PR #4](https://github.com/regen-coordination/knowledge-commons/pull/4) -> [Object review PR #7](https://github.com/regen-coordination/knowledge-commons/pull/7) -> [Corrections PR #8](https://github.com/regen-coordination/knowledge-commons/pull/8) |
-| Review examples | Review report PRs contain unratified material. PR #5 received human review feedback; PR #6 had no submitted human review at the October 29 checkpoint. Neither an open PR nor review feedback constitutes acceptance or authorization to publish. | [Review PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5), [review PR #6](https://github.com/regen-coordination/knowledge-commons/pull/6) |
+| Ingestion and review pilot | Merged into main: authenticated ingestion, evidence validation, machine Integrity assessment, per-object reports, and exact-revision human-review checks. The pilot is locally verified; hosted deployment, knowledge acceptance, and Geo submission remain pending. | [Foundation PR #4](https://github.com/regen-coordination/knowledge-commons/pull/4) -> [Object review PR #7](https://github.com/regen-coordination/knowledge-commons/pull/7) -> [Corrections PR #8](https://github.com/regen-coordination/knowledge-commons/pull/8) |
+| Review examples | Immutable calibration reports and their review index are on main. Report PRs #2, #3, #5 and #6 remain open at their original heads and base main. Topic 356 corrections and human calibration remain pending; merging the archive does not accept its knowledge or authorize publication. | [Review PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5), [review PR #6](https://github.com/regen-coordination/knowledge-commons/pull/6) |
+| Review tracking and project navigation | Merged into main: edition tracking, report disposition proposals, the project map and Garden introduction. | [Tracking PR #15](https://github.com/regen-coordination/knowledge-commons/pull/15), [navigation PR #16](https://github.com/regen-coordination/knowledge-commons/pull/16) |
 | Knowledge Commons KMS instance proposal | A separate, unmerged proposal for organizing knowledge across peer repositories. Publication is disabled in its proposal configuration, and its own documentation says it is not ready to merge as-is. | [KMS proposal](https://github.com/regen-coordination/knowledge-commons/blob/proposal/org-os-kms-instance/kms/README.md) |
 
-The ingestion pilot and KMS proposal make different architectural assumptions. Their relationship remains a design question, not something this README resolves. Follow their branch and pull-request documentation for implementation details rather than assuming branch-only commands work on main.
+The ingestion pilot and KMS proposal make different architectural assumptions. Their relationship remains a design question. The ingestion implementation and runbooks are on main; KMS remains confined to its proposal branch with publication disabled.
 
 ## Working principles
 
@@ -50,13 +51,13 @@ The ingestion pilot and KMS proposal make different architectural assumptions. T
 
 ## Contributing or finding the next step
 
-For documentation corrections, source questions, or proposed changes, use this repository's [issues](https://github.com/regen-coordination/knowledge-commons/issues) or [pull requests](https://github.com/regen-coordination/knowledge-commons/pulls). For Geo reads and edits, begin with [Geo operations](docs/geo/operations.md) and its separate proposal, review, and publish rules. For the ingestion pilot, read the linked PRs and their branch-specific runbooks first.
+For documentation corrections, source questions, or proposed changes, use this repository's [issues](https://github.com/regen-coordination/knowledge-commons/issues) or [pull requests](https://github.com/regen-coordination/knowledge-commons/pulls). For Geo reads and edits, begin with [Geo operations](docs/geo/operations.md) and its separate proposal, review, and publish rules. For the ingestion pilot, begin with [local setup](docs/runbooks/first-deployment.md) and [object-review operations](docs/runbooks/object-reviews.md).
 
 Earlier architecture, the July 2026 research handoff, the structured migration corpus, and useful upstream and peer references are indexed in the [project map](docs/MAP.md). They are important lineage, not automatic authority for the current design.
 
 ## Working in this checkout
 
-The ingestion implementation is available on the #4 → #7 → #8 stack. This navigation change is prepared above that stack and the [consolidation record](docs/plans/2026-10-29-consolidation.md); those PRs remain open at preparation time. Recheck the status table when merging.
+Main now includes the ingestion implementation from #4, #7 and #8, review tracking from #15, and project navigation from #16. The [consolidation record](docs/plans/2026-10-29-consolidation.md) preserves the preparation and review sequence; the [review index](reports/ingestion/INDEX.md) tracks the still-open report reviews.
 
 | Path | Responsibility |
 | --- | --- |
