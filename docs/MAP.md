@@ -50,11 +50,19 @@ Original packet: the July handoff includes an entry-point Guide, three governing
 
 Framework development and processing of Regen Toolkit content were already underway before the July 14, 2026 research handoff arrived. The original Toolkit content produced 722 derived objects, while the subsequent July research migration produced a separate corpus of 3,058 review-gated objects. These are distinct technical outputs, not one fully reviewed or published knowledge registry. Later V1 ingestion, Geo tooling, and Org OS/KMS work developed along partly separate paths. These approaches can be compared and linked without prematurely choosing one canonical model.
 
-- [Ingestion and review pilot](https://github.com/regen-coordination/knowledge-commons/pull/4) - open implementation work, alongside [review-object changes](https://github.com/regen-coordination/knowledge-commons/pull/7) and [corrections](https://github.com/regen-coordination/knowledge-commons/pull/8).
+## Current implementation and review status - 30 October 2026
 
-- [KMS implementation proposal](https://github.com/regen-coordination/knowledge-commons/blob/proposal/org-os-kms-instance/kms/README.md) - a distinct proposal for group consideration; publication is disabled in its proposal configuration.
+- [Ingestion and review pilot](https://github.com/regen-coordination/knowledge-commons/pull/4), [review-object changes](https://github.com/regen-coordination/knowledge-commons/pull/7), and [corrections](https://github.com/regen-coordination/knowledge-commons/pull/8) - merged into main and locally verified. Hosted deployment remains pending; the implementation and [deployment preflight](runbooks/cloudflare-preflight.md) are available on main.
+
+- [Review tracking](https://github.com/regen-coordination/knowledge-commons/pull/15), [project navigation](https://github.com/regen-coordination/knowledge-commons/pull/16), and the [README status update](https://github.com/regen-coordination/knowledge-commons/pull/17) - merged into main. The [review index](../reports/ingestion/INDEX.md) links immutable report editions; original report PRs #2, #3, #5 and #6 remain open at their original heads and base main.
+
+- [Topic 356 classification correction](https://github.com/regen-coordination/knowledge-commons/pull/18) - merged as a [new, scoped review edition](../reports/ingestion/corrections/2026-10-29-topic-356-classification-correction.md) for one corrected Claim revision with its unchanged Source. Its Integrity ratings are unassessed. Fresh human review of the exact revision and the remaining calibration work are pending; merging the correction does not grant knowledge approval.
+
+- [KMS implementation proposal](https://github.com/regen-coordination/knowledge-commons/blob/proposal/org-os-kms-instance/kms/README.md) - a separate, unmerged proposal for group consideration; publication is disabled in its proposal configuration. Its relationship to the ingestion pilot remains a design question.
 
 - [Geo documentation](geo/README.md) and [adapted tooling provenance](../.agents/UPSTREAM.md) - merged documentation and tools, with upstream credit.
+
+Geo publication and submission for the ingestion pilot remain disabled. Ontology ratification and knowledge acceptance remain pending; code and documentation merges do not replace the required two distinct affirmative human approvals of the exact revision and scope.
 
 ## A few relevant frameworks and peer commons
 
@@ -80,7 +88,7 @@ ReFi DAO Knowledge Commons is another relevant peer. Add a direct public entry l
 
 - To understand organizational coordination and memory, start with [Regen Coordination OS](https://github.com/regen-coordination/regen-coordination-os).
 
-- To review the current ingestion or KMS experiments, follow their branch and PR links above; neither is represented as the final architecture.
+- To review the ingestion pilot, start with its [runbooks](runbooks/first-deployment.md) and [review index](../reports/ingestion/INDEX.md) on main. Follow the separate KMS proposal branch for that experiment; their relationship remains an open design question.
 
 - To trace how the July research was used, follow the dated integration and migration records, then consult the original packet through its steward.
 
