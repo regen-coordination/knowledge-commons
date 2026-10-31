@@ -25,15 +25,16 @@ This repository brings together Geo documentation and agent tools and developing
 
 This naming also keeps Regen Commons, a separate initiative, distinct from the Regen Knowledge Commons workstream described here.
 
-## Development status - 29 October 2026
+## Development status - 30 October 2026
 
 These tracks are related, but they are not one ratified or fully deployed architecture.
 
 | Work | What is available or proposed | Where to look |
 | --- | --- | --- |
 | Geo documentation and agent tools | Present on main: documentation, read/write skill routing, research and curation agents, and related tooling. Publishing to Geo has separate governance and safety gates. | [Geo docs](docs/geo/README.md), [agent guidelines](.agents/agents.md), [upstream record](.agents/UPSTREAM.md) |
-| Ingestion and review pilot | Merged into main: authenticated ingestion, evidence validation, machine Integrity assessment, per-object reports, and exact-revision human-review checks. The pilot is locally verified; hosted deployment, knowledge acceptance, and Geo submission remain pending. | [Foundation PR #4](https://github.com/regen-coordination/knowledge-commons/pull/4) -> [Object review PR #7](https://github.com/regen-coordination/knowledge-commons/pull/7) -> [Corrections PR #8](https://github.com/regen-coordination/knowledge-commons/pull/8) |
-| Review examples | Immutable calibration reports and their review index are on main. Report PRs #2, #3, #5 and #6 remain open at their original heads and base main. Topic 356 corrections and human calibration remain pending; merging the archive does not accept its knowledge or authorize publication. | [Review PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5), [review PR #6](https://github.com/regen-coordination/knowledge-commons/pull/6) |
+| Ingestion and review pilot | Merged into main: authenticated ingestion, evidence validation, machine Integrity assessment, per-object reports, and exact-revision human-review checks. The pilot is locally verified; hosted deployment and knowledge acceptance remain pending. Geo publication and submission remain disabled. | [Foundation PR #4](https://github.com/regen-coordination/knowledge-commons/pull/4) -> [Object review PR #7](https://github.com/regen-coordination/knowledge-commons/pull/7) -> [Corrections PR #8](https://github.com/regen-coordination/knowledge-commons/pull/8) |
+| Review examples | Immutable calibration reports and their review index are on main. Report PRs #2, #3, #5 and #6 remain open at their original heads and base main. Human calibration remains pending; merging the archive does not accept its knowledge or authorize publication. | [Review PR #5](https://github.com/regen-coordination/knowledge-commons/pull/5), [review PR #6](https://github.com/regen-coordination/knowledge-commons/pull/6) |
+| Topic 356 classification correction | Merged into main as a new, scoped review edition: one corrected Claim revision with its unchanged Source. Original reports remain immutable. All Integrity ratings in the new edition are unassessed; fresh human review of the exact revision and the remaining calibration work are pending. | [Correction PR #18](https://github.com/regen-coordination/knowledge-commons/pull/18), [review edition](reports/ingestion/corrections/2026-10-29-topic-356-classification-correction.md) |
 | Review tracking and project navigation | Merged into main: edition tracking, report disposition proposals, the project map and Garden introduction. | [Tracking PR #15](https://github.com/regen-coordination/knowledge-commons/pull/15), [navigation PR #16](https://github.com/regen-coordination/knowledge-commons/pull/16) |
 | Knowledge Commons KMS instance proposal | A separate, unmerged proposal for organizing knowledge across peer repositories. Publication is disabled in its proposal configuration, and its own documentation says it is not ready to merge as-is. | [KMS proposal](https://github.com/regen-coordination/knowledge-commons/blob/proposal/org-os-kms-instance/kms/README.md) |
 
@@ -57,7 +58,7 @@ Earlier architecture, the July 2026 research handoff, the structured migration c
 
 ## Working in this checkout
 
-Main now includes the ingestion implementation from #4, #7 and #8, review tracking from #15, and project navigation from #16. The [consolidation record](docs/plans/2026-10-29-consolidation.md) preserves the preparation and review sequence; the [review index](reports/ingestion/INDEX.md) tracks the still-open report reviews.
+Main now includes the ingestion implementation from #4, #7 and #8, review tracking from #15, project navigation from #16, the README status update from #17, and the scoped topic-356 classification correction from #18. The [consolidation record](docs/plans/2026-10-29-consolidation.md) preserves the preparation and review sequence; the [review index](reports/ingestion/INDEX.md) tracks the still-open report reviews and the correction edition.
 
 | Path | Responsibility |
 | --- | --- |
@@ -79,6 +80,6 @@ bun run build
 
 `build` bundles the Worker without deploying. Geo's toolkit has its own dependencies and checks; root checks exclude `.agents/`. Read [AGENTS.md](AGENTS.md), the [architecture decisions](docs/architecture/0001-pilot-boundaries.md), and [local setup](docs/runbooks/first-deployment.md) before implementation or local execution. Use `bun run format` for Biome fixes, `bun run code:generate` after implementation edits, and `bun run ontology:generate` after changing canonical schemas.
 
-The [review index](reports/ingestion/INDEX.md) records editions and human feedback. See [object-review operations](docs/runbooks/object-reviews.md), [automatic delivery](docs/runbooks/automatic-review-delivery.md), [pre-Cloudflare handoff](docs/runbooks/pre-cloudflare-handoff.md), [deployment preflight](docs/runbooks/cloudflare-preflight.md), and [calibration worksheet](docs/runbooks/integrity-calibration.md). Deployment, real Geo encoding/submission, ontology ratification, and completed human calibration remain pending.
+The [review index](reports/ingestion/INDEX.md) records editions and human feedback. See [object-review operations](docs/runbooks/object-reviews.md), [automatic delivery](docs/runbooks/automatic-review-delivery.md), [pre-Cloudflare handoff](docs/runbooks/pre-cloudflare-handoff.md), [deployment preflight](docs/runbooks/cloudflare-preflight.md), and [calibration worksheet](docs/runbooks/integrity-calibration.md). Hosted deployment, ontology ratification, and completed human calibration remain pending. Geo publication and submission remain disabled.
 
 The September [pilot selection](docs/research/2026-09-09-pilot-selection.md), [ontology candidate](docs/ontology/v1-candidate.md), [architecture research](docs/research/2026-09-08-v1-architecture.md), [discussion brief](docs/research/2026-09-08-discussion-brief.md), [cycle plan](docs/plans/2026-09-09-cycle-build-plan.md), and [first-deployment prompts](docs/plans/2026-09-09-first-deployment-prompts.md) preserve implementation context. Their changing choices and checkpoints are not fresh activation decisions.
